@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <AnalogClock
+        android:id="@+id/reloj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/checkPrueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ChekBox de prueba" />
+
+    <Button
+        android:id="@+id/botonPrueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prueba" />
+
+    <TextView
+        android:id="@+id/etiquetaPrueba"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Etiqueta de prueba." />
+
+    <Button
+        android:id="@+id/cmdCerrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar" android:onClick="cmdCerrarClick"/>
+
+</LinearLayout>

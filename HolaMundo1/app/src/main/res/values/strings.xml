@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HolaMundo1</string>
+    <string name="primerSaludo">Nuestro Programa para SALUDAR!</string>
+    <string name="pulsar">¡¡ SALUDAR !!</string>
+    <string name="escribe">Escribe TU NOMBRE</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

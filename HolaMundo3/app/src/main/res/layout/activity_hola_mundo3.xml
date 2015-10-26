@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/homer">
+
+    <TextView
+        android:text="@string/saludo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/miTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/escribe"/>
+    <Button
+        android:id="@+id/miBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pulsar"/>
+    <ImageButton
+        android:id="@+id/miBtnMusica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/imagenboton2"/>
+
+    <TextView
+        android:id="@+id/miLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
