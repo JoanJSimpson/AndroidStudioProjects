@@ -1,0 +1,54 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/LblSeleccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar de color" />
+
+    <RadioGroup android:id="@+id/gruporb"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Rojo" />
+
+        <RadioButton android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verde" />
+
+        <RadioButton android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Azul" />
+
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button android:id="@+id/boton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Poner Color"/>
+
+        <Button android:id="@+id/boton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Borrar"/>
+    </LinearLayout>
+
+    <TextView android:id="@+id/textColor"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+
+</LinearLayout>
