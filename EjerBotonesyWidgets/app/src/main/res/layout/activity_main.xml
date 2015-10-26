@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/boton1"
+            android:layout_width="200px"
+            android:layout_height="150px"
+            android:background="@color/boton1"/>
+    
+        <ImageButton
+            android:id="@+id/boton2"
+            android:layout_width="200px"
+            android:layout_height="150px"
+            android:background="@color/boton2"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/color"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="@drawable/borde"
+        android:text="" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioGroup android:id="@+id/gruporb"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rojo" />
+
+            <RadioButton android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verde" />
+
+            <RadioButton android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Azul" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ToggleButton android:id="@+id/togle1"
+            android:textOn="Rojo"
+            android:textOff="No Rojo"
+            android:padding="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toggle_style"/>
+
+        <ToggleButton android:id="@+id/togle2"
+            android:textOn="Verde"
+            android:textOff="No Verde"
+            android:padding="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toggle_style"/>
+
+        <ToggleButton android:id="@+id/togle3"
+            android:textOn="Azul"
+            android:textOff="No Azul"
+            android:padding="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/toggle_style"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
