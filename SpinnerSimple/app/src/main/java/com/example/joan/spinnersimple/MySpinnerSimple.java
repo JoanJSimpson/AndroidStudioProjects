@@ -25,7 +25,7 @@ public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_spinner_simple);
 
-        String mensaje;
+        //String mensaje;
         final ImageView imagenFondo = (ImageView)findViewById(R.id.imagen);
         miSpinner = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<String> miAdaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, semana);
