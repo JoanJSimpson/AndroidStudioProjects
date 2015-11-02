@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if(toggleBoton1.isChecked()) {
 
                     //colorFondo.setBackgroundColor(getResources().getColor(R.color.rboton1));
-                    color2 += getResources().getColor(R.color.rboton1);
+                    color2 += getResources().getColor(R.color.rboton1,null);
                     negro1=false;
 
 

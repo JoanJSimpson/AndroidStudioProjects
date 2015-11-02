@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 //lblMensaje.setText("Opcion seleccionada: " + checkedId);
 
                 //Mejora el texto informativo
-                String textoOpcion = "Opcion seleccionada: ";
+                //String textoOpcion = "Opcion seleccionada: ";
                 if (rg.getCheckedRadioButtonId() == R.id.radio1) {
                     campoTexto.setBackgroundColor(Color.RED);
                 } else if (rg.getCheckedRadioButtonId() == R.id.radio2) {
