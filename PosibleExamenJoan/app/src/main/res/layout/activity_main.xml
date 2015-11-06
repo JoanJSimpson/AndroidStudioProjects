@@ -37,25 +37,25 @@
         <RadioButton android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="25px"
             android:text="Pequeño" />
 
         <RadioButton android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="25px"
             android:text="Mediano" />
 
         <RadioButton android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="25px"
             android:text="Grande" />
 
         <RadioButton android:id="@+id/radio4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20px"
+            android:textSize="25px"
             android:text="Gigante" />
 
     </RadioGroup>
