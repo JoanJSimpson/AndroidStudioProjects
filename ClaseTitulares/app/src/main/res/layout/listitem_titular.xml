@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView android:id="@+id/LblTitulo"
         android:layout_width="wrap_content"
@@ -15,5 +16,17 @@
         android:textStyle="normal"
         android:textColor="#0656ea"
         android:textSize="40px" />
+
+    <TextView android:id="@+id/LblEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textColor="#06ea19"
+        android:textSize="30px" />
+
+    <ImageView
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:id="@+id/imagen"/>
 
 </LinearLayout>

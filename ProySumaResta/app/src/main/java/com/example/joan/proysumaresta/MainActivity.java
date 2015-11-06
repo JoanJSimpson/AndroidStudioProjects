@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         final RadioGroup rg = (RadioGroup) findViewById(R.id.gruporb);
         final RadioButton r1=(RadioButton) findViewById(R.id.radio1);
         final RadioButton r2=(RadioButton) findViewById(R.id.radio2);
+        final RadioButton r3=(RadioButton) findViewById(R.id.radio3);
+        final RadioButton r4=(RadioButton) findViewById(R.id.radio4);
         final EditText numero1 = (EditText) findViewById(R.id.numero1);
         final EditText numero2 = (EditText) findViewById(R.id.numero2);
         final TextView resul = (TextView) findViewById(R.id.resultado);
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
                             resultado= Double.parseDouble(numero1.getText().toString()) - Double.parseDouble(numero2.getText().toString());
                             resul.setText(String.valueOf(resultado));
 
+                        } else if (r3.isChecked() == true) {
+                            resultado= Double.parseDouble(numero1.getText().toString()) / Double.parseDouble(numero2.getText().toString());
+                            resul.setText(String.valueOf(resultado));
+
+                        } else if (r4.isChecked() == true) {
+                            resultado= Double.parseDouble(numero1.getText().toString()) * Double.parseDouble(numero2.getText().toString());
+                            resul.setText(String.valueOf(resultado));
                         }
                         //lblMensaje.setText("ID opcion seleccionada: " + checkedid);
 
