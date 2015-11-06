@@ -25,34 +25,37 @@
             android:layout_height="250px"
             android:id="@+id/imagen"/>
 
-
     </LinearLayout>
 
 
     <RadioGroup android:id="@+id/gruporb"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical">
 
         <RadioButton android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20px"
             android:text="Pequeño" />
 
         <RadioButton android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20px"
             android:text="Mediano" />
 
         <RadioButton android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20px"
             android:text="Grande" />
 
         <RadioButton android:id="@+id/radio4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20px"
             android:text="Gigante" />
 
     </RadioGroup>
