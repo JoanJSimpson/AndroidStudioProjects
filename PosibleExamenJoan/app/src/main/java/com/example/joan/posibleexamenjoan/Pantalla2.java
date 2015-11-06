@@ -48,6 +48,7 @@ public class Pantalla2 extends Activity {
         //showToast(mensaje2);
         //vasoSel.setText(miBundleRecoger.getString("VASO"));
         aperSel.setText(miBundleRecoger.getString("APERITIVOS"));
+        vasoSel.setText(miBundleRecoger.getString("VASO"));
         //showToast(miBundleRecoger.getString("APERITIVOS"));
 
         //Boton volver --> devuelve el mensaje devuelto a principal

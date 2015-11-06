@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     CheckBox ch4;
     ImageView miImagen;
     Button miBoton;
+    RadioGroup rg;
+    RadioButton r1;
+    RadioButton r2;
+    RadioButton r3;
+    RadioButton r4;
 
 
 
@@ -55,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         //Declaracion de variables
         //final Button miBoton = (Button) findViewById(R.id.miTotal);
         //final ImageView miImagen = (ImageView) findViewById(R.id.imagen);
-        final RadioGroup rg = (RadioGroup) findViewById(R.id.gruporb);
-        final RadioButton r1= (RadioButton) findViewById(R.id.radio1);
-        final RadioButton r2= (RadioButton) findViewById(R.id.radio2);
-        final RadioButton r3= (RadioButton) findViewById(R.id.radio3);
-        final RadioButton r4= (RadioButton) findViewById(R.id.radio4);
+        //final RadioGroup rg = (RadioGroup) findViewById(R.id.gruporb);
+        //final RadioButton r1= (RadioButton) findViewById(R.id.radio1);
+        //final RadioButton r2= (RadioButton) findViewById(R.id.radio2);
+        //final RadioButton r3= (RadioButton) findViewById(R.id.radio3);
+        //final RadioButton r4= (RadioButton) findViewById(R.id.radio4);
         /*final CheckBox ch1 = (CheckBox) findViewById(R.id.ch1);
         final CheckBox ch2 = (CheckBox) findViewById(R.id.ch2);
         final CheckBox ch3 = (CheckBox) findViewById(R.id.ch3);
@@ -79,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         ch4 = (CheckBox) findViewById(R.id.ch4);
         miImagen = (ImageView) findViewById(R.id.imagen);
         miBoton = (Button) findViewById(R.id.miTotal);
+        rg = (RadioGroup) findViewById(R.id.gruporb);
+        r1= (RadioButton) findViewById(R.id.radio1);
+        r2= (RadioButton) findViewById(R.id.radio2);
+        r3= (RadioButton) findViewById(R.id.radio3);
+        r4= (RadioButton) findViewById(R.id.radio4);
         //txtHobby = (TextView)findViewById(R.id.txtHobby);
 
         //Creamos señal para el boton de siguiente pantalla
@@ -94,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 miBundle.putInt("IMAGEN", imagenSeleccionada);
                 miBundle.putDouble("PRECIO", precioTotal);
                 miBundle.putString("APERITIVOS", marcados);
+                miBundle.putString("VASO", vasoSeleccionado);
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);
                 //startActivity(miIntent);
@@ -119,12 +130,40 @@ public class MainActivity extends AppCompatActivity {
                 bebidaSeleccionada = bebidas[position].getBebida();
                 imagenSeleccionada = bebidas[position].getImagen();
                 precioTotal = bebidas[position].getPrecio();
-                showToast(mensaje);
+
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });//final miSpinner
+
+        //tratamos los radioButtons
+        rg.clearCheck();
+        //rg.check(R.id.radio1);
+        //int idSeleccionado = rg.getCheckedRadioButtonId();
+
+        rg.setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+                    //vasoSeleccionado = "";
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if (r1.isChecked() == true) {
+                            vasoSeleccionado=String.valueOf(r1.getText());
+
+                        } else if (r2.isChecked() == true) {
+                            vasoSeleccionado=String.valueOf(r2.getText());;
+
+                        } else if (r3.isChecked() == true) {
+                            vasoSeleccionado=String.valueOf(r3.getText());
+
+                        } else if (r4.isChecked() == true) {
+                            vasoSeleccionado=String.valueOf(r4.getText());
+                        }
+                        showToast(vasoSeleccionado);
+                        //lblMensaje.setText("ID opcion seleccionada: " + checkedid);
+
+                    }
+                });
 
 
 
