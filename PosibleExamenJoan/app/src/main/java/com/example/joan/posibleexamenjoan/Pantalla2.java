@@ -33,6 +33,7 @@ public class Pantalla2 extends Activity {
         final TextView aperSel = (TextView) findViewById(R.id.aperSel);
         final TextView totalSel = (TextView) findViewById(R.id.totalSel);
         final LinearLayout linear = (LinearLayout) findViewById(R.id.linear);
+        String size="";
 
         Bundle miBundleRecoger = getIntent().getExtras();
         bebSel.setText(miBundleRecoger.getString("BEBIDA"));
@@ -47,7 +48,14 @@ public class Pantalla2 extends Activity {
         //totalSel.setText(mensaje2);
         //showToast(mensaje2);
         //vasoSel.setText(miBundleRecoger.getString("VASO"));
-        aperSel.setText(miBundleRecoger.getString("APERITIVOS"));
+        size=miBundleRecoger.getString("APERITIVOS");
+        if (size.length()<10){
+            aperSel.setTextSize(20);
+        } else if (size.length()<20){
+            aperSel.setTextSize(15);
+        }
+        aperSel.setText(size);
+        //aperSel.setText(miBundleRecoger.getString("APERITIVOS"));
         vasoSel.setText(miBundleRecoger.getString("VASO"));
         //showToast(miBundleRecoger.getString("APERITIVOS"));
 
