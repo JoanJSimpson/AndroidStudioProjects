@@ -1,20 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ff000000">
 
     <TextView android:id="@+id/campoBebida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="50px"
-        android:textColor="#f4005d"/>
+        android:textColor="#f4659b"/>
 
     <TextView android:id="@+id/campoPrecio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="normal"
-        android:textColor="#0656ea"
+        android:textColor="#00f7ff"
         android:textSize="40px" />
 
 

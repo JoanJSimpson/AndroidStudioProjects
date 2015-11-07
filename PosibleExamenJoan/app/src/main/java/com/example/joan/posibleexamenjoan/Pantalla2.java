@@ -2,64 +2,82 @@ package com.example.joan.posibleexamenjoan;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
 /**
  * Created by Joan on 6/11/15.
  */
 public class Pantalla2 extends Activity {
+    TextView tit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla2);
 
+        tit=(TextView) findViewById(R.id.TituloRestaurante);
         final Button volverBtn= (Button) findViewById(R.id.botonVolver);
-        final TextView bebSel = (TextView) findViewById(R.id.bebSel);
-        final TextView vasoSel = (TextView) findViewById(R.id.vasSel);
-        final TextView aperSel = (TextView) findViewById(R.id.aperSel);
-        final TextView totalSel = (TextView) findViewById(R.id.totalSel);
+        final TextView bebidaTitulo = (TextView) findViewById(R.id.bebidaTitulo);
+        final TextView bebPrecio = (TextView) findViewById(R.id.bebPrecio);
+        final TextView vasoTitulo = (TextView) findViewById(R.id.vasoTitulo);
+        final TextView vasoPrecio = (TextView) findViewById(R.id.vasoPrecio);
+        final TextView aperitivoTitulo = (TextView) findViewById(R.id.aperitivoTitulo);
+        final TextView aperPrecio = (TextView) findViewById(R.id.aperPrecio);
+        final TextView totalTitulo = (TextView) findViewById(R.id.totalTitulo);
+        final TextView totalPrecio = (TextView) findViewById(R.id.totalPrecio);
         final LinearLayout linear = (LinearLayout) findViewById(R.id.linear);
-        String size="";
+        final TableRow separador = (TableRow) findViewById(R.id.SeparadorCabecera);
+        String size;
+        ///////para cambiar el tipo de fuente
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/akbar.ttf");
+        tit.setTypeface(face);
+        //////////
 
         Bundle miBundleRecoger = getIntent().getExtras();
-        bebSel.setText(miBundleRecoger.getString("BEBIDA"));
+        bebidaTitulo.setText(miBundleRecoger.getString("BEBIDA"));
+        bebPrecio.setText(String.valueOf(miBundleRecoger.getDouble("BEBIDAPRECIO")));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             linear.setBackground(getDrawable(miBundleRecoger.getInt("IMAGEN")));
+            if ((String.valueOf(miBundleRecoger.getInt("IMAGEN"))).equals(String.valueOf(R.drawable.cocacola))){
+                aperitivoTitulo.setTextColor(Color.WHITE);
+                aperPrecio.setTextColor(Color.WHITE);
+                vasoTitulo.setTextColor(Color.WHITE);
+                vasoPrecio.setTextColor(Color.WHITE);
+                bebidaTitulo.setTextColor(Color.WHITE);
+                bebPrecio.setTextColor(Color.WHITE);
+                totalPrecio.setTextColor(Color.WHITE);
+                totalTitulo.setTextColor(Color.WHITE);
+                separador.setBackgroundColor(Color.WHITE);
+            }
         }else{
             linear.setBackgroundDrawable(getResources().getDrawable(miBundleRecoger.getInt("IMAGEN")));
         }
-        totalSel.setText(String.valueOf(miBundleRecoger.getDouble("PRECIO")));
-        //String mensaje2=String.valueOf(miBundleRecoger.getDouble("PRECIO"));
-        //totalSel.setText(mensaje2);
-        //showToast(mensaje2);
-        //vasoSel.setText(miBundleRecoger.getString("VASO"));
+        totalPrecio.setText(String.valueOf(miBundleRecoger.getDouble("PRECIO"))+" €");
+
         size=miBundleRecoger.getString("APERITIVOS");
         if (size.length()<10){
-            aperSel.setTextSize(20);
+            aperitivoTitulo.setTextSize(20);
         } else if (size.length()<20){
-            aperSel.setTextSize(15);
+            aperitivoTitulo.setTextSize(15);
         }
-        aperSel.setText(size);
-        //aperSel.setText(miBundleRecoger.getString("APERITIVOS"));
-        vasoSel.setText(miBundleRecoger.getString("VASO"));
-        //showToast(miBundleRecoger.getString("APERITIVOS"));
+        aperitivoTitulo.setText(size);
+        aperPrecio.setText(String.valueOf(miBundleRecoger.getDouble("APERITIVOSPRECIO")));
+
+        vasoTitulo.setText(miBundleRecoger.getString("VASO"));
+        vasoPrecio.setText(String.valueOf(miBundleRecoger.getDouble("VASOPRECIO")));
 
         //Boton volver --> devuelve el mensaje devuelto a principal
+        //podria quitar el vueltaBundle porque no lo utilizo en la otra pantalla
         volverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +107,8 @@ public class Pantalla2 extends Activity {
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
     //**************************************
     //No me funciona el adaptador para rellenar la lista
     //**************************************

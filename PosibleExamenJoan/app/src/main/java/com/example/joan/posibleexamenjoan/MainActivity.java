@@ -2,6 +2,7 @@ package com.example.joan.posibleexamenjoan;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
             new Bebidas("Ron", 4.5 , R.drawable.ron),
     }; //fin Bebidas
 
+    //Creamos variables de clase
+
     Spinner miSpinner;
-    String bebidaSeleccionada, vasoSeleccionado, aperSeleccionado;
+    String bebidaSeleccionada, vasoSeleccionado;
     Integer imagenSeleccionada;
     Double precioTotal, precioAperitivo, precioVaso, precioBebida;
     String marcados;
@@ -56,28 +59,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Declaracion de variables
-        //final Button miBoton = (Button) findViewById(R.id.miTotal);
-        //final ImageView miImagen = (ImageView) findViewById(R.id.imagen);
-        //final RadioGroup rg = (RadioGroup) findViewById(R.id.gruporb);
-        //final RadioButton r1= (RadioButton) findViewById(R.id.radio1);
-        //final RadioButton r2= (RadioButton) findViewById(R.id.radio2);
-        //final RadioButton r3= (RadioButton) findViewById(R.id.radio3);
-        //final RadioButton r4= (RadioButton) findViewById(R.id.radio4);
-        /*final CheckBox ch1 = (CheckBox) findViewById(R.id.ch1);
-        final CheckBox ch2 = (CheckBox) findViewById(R.id.ch2);
-        final CheckBox ch3 = (CheckBox) findViewById(R.id.ch3);
-        final CheckBox ch4 = (CheckBox) findViewById(R.id.ch4);*/
 
         initialUISetup();
-
-
     }//Fin onCreate
 
-    //Miramos que chekbox esta marcado
-
     public void initialUISetup(){
-
+        final TextView tit = (TextView) findViewById(R.id.TituloRestaurantePrincipal);
         precioAperitivo = 0.0;
         precioTotal=0.0;
         precioVaso=0.0;
@@ -93,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
         r2= (RadioButton) findViewById(R.id.radio2);
         r3= (RadioButton) findViewById(R.id.radio3);
         r4= (RadioButton) findViewById(R.id.radio4);
-        //txtHobby = (TextView)findViewById(R.id.txtHobby);
+
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/akbar.ttf");
+        tit.setTypeface(face);
 
         //Creamos señal para el boton de siguiente pantalla
         //Boton para pasar a la siguiente pantalla
@@ -104,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
                 precioTotal= precioAperitivo +precioBebida+precioVaso;
                 Intent miIntent = new Intent(MainActivity.this, Pantalla2.class);
                 Bundle miBundle = new Bundle();
-                //String mensajePaso = String.valueOf(datos[1].getEdad());
                 miBundle.putString("BEBIDA", bebidaSeleccionada);
+                miBundle.putDouble("BEBIDAPRECIO", precioBebida);
                 miBundle.putInt("IMAGEN", imagenSeleccionada);
                 miBundle.putDouble("PRECIO", precioTotal);
                 miBundle.putString("APERITIVOS", marcados);
+                miBundle.putDouble("APERITIVOSPRECIO", precioAperitivo);
                 miBundle.putString("VASO", vasoSeleccionado);
+                miBundle.putDouble("VASOPRECIO",precioVaso);
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);
                 //startActivity(miIntent);
@@ -125,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
         miSpinner.setAdapter(miAdaptador);
         miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
-                String mensaje = "";
-                mensaje = "Ha seleccionado: " + bebidas[position].getBebida();
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     miImagen.setBackground(getDrawable(bebidas[position].getImagen()));
                 } else {
@@ -143,12 +133,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });//final miSpinner
 
-        //tratamos los radioButtons
+        //tratamos los radioButtons para ver cual esta pulsado
         rg.clearCheck();
         r1.setChecked(true);
         vasoSeleccionado=String.valueOf(r1.getText());
-        //rg.check(R.id.radio1);
-        //int idSeleccionado = rg.getCheckedRadioButtonId();
+
 
         rg.setOnCheckedChangeListener(
                 new RadioGroup.OnCheckedChangeListener() {
@@ -171,16 +160,13 @@ public class MainActivity extends AppCompatActivity {
                             precioVaso=1.5;
                         }
                         showToast(vasoSeleccionado);
-                        //lblMensaje.setText("ID opcion seleccionada: " + checkedid);
 
                     }
                 });
 
-
-
-
     }//final initialUISetup
 
+    //Tratar los checkeds seleccionados
     public String getAperitivoClick(View v){
         String strMessage = "";
         precioAperitivo=0.0;
@@ -199,13 +185,12 @@ public class MainActivity extends AppCompatActivity {
         }
         if(ch4.isChecked()){
             strMessage+="Bravas ";
-            precioAperitivo =3.0;
+            precioAperitivo +=3.0;
         }
         if(strMessage.length()==0){
-            strMessage+="No ha seleccionado nada";
+            strMessage+="Sin Aperitivos";
         }
         return strMessage;
-        //showToast(strMessage);
     }
 
 
@@ -213,26 +198,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    //Miramos que checkBox está seleccionado
-
-    /*public String getChecked(View v){
-        strMessage = "";
-        //String coje="";
-        if(ch1.isChecked()){
-            //coje=String.valueOf(ch1.getText());
-            strMessage+= "Hielo ";
-        }
-        if(ch2.isChecked()){
-            strMessage+="Papas ";
-        }
-        if(ch3.isChecked()){
-            strMessage+="Aceitunas ";
-        }
-        if(ch4.isChecked()){
-            strMessage+="Bravas ";
-        }
-        return strMessage;
-    }*/
 
     //Clase necesaria para el adaptador para Spinner
 
@@ -264,18 +229,14 @@ public class MainActivity extends AppCompatActivity {
             return (item);
         }
     }//Fin AdaptadorBebidas
+
     //para que cuando vuelva de la pantalla2 deje los precios a 0
     @Override
     protected void onResume() {
         super.onResume();
-        //precioBebida=0.0;
-        //precioVaso=0.0;
         precioTotal=0.0;
-        //precioAperitivo=0.0;
-        Toast.makeText(this,"onResume", Toast.LENGTH_SHORT).show();
     }
 
 
-
-    }
+}
 

@@ -4,15 +4,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/moe"
     tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/TituloRestaurantePrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Taberna de MOE"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="#000600"
+        android:background="#c658c4"
+        />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <Spinner
             android:id="@+id/spinner1"
@@ -30,13 +38,14 @@
 
     <RadioGroup android:id="@+id/gruporb"
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_horizontal">
 
         <RadioButton android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:textSize="25px"
             android:text="Pequeño"
             />
@@ -44,18 +53,21 @@
         <RadioButton android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:textSize="25px"
             android:text="Mediano" />
 
         <RadioButton android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:textSize="25px"
             android:text="Grande" />
 
         <RadioButton android:id="@+id/radio4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:textSize="25px"
             android:text="Gigante" />
 
@@ -64,46 +76,44 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <CheckBox
             android:id="@+id/ch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:text="Hielo"/>
         <CheckBox
             android:id="@+id/ch2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:text="Papas"/>
         <CheckBox
             android:id="@+id/ch3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:text="Aceitunas"/>
         <CheckBox
             android:id="@+id/ch4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#fdfdfd"
             android:text="Bravas"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:text="Total"/>
 
 
     <Button
         android:id="@+id/miTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:gravity="center"
         android:text="Pulsar para total"
-        android:layout_alignParentStart="true"/>
+        android:layout_gravity="center_horizontal" />
 
 
 
