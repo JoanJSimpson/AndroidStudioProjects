@@ -38,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25px"
-            android:text="Pequeño" />
+            android:text="Pequeño"
+            />
 
         <RadioButton android:id="@+id/radio2"
             android:layout_width="wrap_content"

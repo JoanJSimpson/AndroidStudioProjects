@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner miSpinner;
     String bebidaSeleccionada, vasoSeleccionado, aperSeleccionado;
     Integer imagenSeleccionada;
-    Double precioTotal;
+    Double precioTotal, precioAperitivo, precioVaso, precioBebida;
     String marcados;
     CheckBox ch1;
     CheckBox ch2;
@@ -78,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
     //Miramos que chekbox esta marcado
 
     public void initialUISetup(){
+
+        precioAperitivo = 0.0;
+        precioTotal=0.0;
+        precioVaso=0.0;
+        precioBebida=0.0;
         ch1 = (CheckBox) findViewById(R.id.ch1);
         ch2 = (CheckBox) findViewById(R.id.ch2);
         ch3 = (CheckBox) findViewById(R.id.ch3);
@@ -96,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
         miBoton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                marcados= getHobbyClick(v);
+                marcados= getAperitivoClick(v);
+                precioTotal= precioAperitivo +precioBebida+precioVaso;
                 Intent miIntent = new Intent(MainActivity.this, Pantalla2.class);
                 Bundle miBundle = new Bundle();
                 //String mensajePaso = String.valueOf(datos[1].getEdad());
@@ -129,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 bebidaSeleccionada = bebidas[position].getBebida();
                 imagenSeleccionada = bebidas[position].getImagen();
-                precioTotal = bebidas[position].getPrecio();
+                precioBebida = bebidas[position].getPrecio();
 
             }
 
@@ -140,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
 
         //tratamos los radioButtons
         rg.clearCheck();
+        r1.setChecked(true);
+        vasoSeleccionado=String.valueOf(r1.getText());
         //rg.check(R.id.radio1);
         //int idSeleccionado = rg.getCheckedRadioButtonId();
 
@@ -149,15 +156,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         if (r1.isChecked() == true) {
                             vasoSeleccionado=String.valueOf(r1.getText());
+                            precioVaso=0.0;
 
                         } else if (r2.isChecked() == true) {
-                            vasoSeleccionado=String.valueOf(r2.getText());;
+                            vasoSeleccionado=String.valueOf(r2.getText());
+                            precioVaso=0.5;
 
                         } else if (r3.isChecked() == true) {
                             vasoSeleccionado=String.valueOf(r3.getText());
+                            precioVaso=1.0;
 
                         } else if (r4.isChecked() == true) {
                             vasoSeleccionado=String.valueOf(r4.getText());
+                            precioVaso=1.5;
                         }
                         showToast(vasoSeleccionado);
                         //lblMensaje.setText("ID opcion seleccionada: " + checkedid);
@@ -170,20 +181,28 @@ public class MainActivity extends AppCompatActivity {
 
     }//final initialUISetup
 
-    public String getHobbyClick(View v){
+    public String getAperitivoClick(View v){
         String strMessage = "";
+        precioAperitivo=0.0;
 
         if(ch1.isChecked()){
             strMessage+=ch1.getText()+" ";
+            precioAperitivo +=0.5;
         }
         if(ch2.isChecked()){
             strMessage+="Papas ";
+            precioAperitivo +=1.0;
         }
         if(ch3.isChecked()){
             strMessage+="Aceitunas ";
+            precioAperitivo +=1.0;
         }
         if(ch4.isChecked()){
             strMessage+="Bravas ";
+            precioAperitivo =3.0;
+        }
+        if(strMessage.length()==0){
+            strMessage+="No ha seleccionado nada";
         }
         return strMessage;
         //showToast(strMessage);
@@ -215,35 +234,46 @@ public class MainActivity extends AppCompatActivity {
         return strMessage;
     }*/
 
-
+    //Clase necesaria para el adaptador para Spinner
 
     class AdaptadorBebidas extends ArrayAdapter<Bebidas> {
-            public Activity miActividad;
+        public Activity miActividad;
 
-            public AdaptadorBebidas(Activity laActividad){
-                super (laActividad, R.layout.desmilista, bebidas);
-                this.miActividad = laActividad;
+        public AdaptadorBebidas(Activity laActividad){
+            super (laActividad, R.layout.desmilista, bebidas);
+            this.miActividad = laActividad;
 
-            }
-            public View getDropDownView(int position, View convertView, ViewGroup parent){
-                View ListaDesplegada = getView(position, convertView, parent);
-                return ListaDesplegada;
-            }
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = miActividad.getLayoutInflater();
-                View item = inflater.inflate(R.layout.desmilista, null);
+        }
+        // Vista para el desplegable del spinner
+        public View getDropDownView(int position, View convertView, ViewGroup parent){
+            View ListaDesplegada = getView(position, convertView, parent);
+            return ListaDesplegada;
+        }
 
-                TextView lblBebida = (TextView) item.findViewById(R.id.campoBebida);
-                lblBebida.setText(bebidas[position].getBebida());
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = miActividad.getLayoutInflater();
+            View item = inflater.inflate(R.layout.desmilista, null);
 
-                TextView lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
-                lblPrecio.setText(String.valueOf(bebidas[position].getPrecio()));
+            TextView lblBebida = (TextView) item.findViewById(R.id.campoBebida);
+            lblBebida.setText(bebidas[position].getBebida());
+
+            TextView lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
+            lblPrecio.setText(String.valueOf(bebidas[position].getPrecio()));
 
 
-                return (item);
-            }
-        }//Fin AdaptadorBebidas
-
+            return (item);
+        }
+    }//Fin AdaptadorBebidas
+    //para que cuando vuelva de la pantalla2 deje los precios a 0
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //precioBebida=0.0;
+        //precioVaso=0.0;
+        precioTotal=0.0;
+        //precioAperitivo=0.0;
+        Toast.makeText(this,"onResume", Toast.LENGTH_SHORT).show();
+    }
 
 
 
