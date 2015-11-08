@@ -20,7 +20,7 @@ import org.w3c.dom.Text;
 
 public class MiListaTitular extends AppCompatActivity {
     public static int COD_RESPUESTA=0;
-    ;
+
     public static int suma=0;
 
     private Titular[] datos = new Titular[]{
@@ -36,17 +36,14 @@ public class MiListaTitular extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_mi_clase_titular);
 
-        //String mensaje;
+        //Declaracion de variables
+        final Button miBoton = (Button) findViewById(R.id.miBtn);
         miLista = (ListView) findViewById(R.id.ListTitular);
-
-        final Button miBoton= (Button) findViewById(R.id.miBtn);
-
-
-
         AdaptadorTitulares adaptador = new AdaptadorTitulares(this);
+
+        //Rellenar miLista
         miLista.setAdapter(adaptador);
         miLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,10 +54,9 @@ public class MiListaTitular extends AppCompatActivity {
                 showToast(mensaje2);
                 suma+=datos[position].getEdad();
             }
-        });
+        });//miLista
 
         //Boton para pasar a la siguiente pantalla
-
         miBoton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent miIntent = new Intent(MiListaTitular.this, Pantalla2.class);
@@ -69,28 +65,28 @@ public class MiListaTitular extends AppCompatActivity {
                 miBundle.putString("TEXTO", String.valueOf(suma));
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);
-
+                //startActivity(miIntent);
             }
-        });
-
-
+        });//miBoton
     }//onCreate
 
 
-
+    //Metodo showToast
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+    //Metodo onActivityResult
     public void onActivityResult(int cod_resp, int cod_result, Intent intent){
         if (cod_result==RESULT_OK){
             Bundle otroBundle = intent.getExtras();
             vuelta = (TextView) findViewById(R.id.txtViewVuelta);
             vuelta.setText(otroBundle.getString("DEVUELTO"));
         }
-    }
+    }//Fin onActivityResult
 
 
+    //Clase AdaptadorTitulares para que meta dentro todo lo que queramos
     class AdaptadorTitulares extends ArrayAdapter {
         Activity context;
 
@@ -118,11 +114,8 @@ public class MiListaTitular extends AppCompatActivity {
                 imagenFondo.setBackgroundDrawable(getResources().getDrawable(datos[position].getImagen()));
             }
 
-
-
-
             return (item);
         }
-    }
+    }//Fin AdaptadorTitulares
 
 }

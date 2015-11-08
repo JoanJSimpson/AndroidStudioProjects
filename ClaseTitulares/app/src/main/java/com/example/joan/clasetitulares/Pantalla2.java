@@ -29,6 +29,7 @@ public class Pantalla2 extends Activity {
 
         final Button volverBtn= (Button) findViewById(R.id.botonVolver);
 
+
         //Boton volver --> devuelve el mensaje devuelto a principal
         volverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
