@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:stretchColumns="1">
+    <TextView
+        android:id="@+id/TituloAgencia2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Viajes Joan"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="#000600"
+        android:background="#c658c4"
+        android:fontFamily=""
+        />
+
+    <TableRow>
+
+    <ImageView
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:id="@+id/imagenPantalla2"
+        android:foregroundGravity="right" />
+
+
+        <TableLayout>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/zonaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#090d45"
+                android:textStyle="bold"
+                android:text="Zona: "/>
+            <TextView
+                android:id="@+id/lblZona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="20dp"
+                android:textColor="#090d45"
+                android:text="B" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tarifaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Tarifa: "/>
+            <TextView
+                android:id="@+id/lblTarifa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="20dp"
+                android:textColor="#090d45"
+                android:text="normal/urgente" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/PesoTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Peso: "/>
+
+            <TextView
+                android:id="@+id/lblPeso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="20dp"
+                android:textColor="#090d45"
+                android:text="6kg" />
+        </TableRow>
+            <TextView>
+
+            </TextView>
+        <TableRow>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/DecoracionTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Decoracion: "/>
+
+            <TextView
+                android:id="@+id/lblDecoracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="20dp"
+                android:textColor="#090d45"
+                android:text="Caja" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/SeparadorCabecera"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <FrameLayout
+                android:id="@+id/LineaCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_span="6"
+                android:background="#ff000000">
+            </FrameLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/totalTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Coste Final:  "/>
+            <TextView
+                android:id="@+id/totalPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:textColor="#090d45"
+                android:fontFamily="Arial"
+
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="PRECIO" />
+        </TableRow>
+            <TableRow>
+                <TextView
+                    />
+                <TextView
+                    android:id="@+id/parentesis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50px"
+                    android:fontFamily="Arial"
+                    android:textColor="#090d45"
+
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:text="PRECIO" />
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/botonVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pulsar para Volver"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal|bottom" />
+    </LinearLayout>
+
+
+</TableLayout>

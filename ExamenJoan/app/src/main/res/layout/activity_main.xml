@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/TituloAgencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Viajes Joan"
+        android:gravity="left"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_height="wrap_content"
+            android:layout_width="300px"
+            android:layout_alignBottom="@+id/imagen"
+            android:layout_gravity="left">
+        </Spinner>
+
+        <ImageView
+            android:layout_width="250px"
+            android:layout_height="250px"
+            android:id="@+id/imagen"
+            android:layout_marginLeft="50dp"
+            android:foregroundGravity="right" />
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:orientation="vertical"
+        android:layout_width="155dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom|right|top"
+        android:layout_below="@+id/imagen"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/miTotal"
+        android:layout_alignParentBottom="false">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25px"
+            android:text="TARIFA NORMAL"
+            android:layout_below="@+id/imagen"
+            android:layout_toRightOf="@+id/ch2"
+            android:layout_toEndOf="@+id/ch2" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25px"
+            android:text="TARIFA URGENTE"
+            />
+    </RadioGroup>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="25dp">
+        <CheckBox
+            android:id="@+id/ch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caja Regalo"
+            android:layout_below="@+id/ch2"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|center_vertical" />
+
+        <CheckBox
+            android:id="@+id/ch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Con tarjeta dedicada"
+            android:layout_below="@+id/spinner1"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|center_vertical" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/peso"
+        android:text="Introduce el peso del paquete"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/miTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulsar para total"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout"
+        android:layout_toLeftOf="@+id/imagen"
+        android:layout_toStartOf="@+id/imagen"
+        android:layout_marginTop="20dp" />
+
+
+</LinearLayout>

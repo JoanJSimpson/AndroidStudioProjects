@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#cccbcb">
+
+    <TextView android:id="@+id/campoZona"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="50px"
+        android:text="Zona seleccionada"
+        android:textColor="#4b4a4a"/>
+
+    <TextView android:id="@+id/campoContinente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:text="continente"
+        android:textSize="40px"
+        android:textColor="#4b4a4a"/>
+
+    <TextView android:id="@+id/campoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:text="precio"
+        android:textSize="40px"
+        android:textColor="#4b4a4a"/>
+
+
+</LinearLayout>
