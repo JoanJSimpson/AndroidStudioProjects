@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         initialUISetup();
     }//Fin onCreate
 
@@ -81,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         r3= (RadioButton) findViewById(R.id.radio3);
         r4= (RadioButton) findViewById(R.id.radio4);
 
+        //Modificamos el tipo de fuente para que sea la de los simpson
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/akbar.ttf");
         tit.setTypeface(face);
 
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
             lblBebida.setText(bebidas[position].getBebida());
 
             TextView lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
-            lblPrecio.setText(String.valueOf(bebidas[position].getPrecio()));
+            lblPrecio.setText(String.valueOf(bebidas[position].getPrecio())+" €");
 
 
             return (item);

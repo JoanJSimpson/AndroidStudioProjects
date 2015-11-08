@@ -9,13 +9,15 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="50px"
-        android:textColor="#f4659b"/>
+        android:text="Bebida seleccionada"
+        android:textColor="#ffffff"/>
 
     <TextView android:id="@+id/campoPrecio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="normal"
-        android:textColor="#00f7ff"
+        android:text="precio"
+        android:textColor="#e6ff00"
         android:textSize="40px" />
 
 
