@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Pizzas[] pizza = new Pizzas[]{
             new Pizzas("MARGARITA", "jamon/tomate", 12 , R.drawable.pizza1),
             new Pizzas("TRES QUESOS", "queso1/queso2", 15 , R.drawable.pizza2),
-            new Pizzas("BARBACOA", "carne/tomate", 18 , R.drawable.pizza3),
+            new Pizzas("BARBACOA", "carne/tomate", 18 , R.drawable.pizza3)
     }; //fin Pizzas
 
     //Creamos variables de clase
@@ -235,6 +235,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         precioTotal=0.0;
+        //unidades.setHint("Numero de unidades: ");
+        unidades.setText("");
+        r1.setChecked(true);
+        ch1.setChecked(false);
+        ch2.setChecked(false);
+        ch3.setChecked(false);
     }
 
 
