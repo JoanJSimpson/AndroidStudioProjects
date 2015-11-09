@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:stretchColumns="1">
+
+    <TableRow>
+
+    <ImageView
+        android:layout_width="320px"
+        android:layout_height="320px"
+        android:id="@+id/imagenPantalla2"
+        android:foregroundGravity="right"
+        android:layout_gravity="center" />
+
+
+        <TableLayout android:layout_marginLeft="10px">
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/pizzaTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#090d45"
+                android:textStyle="bold"
+                android:text="Pizza: "/>
+            <TextView
+                android:id="@+id/pizzaSel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="15dp"
+                android:textColor="#090d45"
+                android:text="Tres quesos" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/precioTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Precio Base: "/>
+            <TextView
+                android:id="@+id/precioSel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="15dp"
+                android:textColor="#090d45"
+                android:text="15€" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/extraTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Extra "/>
+
+            <TextView
+                android:id="@+id/extraSel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="15dp"
+                android:textColor="#090d45"
+                android:text="2€" />
+        </TableRow>
+            <TextView>
+
+            </TextView>
+        <TableRow>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/unidadesTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="Unidades: "/>
+
+            <TextView
+                android:id="@+id/unidadeSel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:fontFamily="Arial"
+                android:textSize="15dp"
+                android:textColor="#090d45"
+                android:text="unas cuantas" />
+        </TableRow>
+            <TextView>
+
+            </TextView>
+            <TableRow>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/envioTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#090d45"
+                    android:text="Envio: "/>
+
+                <TextView
+                    android:id="@+id/envioSel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50px"
+                    android:fontFamily="Arial"
+                    android:textSize="15dp"
+                    android:textColor="#090d45"
+                    android:text="Domicilio" />
+            </TableRow>
+        <TableRow
+            android:id="@+id/SeparadorCabecera"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <FrameLayout
+                android:id="@+id/LineaCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_span="6"
+                android:background="#ff000000">
+            </FrameLayout>
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/costeTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#090d45"
+                android:text="COSTE FINAL:  "/>
+            <TextView
+                android:id="@+id/costeSel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:textColor="#090d45"
+                android:fontFamily="Arial"
+
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="PRECIO" />
+        </TableRow>
+            <TableRow>
+                <TextView
+                    />
+                <TextView
+                    android:id="@+id/parentesis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50px"
+                    android:fontFamily="Arial"
+                    android:textColor="#090d45"
+
+                    android:textStyle="bold"
+                    android:textSize="10dp"
+                    android:text="PRECIO" />
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+    <LinearLayout
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkReloj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Hora del Pedido"
+            android:layout_gravity="center_vertical" />
+
+        <AnalogClock
+            android:id="@+id/reloj"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/botonVolver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pulsar para Volver"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal|bottom" />
+    </LinearLayout>
+
+
+</TableLayout>

@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#cccbcb">
+
+    <TextView android:id="@+id/campoNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="35px"
+        android:text="Pizza seleccionada"
+        android:textColor="#4b4a4a"/>
+
+    <TextView android:id="@+id/campoIngredientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:text="ingredientes"
+        android:textSize="40px"
+        android:textColor="#4b4a4a"/>
+
+    <TextView android:id="@+id/campoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:text="precio"
+        android:textSize="40px"
+        android:textColor="#4b4a4a"/>
+
+    <ImageView
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:id="@+id/imagenSpinner"
+        android:layout_marginLeft="15dp"
+        android:foregroundGravity="right" />
+
+
+</LinearLayout>
