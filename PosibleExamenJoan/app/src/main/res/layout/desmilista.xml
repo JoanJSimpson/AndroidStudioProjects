@@ -2,7 +2,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#ff000000">
+    android:background="#aeaeae">
 
     <TextView android:id="@+id/campoBebida"
         android:layout_width="wrap_content"
@@ -10,7 +10,7 @@
         android:textStyle="bold"
         android:textSize="50px"
         android:text="Bebida seleccionada"
-        android:textColor="#ffffff"/>
+        android:textColor="#000000"/>
 
     <TextView android:id="@+id/campoPrecio"
         android:layout_width="wrap_content"
