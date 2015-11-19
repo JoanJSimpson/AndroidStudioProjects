@@ -127,5 +127,13 @@
             android:layout_toStartOf="@+id/imagen"
             android:layout_marginTop="20dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblMensaje"
+        android:hint="Texto: "
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>

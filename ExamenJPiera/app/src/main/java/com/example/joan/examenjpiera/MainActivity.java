@@ -6,6 +6,9 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,9 +49,39 @@ public class MainActivity extends AppCompatActivity {
     RadioButton r1;
     RadioButton r2;
     EditText unidades;
-    TextView precio;
+    TextView precio, lblMensaje;
     int numeroUnidades;
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //Alternativa 1
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_menu_inicial, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.MnuOpc1:
+                lblMensaje.setText("Opcion 1 pulsada!");
+                return true;
+            case R.id.MnuOpc2:
+                lblMensaje.setText("Opcion 2 pulsada!");
+                return true;
+            //case R.id.MnuOpc3:
+              //  lblMensaje.setText("Opcion 3 pulsada!");
+                //return true;
+            case R.id.SubMnuOpc1:
+                lblMensaje.setText("Submenu: Opcion 1!");
+                return true;
+            case R.id.SubMnuOpc2:
+                lblMensaje.setText("Submenu: Acerca de..!");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
     @Override
@@ -65,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         precioModo =0.0;
         numeroUnidades=0;
         precioPizza=0.0;
+        lblMensaje = (TextView) findViewById(R.id.lblMensaje);
         ch1 = (CheckBox) findViewById(R.id.ch1);
         ch2 = (CheckBox) findViewById(R.id.ch2);
         ch3 = (CheckBox) findViewById(R.id.ch3);
@@ -203,30 +237,33 @@ public class MainActivity extends AppCompatActivity {
             View ListaDesplegada = getView(position, convertView, parent);
             return ListaDesplegada;
         }
-
+        //metodo mejorado para consumo de memoria en un spinner
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = miActividad.getLayoutInflater();
-            View item = inflater.inflate(R.layout.desmilista, null);
-
-            TextView lblNombre = (TextView) item.findViewById(R.id.campoNombre);
-            lblNombre.setText(pizza[position].getNombre());
-
-            TextView lblIngredientes = (TextView) item.findViewById(R.id.campoIngredientes);
-            lblIngredientes.setText(pizza[position].getIngredientes());
-
-            TextView lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
-            lblPrecio.setText(String.valueOf(pizza[position].getPrecio())+" €");
-
-            ImageView lblImagen = (ImageView) item.findViewById(R.id.imagenSpinner);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                lblImagen.setBackground(getDrawable(pizza[position].getImagen()));
-            } else {
-                lblImagen.setBackgroundDrawable(getResources().getDrawable(pizza[position].getImagen()));
+            View item = convertView;
+            ViewHolder holder;
+            if (item == null) {
+                LayoutInflater inflater = miActividad.getLayoutInflater();
+                item = inflater.inflate(R.layout.desmilista, null);
+                holder = new ViewHolder();
+                holder.lblNombre = (TextView) item.findViewById(R.id.campoNombre);
+                holder.lblIngredientes = (TextView) item.findViewById(R.id.campoIngredientes);
+                holder.lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
+                holder.lblImagen = (ImageView) item.findViewById(R.id.imagenSpinner);
+                item.setTag(holder);
+            }else{
+                holder = (ViewHolder)item.getTag();
             }
 
+            holder.lblNombre.setText(pizza[position].getNombre());
+            holder.lblIngredientes.setText(pizza[position].getIngredientes());
+            holder.lblPrecio.setText(String.valueOf(pizza[position].getPrecio()) + " €");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.lblImagen.setBackground(getDrawable(pizza[position].getImagen()));
+            } else {
+                holder.lblImagen.setBackgroundDrawable(getResources().getDrawable(pizza[position].getImagen()));
+            }
 
-            return (item);
+            return(item);
         }
     }//Fin AdaptadorPizzas
 
@@ -241,6 +278,13 @@ public class MainActivity extends AppCompatActivity {
         ch1.setChecked(false);
         ch2.setChecked(false);
         ch3.setChecked(false);
+    }
+
+    static class ViewHolder {
+        TextView lblNombre;
+        TextView lblIngredientes;
+        TextView lblPrecio;
+        ImageView lblImagen;
     }
 
 
