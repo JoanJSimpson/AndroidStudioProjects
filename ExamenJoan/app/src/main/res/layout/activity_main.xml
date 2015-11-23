@@ -101,7 +101,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/peso"
-        android:text="Introduce el peso del paquete"
+        android:hint="Introduce el peso del paquete"
+        android:inputType="numberDecimal"
         android:layout_marginTop="20dp" />
 
     <Button

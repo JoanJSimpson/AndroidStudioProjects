@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String parsearPeso = String.valueOf(peso.getText());
                 Double pesoSeleccionado, pesoMult;
-                if (parsearPeso.equals("Introduce el peso del paquete")){
+                if (parsearPeso.equals("")){
                     pesoSeleccionado = 0.0;
                     pesoMult=0.0;
                     precioPeso=0.0;
