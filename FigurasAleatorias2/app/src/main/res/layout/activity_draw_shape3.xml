@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccione una figura:"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:textSize="35px"
+        android:layout_gravity="center_horizontal" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_height="wrap_content"
+        android:layout_width="400px"
+        android:layout_alignBottom="@+id/imagen"
+        android:layout_gravity="center_horizontal">
+    </Spinner>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radio/Lado1/Base"
+                android:id="@+id/label1" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbl1"
+                android:hint="0.00"
+                android:inputType="number"
+                android:numeric="decimal"
+                android:layout_marginLeft="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lado2/Altura"
+                android:id="@+id/label2"
+                android:layout_marginLeft="20dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lbl2"
+                android:hint="0.00"
+                android:inputType="number"
+                android:numeric="decimal"
+                android:layout_marginLeft="20dp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dibujar"
+            android:id="@+id/btnDibujar"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+</LinearLayout>
