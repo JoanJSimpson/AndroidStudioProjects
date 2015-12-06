@@ -56,9 +56,18 @@ public class DrawShapes3 extends Activity {
         //Boton para calcular y dibujar:
         btnDibujar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Float lado1 = Float.parseFloat(lbl1.getText().toString());
-                Float lado2 = Float.parseFloat(lbl2.getText().toString());
-                Intent miIntent = new Intent(DrawShapes3.this , PantallaFinal.class);
+                float lado1, lado2;
+                if (String.valueOf(lbl1.getText()).equals("")){
+                    lado1 = Float.valueOf(1);
+                }else {
+                    lado1 = Float.valueOf(String.valueOf(lbl1.getText()));
+                }
+                if (String.valueOf(lbl2.getText()).equals("")){
+                    lado2 = Float.valueOf(1);
+                }else {
+                    lado2 = Float.valueOf(String.valueOf(lbl2.getText()));
+                }
+                Intent miIntent = new Intent(DrawShapes3.this , UltimaPantalla.class);
                 Bundle miBundle = new Bundle();
 
                 miBundle.putFloat("LADO1", lado1);
@@ -67,18 +76,18 @@ public class DrawShapes3 extends Activity {
                 if (figuraSeleccionada.equals("Circulo")) {
                     circulo.setRadio(lado1);
                     miBundle.putDouble("AREA", circulo.area());
-                    miBundle.putSerializable("TIPO", (Serializable) circulo);
+                    //miBundle.putSerializable("TIPO", (Serializable) circulo);
                 }
                 if (figuraSeleccionada.equals("Cuadrado")) {
                     cuadrado.setLado(lado1);
                     miBundle.putDouble("AREA",cuadrado.area());
-                    miBundle.putSerializable("TIPO", (Serializable) cuadrado);
+                    //miBundle.putSerializable("TIPO", (Serializable) cuadrado);
                 }
                 if (figuraSeleccionada.equals("Rectangulo")) {
                     rectangulo.setBase(lado1);
                     rectangulo.setAltura(lado2);
                     miBundle.putDouble("AREA",rectangulo.area());
-                    miBundle.putSerializable("TIPO", (Serializable) rectangulo);
+                    //miBundle.putSerializable("TIPO", (Serializable) rectangulo);
                 }
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);

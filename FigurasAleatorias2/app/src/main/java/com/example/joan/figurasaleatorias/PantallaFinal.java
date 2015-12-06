@@ -16,7 +16,7 @@ import android.widget.Toast;
  * Created by Joan on 6/12/15.
  */
 public class PantallaFinal extends Activity {
-    static Float lado1, lado2;
+    static float lado1, lado2;
     static Figura tipo;
     static Double area;
     static String figura;
@@ -58,7 +58,7 @@ public class PantallaFinal extends Activity {
             miPincel.setStrokeWidth(10);
             miPincel.setStyle(Paint.Style.STROKE);
             if (PantallaFinal.figura.equals("Circulo")){
-                canvas.drawCircle(300,300,lado1,miPincel);
+                canvas.drawCircle(300,300,100,miPincel);
             }
         }
     }
