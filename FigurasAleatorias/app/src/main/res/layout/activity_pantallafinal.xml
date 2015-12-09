@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal1"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Lado 1/Base/Radio" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal2"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Lado 1/Base/Radio" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal3"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Lado 2/Altura" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal4"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Lado 2/Altura"  />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal5"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Area" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFinal6"
+            android:textStyle="bold"
+            android:textSize="35px"
+            android:text="Area"  />
+    </LinearLayout>
+
+
+    <view
+        class="com.example.joan.figurasaleatorias.PantallaFinal$VistaFigura"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#030303"/>
+</LinearLayout>
