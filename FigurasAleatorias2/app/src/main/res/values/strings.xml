@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">FigurasAleatorias</string>
-    <string name="redraw_button_label">Redibuja</string>
-    <string name="heading_activity_draw_shapes2">Heading Actividad 2</string>
-    <string name="random_shape_button_label">Boton 1</string>
-    <string name="shape_drawable_button_label">Boton 2</string>
-</resources>
