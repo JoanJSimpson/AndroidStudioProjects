@@ -18,9 +18,7 @@ import android.widget.Toast;
  * Created by Joan on 6/12/15.
  */
 public class PantallaFinal extends Activity {
-    static float lado1, lado2;
-    static Figura tipo;
-    static Double area;
+
     static String figura;
     static TextView txt1, txt2, txt3, txt4, txt5, txt6;
     @Override
@@ -39,14 +37,7 @@ public class PantallaFinal extends Activity {
         txt6 = (TextView) findViewById(R.id.txtFinal6);
 
         Bundle miBundleRecoger = getIntent().getExtras();
-        //lado1 = miBundleRecoger.getFloat("LADO1");
-        //lado2 = miBundleRecoger.getFloat("LADO2");
         figura = miBundleRecoger.getString("FIGURA");
-        //tipo = (Figura) miBundleRecoger.getSerializable("TIPO");
-        //area = miBundleRecoger.getDouble("AREA");
-        //showToast("Lado1: "+lado1+". Lado 2: "+lado2+ ". Figura: "+figura+". Area: "+area);
-
-
 
     }//final onCreate
 
