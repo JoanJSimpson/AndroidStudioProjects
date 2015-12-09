@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -27,7 +27,7 @@
             android:text="Lado 1/Base/Radio" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -47,7 +47,7 @@
             android:text="Lado 2/Altura"  />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -57,19 +57,20 @@
             android:id="@+id/txtFinal5"
             android:textStyle="bold"
             android:textSize="35px"
-            android:text="Perimetro" />
+            android:text="Area" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtFinal6"
             android:textStyle="bold"
             android:textSize="35px"
-            android:text="Perimetro"  />
+            android:text="Area"  />
     </LinearLayout>
 
 
     <view
         class="com.example.joan.figurasaleatorias.PantallaFinal$VistaFigura"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#030303"/>
 </LinearLayout>

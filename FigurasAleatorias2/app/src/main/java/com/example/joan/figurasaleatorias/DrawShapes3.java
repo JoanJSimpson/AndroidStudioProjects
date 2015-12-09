@@ -27,9 +27,9 @@ public class DrawShapes3 extends Activity {
     TextView label1, label2;
     EditText lbl1, lbl2;
     Button btnDibujar;
-    Circulo circulo = new Circulo();
-    Cuadrado cuadrado = new Cuadrado();
-    Rectangulo rectangulo = new Rectangulo();
+    static Circulo circulo = new Circulo();
+    static Cuadrado cuadrado = new Cuadrado();
+    static Rectangulo rectangulo = new Rectangulo();
     public static int COD_RESPUESTA=0;
 
     private FigSpinner[] figura = new FigSpinner[]{
@@ -107,7 +107,7 @@ public class DrawShapes3 extends Activity {
             public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
                 figuraSeleccionada = figura[position].getNombre();
                 Figura figuras = figura[position].getFigura();
-                showToast(figuras.toString());
+                //showToast(figuras.toString());
 
                 if (figuraSeleccionada.equals("Circulo")) {
                     label1.setText("Radio: ");

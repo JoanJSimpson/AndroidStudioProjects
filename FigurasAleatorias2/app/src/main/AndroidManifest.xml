@@ -31,10 +31,7 @@
             android:name=".PantallaFinal"
             android:label="PantallaFinal">
         </activity>
-        <activity
-            android:name=".UltimaPantalla"
-            android:label="PantallaFinal">
-        </activity>
+
     </application>
 
 </manifest>

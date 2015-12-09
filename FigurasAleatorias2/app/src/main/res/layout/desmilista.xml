@@ -1,23 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="300px"
+    android:layout_height="300px"
     android:orientation="vertical"
-    android:background="#cccbcb">
+    android:background="#f75d29">
 
     <TextView android:id="@+id/campoNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="35px"
-        android:text="Figura seleccionada"
-        android:textColor="#4b4a4a"/>
+        android:text="Figura"
+        android:textColor="#ffffff"/>
 
     <ImageView
-        android:layout_width="250px"
-        android:layout_height="250px"
+        android:layout_width="200px"
+        android:layout_height="200px"
         android:id="@+id/imagenSpinner"
-        android:layout_marginLeft="15dp"
-        android:foregroundGravity="right" />
+        android:foregroundGravity="right"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp" />
 
 
 </LinearLayout>
