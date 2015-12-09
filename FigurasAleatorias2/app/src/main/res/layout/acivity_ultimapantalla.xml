@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -27,7 +27,7 @@
             android:text="Lado 1/Base/Radio" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -47,7 +47,7 @@
             android:text="Lado 2/Altura"  />
     </LinearLayout>
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">

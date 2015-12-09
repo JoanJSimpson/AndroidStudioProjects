@@ -67,7 +67,7 @@ public class DrawShapes3 extends Activity {
                 }else {
                     lado2 = Float.valueOf(String.valueOf(lbl2.getText()));
                 }
-                Intent miIntent = new Intent(DrawShapes3.this , UltimaPantalla.class);
+                Intent miIntent = new Intent(DrawShapes3.this , PantallaFinal.class);
                 Bundle miBundle = new Bundle();
 
                 miBundle.putFloat("LADO1", lado1);
@@ -80,13 +80,13 @@ public class DrawShapes3 extends Activity {
                 }
                 if (figuraSeleccionada.equals("Cuadrado")) {
                     cuadrado.setLado(lado1);
-                    miBundle.putDouble("AREA",cuadrado.area());
+                    miBundle.putDouble("AREA", cuadrado.area());
                     //miBundle.putSerializable("TIPO", (Serializable) cuadrado);
                 }
                 if (figuraSeleccionada.equals("Rectangulo")) {
                     rectangulo.setBase(lado1);
                     rectangulo.setAltura(lado2);
-                    miBundle.putDouble("AREA",rectangulo.area());
+                    miBundle.putDouble("AREA", rectangulo.area());
                     //miBundle.putSerializable("TIPO", (Serializable) rectangulo);
                 }
                 miIntent.putExtras(miBundle);

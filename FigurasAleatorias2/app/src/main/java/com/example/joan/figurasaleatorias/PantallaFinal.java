@@ -7,8 +7,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,9 +35,9 @@ public class PantallaFinal extends Activity {
         lado1 = miBundleRecoger.getFloat("LADO1");
         lado2 = miBundleRecoger.getFloat("LADO2");
         figura = miBundleRecoger.getString("FIGURA");
-        tipo = (Figura) miBundleRecoger.getSerializable("TIPO");
+        //tipo = (Figura) miBundleRecoger.getSerializable("TIPO");
         area = miBundleRecoger.getDouble("AREA");
-        showToast("Lado1: "+lado1+". Lado 2: "+lado2+ ". Figura: "+figura+". Tipo: "+tipo.toString()+". Area: "+area);
+        showToast("Lado1: "+lado1+". Lado 2: "+lado2+ ". Figura: "+figura+". Area: "+area);
 
 
 
@@ -43,8 +45,8 @@ public class PantallaFinal extends Activity {
 
 
     public static class VistaFigura extends View {
-        public VistaFigura(Context contexto) {
-            super(contexto);
+        public VistaFigura(Context contexto, AttributeSet attr) {
+            super(contexto, attr);
             //Resources res = contexto.getResources();
 
         }
@@ -54,12 +56,20 @@ public class PantallaFinal extends Activity {
             //Dentro de este método utilizamos los métodos para dibujar BitmapDrawable
             Paint miPincel= new Paint();
             miPincel.setColor(Color.RED);
-
+            float x = canvas.getWidth()/2;
+            float y = canvas.getHeight()/2;
             miPincel.setStrokeWidth(10);
             miPincel.setStyle(Paint.Style.STROKE);
             if (PantallaFinal.figura.equals("Circulo")){
-                canvas.drawCircle(300,300,100,miPincel);
+                canvas.drawCircle((x-(lado1/2)),(y-(lado1/2)),lado1, miPincel);
+            }else if(PantallaFinal.figura.equals("Cuadrado")) {
+                RectF rectF = new RectF(150, 150, 150+lado1,150+lado1);
+                canvas.drawRect(rectF, miPincel);
+            }else{
+                RectF rectF = new RectF(150, 150, 150+lado1, 150+lado2);
+                canvas.drawRect(rectF, miPincel);
             }
+
         }
     }
     public void showToast(String text){
