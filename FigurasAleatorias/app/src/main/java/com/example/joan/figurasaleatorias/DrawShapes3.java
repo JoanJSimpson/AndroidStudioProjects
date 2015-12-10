@@ -3,8 +3,10 @@ package com.example.joan.figurasaleatorias;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,11 @@ public class DrawShapes3 extends Activity {
         lbl1 = (EditText) findViewById(R.id.lbl1);
         lbl2 = (EditText) findViewById(R.id.lbl2);
         btnDibujar = (Button) findViewById(R.id.btnDibujar);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        final int ancho = size.x;
+        final int alto = size.y;
 
 
         //Boton para calcular y dibujar:
@@ -58,39 +65,70 @@ public class DrawShapes3 extends Activity {
             public void onClick(View v) {
                 float lado1, lado2;
                 if (String.valueOf(lbl1.getText()).equals("")){
-                    lado1 = Float.valueOf(1);
+                    lado1 = Float.valueOf(10);
                 }else {
                     lado1 = Float.valueOf(String.valueOf(lbl1.getText()));
                 }
                 if (String.valueOf(lbl2.getText()).equals("")){
-                    lado2 = Float.valueOf(1);
+                    lado2 = Float.valueOf(10);
                 }else {
                     lado2 = Float.valueOf(String.valueOf(lbl2.getText()));
                 }
                 Intent miIntent = new Intent(DrawShapes3.this , PantallaFinal.class);
                 Bundle miBundle = new Bundle();
 
-                miBundle.putFloat("LADO1", lado1);
-                miBundle.putFloat("LADO2", lado2);
-                miBundle.putString("FIGURA", figuraSeleccionada);
-                if (figuraSeleccionada.equals("Circulo")) {
-                    circulo.setRadio(lado1);
-                    miBundle.putDouble("AREA", circulo.area());
-                    //miBundle.putSerializable("TIPO", (Serializable) circulo);
+
+                //Si esta en vertical y es un circulo
+                if(lado1>((ancho-10)/2) && figuraSeleccionada.equals("Circulo")){
+                    showToast("El radio no puede ser mayor a: " + ((ancho-10) / 2));
+
+                //si esta en horizontal y es un circulo
+                }else if(lado1>(((alto-10)/2)-100)&&figuraSeleccionada.equals("Circulo")){
+                    showToast("El radio no puede ser mayor a: " + (((alto-10) / 2)-100));
+
+                //Si esta en vertical y es un cuadrado o rectangulo
+                }else if (lado1>(ancho-10)){
+                    switch (figuraSeleccionada){
+                        case "Cuadrado":
+                            showToast("El lado no puede ser mayor a: "+(ancho-10));
+                            break;
+                        case "Rectangulo":
+                            showToast("La base no puede ser mayor a: "+(ancho-10));
+                            break;
+                    }
+
+                //si esta en horizontal y es un cuadrado
+                }else if ((lado1>(alto-200)) && figuraSeleccionada.equals("Cuadrado")){
+                    showToast("El lado no puede ser mayor a: "+(alto-200));
+
+                 //si es un rectangulo y supera la altura
+                }else if (figuraSeleccionada.equals("Rectangulo") && lado2>(alto-200)){
+                    showToast("La altura no puede ser mayor a: "+(alto-200));
+                //Si está correcto
+                }else{
+
+                    //miBundle.putFloat("LADO1", lado1);
+                    //miBundle.putFloat("LADO2", lado2);
+                    miBundle.putString("FIGURA", figuraSeleccionada);
+                    if (figuraSeleccionada.equals("Circulo")) {
+                        circulo.setRadio(lado1);
+                        miBundle.putDouble("AREA", circulo.area());
+                        //miBundle.putSerializable("TIPO", (Serializable) circulo);
+                    }
+                    if (figuraSeleccionada.equals("Cuadrado")) {
+                        cuadrado.setLado(lado1);
+                        miBundle.putDouble("AREA", cuadrado.area());
+                        //miBundle.putSerializable("TIPO", (Serializable) cuadrado);
+                    }
+                    if (figuraSeleccionada.equals("Rectangulo")) {
+                        rectangulo.setBase(lado1);
+                        rectangulo.setAltura(lado2);
+                        miBundle.putDouble("AREA", rectangulo.area());
+                        //miBundle.putSerializable("TIPO", (Serializable) rectangulo);
+                    }
+                    miIntent.putExtras(miBundle);
+                    startActivityForResult(miIntent, COD_RESPUESTA);
                 }
-                if (figuraSeleccionada.equals("Cuadrado")) {
-                    cuadrado.setLado(lado1);
-                    miBundle.putDouble("AREA", cuadrado.area());
-                    //miBundle.putSerializable("TIPO", (Serializable) cuadrado);
-                }
-                if (figuraSeleccionada.equals("Rectangulo")) {
-                    rectangulo.setBase(lado1);
-                    rectangulo.setAltura(lado2);
-                    miBundle.putDouble("AREA", rectangulo.area());
-                    //miBundle.putSerializable("TIPO", (Serializable) rectangulo);
-                }
-                miIntent.putExtras(miBundle);
-                startActivityForResult(miIntent, COD_RESPUESTA);
 
             }
         });//miBoton
@@ -133,6 +171,7 @@ public class DrawShapes3 extends Activity {
                     label2.setVisibility(TextView.VISIBLE);
                     lbl2.setVisibility(EditText.VISIBLE);
                 }
+
             }
 
             @Override
@@ -194,6 +233,13 @@ public class DrawShapes3 extends Activity {
     static class ViewHolder {
         TextView lblNombre;
         ImageView lblImagen;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lbl1.setText("");
+        lbl2.setText("");
     }
 
 }
