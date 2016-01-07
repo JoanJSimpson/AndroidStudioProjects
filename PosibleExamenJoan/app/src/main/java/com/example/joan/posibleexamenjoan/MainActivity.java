@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton r2;
     RadioButton r3;
     RadioButton r4;
+    Bebidas bebidaPasar;
 
 
 
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 precioTotal= precioAperitivo +precioBebida+precioVaso;
                 Intent miIntent = new Intent(MainActivity.this, Pantalla2.class);
                 Bundle miBundle = new Bundle();
+                miBundle.putSerializable("OBJETO", bebidaPasar);
                 miBundle.putString("BEBIDA", bebidaSeleccionada);
                 miBundle.putDouble("BEBIDAPRECIO", precioBebida);
                 miBundle.putInt("IMAGEN", imagenSeleccionada);
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 bebidaSeleccionada = bebidas[position].getBebida();
                 imagenSeleccionada = bebidas[position].getImagen();
                 precioBebida = bebidas[position].getPrecio();
+                bebidaPasar=bebidas[position];
 
             }
 

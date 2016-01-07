@@ -1,9 +1,11 @@
 package com.example.joan.posibleexamenjoan;
 
+import java.io.Serializable;
+
 /**
  * Created by Joan on 6/11/15.
  */
-public class Bebidas {
+public class Bebidas implements Serializable {
 
         private String bebida, aperitivo;
         private double precio;

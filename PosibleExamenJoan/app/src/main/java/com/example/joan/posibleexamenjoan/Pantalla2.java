@@ -13,6 +13,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 
 /**
  * Created by Joan on 6/11/15.
@@ -25,6 +27,7 @@ public class Pantalla2 extends Activity {
         setContentView(R.layout.activity_pantalla2);
 
         tit=(TextView) findViewById(R.id.TituloRestaurante);
+        Bebidas bebida;
         final Button volverBtn= (Button) findViewById(R.id.botonVolver);
         final TextView bebidaTitulo = (TextView) findViewById(R.id.bebidaTitulo);
         final TextView bebPrecio = (TextView) findViewById(R.id.bebPrecio);
@@ -43,12 +46,18 @@ public class Pantalla2 extends Activity {
         //////////
 
         Bundle miBundleRecoger = getIntent().getExtras();
-        bebidaTitulo.setText(miBundleRecoger.getString("BEBIDA"));
-        bebPrecio.setText(String.valueOf(miBundleRecoger.getDouble("BEBIDAPRECIO")));
+        bebida = (Bebidas) miBundleRecoger.getSerializable("OBJETO");
+        //bebidaTitulo.setText(miBundleRecoger.getString("BEBIDA"));
+        bebidaTitulo.setText(bebida.getBebida());
+        //bebPrecio.setText(String.valueOf(miBundleRecoger.getDouble("BEBIDAPRECIO")));
+        bebPrecio.setText(String.valueOf(bebida.getPrecio()));
+        showToast(bebida.toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            linear.setBackground(getDrawable(miBundleRecoger.getInt("IMAGEN")));
-            if ((String.valueOf(miBundleRecoger.getInt("IMAGEN"))).equals(String.valueOf(R.drawable.cocacola))){
+            //linear.setBackground(getDrawable(miBundleRecoger.getInt("IMAGEN")));
+            linear.setBackground(getDrawable(bebida.getImagen()));
+            //if ((String.valueOf(miBundleRecoger.getInt("IMAGEN"))).equals(String.valueOf(R.drawable.cocacola))){
+            if ((String.valueOf(bebida.getImagen())).equals(String.valueOf(R.drawable.cocacola))){
                 aperitivoTitulo.setTextColor(Color.WHITE);
                 aperPrecio.setTextColor(Color.WHITE);
                 vasoTitulo.setTextColor(Color.WHITE);
@@ -60,7 +69,8 @@ public class Pantalla2 extends Activity {
                 separador.setBackgroundColor(Color.WHITE);
             }
         }else{
-            linear.setBackgroundDrawable(getResources().getDrawable(miBundleRecoger.getInt("IMAGEN")));
+            //linear.setBackgroundDrawable(getResources().getDrawable(miBundleRecoger.getInt("IMAGEN")));
+            linear.setBackgroundDrawable(getResources().getDrawable(bebida.getImagen()));
         }
         totalPrecio.setText(String.valueOf(miBundleRecoger.getDouble("PRECIO"))+" €");
 
