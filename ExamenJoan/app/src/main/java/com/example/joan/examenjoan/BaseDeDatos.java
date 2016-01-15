@@ -59,17 +59,33 @@ public class BaseDeDatos extends Activity {
 
         botonValidar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                nombre = String.valueOf(lblNombre.getText());
-                apellidos = String.valueOf(lblApellidos.getText());
-                email = String.valueOf(lblEmail.getText());
-                telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
+                int comprueba = comprobar(String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
+                        String.valueOf(lblEmail.getText()), String.valueOf(lblTelefono.getText()));
+                switch(comprueba){
+                    case 0:
+                        break;
+                    case 1:
+                        nombre = String.valueOf(lblNombre.getText());
+                        apellidos = String.valueOf(lblApellidos.getText());
+                        email = String.valueOf(lblEmail.getText());
+                        telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
+                        pulsado();
+                        insertarDatos();
 
-                String todos="Nombre: "+nombre+". Apellidos: "+apellidos+". Email: "+email+". Telefono: "+telefono+"" +
-                        ". Zona: "+zonaSeleccionada+". Tarifa: "+tarifa+". Peso: "+peso+". Decoración: "+caja+". Precio Total: "+precioTotal;
+                }
 
-                showToast(todos);
-                insertarDatos();
-                pulsado();
+
+                //showToast("Nombre: "+nombre+" Apellidos: "+apellidos+" Email: "+email+" Telefono: "+telefono);
+
+
+
+
+                //String todos="Nombre: "+nombre+". Apellidos: "+apellidos+". Email: "+email+". Telefono: "+telefono+"" +
+                  //      ". Zona: "+zonaSeleccionada+". Tarifa: "+tarifa+". Peso: "+peso+". Decoración: "+caja+". Precio Total: "+precioTotal;
+
+                //showToast(todos);
+
+
             }
         });
 
@@ -95,6 +111,28 @@ public class BaseDeDatos extends Activity {
         });
 
     }//fin onCreate
+
+    public int comprobar(String nombre, String apellidos, String email, String telefono){
+        if (nombre.equals("")){
+            showToast("El nombre no puede estar vacío");
+            return 0;
+        }
+        else if (apellidos.equals("")){
+            showToast("Los apellidos no pueden estar vacíos");
+            return 0;
+        }
+        else if (email.equals("")){
+            showToast("El email no puede estar vacío");
+            return 0;
+        }
+        else if (telefono.equals("")){
+            showToast("El teléfono no puede estar vacío");
+            return 0;
+        }
+
+        return 1;
+
+    }
 
     public void pulsado(){
         pulsado = true;
