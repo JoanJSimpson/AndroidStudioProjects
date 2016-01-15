@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     //Creamos variables de clase
 
     Spinner miSpinner;
-    String zonaSeleccionada, tarifaSeleccionada, cajaSeleccionada;
-    Integer imagenSeleccionada;
-    Double precioTotal, precioCaja, precioTarifa, precioZona;
+    String tarifaSeleccionada, cajaSeleccionada;
+    //Integer imagenSeleccionada;
+    Double precioTotal, precioCaja, precioTarifa;
     String marcados;
     CheckBox ch1;
     CheckBox ch2;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton r2;
     EditText peso;
     Double precioPeso;
+    Zonas zona;
 
 
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         precioCaja = 0.0;
         precioTotal=0.0;
         precioTarifa =0.0;
-        precioZona =0.0;
+        //precioZona =0.0;
         ch1 = (CheckBox) findViewById(R.id.ch1);
         ch2 = (CheckBox) findViewById(R.id.ch2);
         miImagen = (ImageView) findViewById(R.id.imagen);
@@ -106,23 +107,23 @@ public class MainActivity extends AppCompatActivity {
 
                 marcados= getDecoracionClick(v);
                 //precioTotal = (precioZona + precioCaja + (Peso*precio))+((precioZona + precioCaja + (Peso*precio))*precioTarifa)
-                precioTotal= (precioCaja + precioZona + precioPeso) + ((precioCaja + precioZona + precioPeso)*precioTarifa) ;
-                Intent miIntent = new Intent(MainActivity.this, Pantalla2.class);
+                precioTotal= (precioCaja + zona.getPrecio() + precioPeso) + ((precioCaja + zona.getPrecio() + precioPeso)*precioTarifa) ;
+                Intent miIntent = new Intent(MainActivity.this, BaseDeDatos.class);
                 Bundle miBundle = new Bundle();
+                miBundle.putSerializable("ZONA", zona);
                 miBundle.putDouble("PRECIOCAJA", precioCaja);
-                miBundle.putDouble("PRECIOZONA", precioZona);
                 miBundle.putDouble("PRECIOPESO", pesoMult);
                 miBundle.putDouble("PRECIOTARIFA", precioTarifa);
-                miBundle.putString("ZONA", zonaSeleccionada);
+                //miBundle.putInt("IMAGEN", imagenSeleccionada);
+                //miBundle.putDouble("PRECIOZONA", precioZona);
+                //miBundle.putString("ZONA", zonaSeleccionada);
                 miBundle.putString("TARIFA", tarifaSeleccionada);
-                miBundle.putInt("IMAGEN", imagenSeleccionada);
                 miBundle.putDouble("PRECIOTOTAL", precioTotal);
                 miBundle.putString("CAJA", marcados);
                 miBundle.putDouble("PESO", pesoSeleccionado);
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);
                 //startActivity(miIntent);
-
 
             }
         });//miBoton
@@ -140,9 +141,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     miImagen.setBackgroundDrawable(getResources().getDrawable(zonas[position].getImagen()));
                 }
-                zonaSeleccionada = zonas[position].getZona();
-                imagenSeleccionada = zonas[position].getImagen();
-                precioZona = zonas[position].getPrecio();
+                //zonaSeleccionada = zonas[position].getZona();
+                //imagenSeleccionada = zonas[position].getImagen();
+                //precioZona = zonas[position].getPrecio();
+                zona = zonas[position];
 
             }
 

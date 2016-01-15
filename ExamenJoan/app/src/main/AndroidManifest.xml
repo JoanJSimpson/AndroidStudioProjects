@@ -19,6 +19,14 @@
             android:name=".Pantalla2"
             android:label="Pantalla2" >
         </activity>
+        <activity
+            android:name=".BaseDeDatos"
+            android:label="BaseDeDatos" >
+        </activity>
+        <activity
+            android:name=".ListaVista"
+            android:label="ListaVista" >
+        </activity>
     </application>
 
 

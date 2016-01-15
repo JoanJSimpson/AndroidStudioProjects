@@ -20,6 +20,7 @@ import android.widget.Toast;
  */
 public class Pantalla2 extends Activity {
     TextView tit;
+    Zonas zona;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +50,10 @@ public class Pantalla2 extends Activity {
             imagen.setBackgroundDrawable(getResources().getDrawable(miBundleRecoger.getInt("IMAGEN")));
         }
         //precioTotal = (precioZona + precioCaja + (Peso*precio))+((precioZona + precioCaja + (Peso*precio))*precioTarifa)
-        precioCaja = miBundleRecoger.getDouble("PRECIOCAJA");
+        zona = (Zonas) miBundleRecoger.getSerializable("ZONA");
+        precioTarifa = zona.getPrecio();
         precioZona = miBundleRecoger.getDouble("PRECIOZONA");
         precioPeso = miBundleRecoger.getDouble("PRECIOPESO");
-        precioTarifa = miBundleRecoger.getDouble("PRECIOTARIFA");
         pesoTotal = miBundleRecoger.getDouble("PESO");
         Double precioTotalSinUrgente = precioTarifa+(pesoTotal*precioPeso);
         lblPrecio.setText(String.valueOf(miBundleRecoger.getDouble("PRECIOTOTAL"))+" €");
@@ -91,17 +92,6 @@ public class Pantalla2 extends Activity {
             }
         });
 
-    //**************************************
-    //No me funciona el adaptador para rellenar la lista
-    //**************************************
-    /*
-
-        AdaptadorZonas adaptador = new AdaptadorZonas(this);
-
-        ListView lstOpciones = (ListView) findViewById(R.id.Lista);
-        lstOpciones.setAdapter(adaptador);
-        */
-
     }//Fin onCreate
 
     public void showToast(String text){
@@ -109,42 +99,5 @@ public class Pantalla2 extends Activity {
     }
 
 
-    //**************************************
-    //No me funciona el adaptador para rellenar la lista
-    //**************************************
-    /*
-    class AdaptadorZonas extends ArrayAdapter {
-        Activity context;
-
-        AdaptadorZonas(Activity context){
-            super(context, R.layout.listitem);
-            this.context = context;
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent){
-            LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.listitem, null);
-
-            TextView lblBebida = (TextView) findViewById(R.id.LblBebida);
-            ImageView imageItem = (ImageView) findViewById(R.id.imagenItem);
-            TextView lblPrecio = (TextView) findViewById(R.id.LblPrecio);
-            TextView lblVaso = (TextView) findViewById(R.id.LblVaso);
-            TextView lblAperitivo = (TextView) findViewById(R.id.LblAperitivo);
-
-            Bundle miBundleRecoger = getIntent().getExtras();
-            lblBebida.setText(miBundleRecoger.getString("BEBIDA"));
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                imageItem.setBackground(getDrawable(miBundleRecoger.getInt("IMAGEN")));
-            }else{
-                imageItem.setBackgroundDrawable(getResources().getDrawable(miBundleRecoger.getInt("IMAGEN")));
-            }
-            lblPrecio.setText(String.valueOf(miBundleRecoger.getDouble("PRECIO")));
-            lblVaso.setText(miBundleRecoger.getString("VASO"));
-            //lblAperitivo.setText(miBundleRecoger.getString("APERITIVO"));
-
-            return (item);
-        }
-    }*/
 
 }

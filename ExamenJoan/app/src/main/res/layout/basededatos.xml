@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/nombreTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#090d45"
+            android:textStyle="bold"
+            android:text="Nombre: "
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nombre"
+            android:hint="Introduce el nombre"
+            android:inputType="text"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/apellidosTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#090d45"
+            android:textStyle="bold"
+            android:text="Apellidos: "
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/apellidos"
+            android:hint="Introduce los apellidos"
+            android:inputType="text"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/emailTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#090d45"
+            android:textStyle="bold"
+            android:text="Email: "
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/email"
+            android:hint="Introduce el email"
+            android:inputType="text"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/telefonoTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#090d45"
+            android:textStyle="bold"
+            android:text="Telefono: "
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/telefono"
+            android:hint="Introduce el telefono"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/botonValidar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulsar para Añadir"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        android:id="@+id/botonSiguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulsar para Aceptar"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        android:id="@+id/botonVer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pulsar para Ver BD"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+
+</LinearLayout>

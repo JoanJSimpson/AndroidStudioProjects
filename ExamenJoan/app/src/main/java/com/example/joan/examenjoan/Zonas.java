@@ -1,9 +1,11 @@
 package com.example.joan.examenjoan;
 
+import java.io.Serializable;
+
 /**
  * Created by Joan on 9/11/15.
  */
-public class Zonas {
+public class Zonas implements Serializable{
 
         private String zona, continente;
         private double precio;
