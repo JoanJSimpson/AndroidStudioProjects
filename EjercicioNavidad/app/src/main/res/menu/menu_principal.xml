@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nuevoUsuario" android:title="Nuevo Usuario"></item>
+    <item android:id="@+id/verBaseDatos" android:title="Ver Base de Datos"></item>
+    <item android:id="@+id/acercaDe" android:title="Acerca De"></item>
+</menu>

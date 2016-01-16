@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +51,7 @@ public class ListaVista extends AppCompatActivity {
         ListView lista = (ListView) findViewById(com.example.joan.ejercicionavidad.R.id.listViewClientes);
 
         //Adaptador listView
-        miAdaptador adaptador = new miAdaptador(this);
+        final miAdaptador adaptador = new miAdaptador(this);
         lista.setAdapter(adaptador);
 
         //Menu para eliminar al dejar pulsado una linea del ListView
@@ -178,18 +179,18 @@ public class ListaVista extends AppCompatActivity {
 
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(com.example.joan.ejercicionavidad.R.layout.listadaptador, null);
-            LinearLayout linear = (LinearLayout) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoLinear);
-            TextView id = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoId);
-            TextView nombre = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoNombre);
-            TextView apellidos = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoApellidos);
-            TextView email = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoEmail);
-            TextView telefono = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoTelefono);
-            TextView zona = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoZona);
-            TextView tarifa = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoTarifa);
-            TextView peso = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoPeso);
-            TextView decoracion = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoDecoracion);
-            TextView coste = (TextView) item.findViewById(com.example.joan.ejercicionavidad.R.id.campoCoste);
+            View item = inflater.inflate(R.layout.listadaptador, null);
+            LinearLayout linear = (LinearLayout) item.findViewById(R.id.campoLinear);
+            TextView id = (TextView) item.findViewById(R.id.campoId);
+            TextView nombre = (TextView) item.findViewById(R.id.campoNombre);
+            TextView apellidos = (TextView) item.findViewById(R.id.campoApellidos);
+            TextView email = (TextView) item.findViewById(R.id.campoEmail);
+            TextView telefono = (TextView) item.findViewById(R.id.campoTelefono);
+            TextView zona = (TextView) item.findViewById(R.id.campoZona);
+            TextView tarifa = (TextView) item.findViewById(R.id.campoTarifa);
+            TextView peso = (TextView) item.findViewById(R.id.campoPeso);
+            TextView decoracion = (TextView) item.findViewById(R.id.campoDecoracion);
+            TextView coste = (TextView) item.findViewById(R.id.campoCoste);
             //ImageView imagen = (ImageView) item.findViewById(R.id.campoImagen);
 
             id.setText(String.valueOf("ID: "+datos[position].getId()));
@@ -202,12 +203,13 @@ public class ListaVista extends AppCompatActivity {
             peso.setText("Peso: "+String.valueOf(datos[position].getPeso())+" Kg");
             decoracion.setText("Decoración: "+datos[position].getDecoracion());
             coste.setText(String.valueOf("Precio: "+datos[position].getCoste())+" €");
-            linear.setBackground(getDrawable(datos[position].getImagen()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                linear.setBackground(getDrawable(datos[position].getImagen()));
+            }
 
             return (item);
         }
     }
-
     public void recargar() {
 
         Intent home_intent = new Intent(getApplicationContext(), ListaVista.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

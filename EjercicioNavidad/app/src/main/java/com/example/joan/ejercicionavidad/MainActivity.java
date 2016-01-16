@@ -6,6 +6,8 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,6 +53,46 @@ public class MainActivity extends AppCompatActivity {
     Zonas zona;
 
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Alternativa 1
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nuevoUsuario:
+                nuevoUsuario();
+                return true;
+            case R.id.verBaseDatos:
+                verBaseDatos();
+                return true;
+            case R.id.acercaDe:
+                acercaDe();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void nuevoUsuario(){
+
+    }
+
+    private void verBaseDatos(){
+        Intent miIntent = new Intent(MainActivity.this, ListaVista.class);
+        Bundle miBundle = new Bundle();
+        //startActivityForResult(miIntent, COD_RESPUESTA);
+        startActivity(miIntent);
+
+    }
+
+    private void acercaDe(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
