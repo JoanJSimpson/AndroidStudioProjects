@@ -19,6 +19,7 @@
             android:name=".Pantalla2"
             android:label="Pantalla2" >
         </activity>
+
     </application>
 
 </manifest>
