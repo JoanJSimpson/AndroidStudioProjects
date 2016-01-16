@@ -9,7 +9,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity"
+            android:label="Agencia de Transportes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,11 +23,11 @@
         </activity>
         <activity
             android:name=".BaseDeDatos"
-            android:label="BaseDeDatos" >
+            android:label="Base De Datos" >
         </activity>
         <activity
             android:name=".ListaVista"
-            android:label="ListaVista" >
+            android:label="Datos Clientes" >
         </activity>
     </application>
 

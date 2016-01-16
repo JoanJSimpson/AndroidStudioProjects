@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by Joan on 15/1/16.
  */
-public class BaseDeDatos extends Activity {
+public class BaseDeDatos extends AppCompatActivity {
     String nombre, apellidos, email, caja, tarifa, zonaSeleccionada;
     Double precioTarifa, precioZona, precioPeso, peso, precioTotal;
     int telefono, imagen;
