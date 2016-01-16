@@ -17,7 +17,6 @@ public class BaseDeDatos extends Activity {
     String nombre, apellidos, email, caja, tarifa, zonaSeleccionada;
     Double precioTarifa, precioZona, precioPeso, peso, precioTotal;
     int telefono, imagen;
-    boolean pulsado = false;
     Zonas zona;
 
     @Override
@@ -26,7 +25,6 @@ public class BaseDeDatos extends Activity {
         setContentView(R.layout.basededatos);
 
         final Button botonValidar = (Button) findViewById(R.id.botonValidar);
-        final Button botonAceptar = (Button) findViewById(R.id.botonSiguiente);
         final Button botonVer = (Button) findViewById(R.id.botonVer);
 
         final EditText lblNombre = (EditText) findViewById(R.id.nombre);
@@ -64,7 +62,6 @@ public class BaseDeDatos extends Activity {
                         apellidos = String.valueOf(lblApellidos.getText());
                         email = String.valueOf(lblEmail.getText());
                         telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
-                        pulsado();
                         insertarDatos();
 
                 }
@@ -82,17 +79,6 @@ public class BaseDeDatos extends Activity {
             }
         });
 
-        botonAceptar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (pulsado == true) {
-                    Intent miIntent = new Intent(BaseDeDatos.this, ListaVista.class);
-                    startActivity(miIntent);
-                } else {
-                    showToast("Tienes que añadir primero al usuario");
-                }
-            }
-
-        });
 
         botonVer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -122,10 +108,6 @@ public class BaseDeDatos extends Activity {
 
         return 1;
 
-    }
-
-    public void pulsado() {
-        pulsado = true;
     }
 
     public void insertarDatos() {

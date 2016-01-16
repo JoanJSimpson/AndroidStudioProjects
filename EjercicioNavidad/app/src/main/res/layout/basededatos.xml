@@ -105,15 +105,6 @@
         android:layout_gravity="center_horizontal|bottom" />
 
     <Button
-        android:id="@+id/botonSiguiente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pulsar para Aceptar"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal|bottom" />
-
-    <Button
         android:id="@+id/botonVer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

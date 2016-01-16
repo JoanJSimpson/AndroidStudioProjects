@@ -1,13 +1,23 @@
 package com.example.joan.ejercicionavidad;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -21,9 +31,14 @@ import android.widget.Toast;
  */
 public class ListaVista extends AppCompatActivity {
 
-
-    String[] clientes;
     DatosClientes[] datos;
+
+
+
+    protected void onUpdate (Bundle savedInstanceState) {
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +53,56 @@ public class ListaVista extends AppCompatActivity {
         miAdaptador adaptador = new miAdaptador(this);
         lista.setAdapter(adaptador);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //Menu para eliminar al dejar pulsado una linea del ListView
+        lista.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        lista.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            private int idSeleccionado;
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-
-                showToast("Pulsado: "+datos[position].toString());
-                //String item =
-
-                //Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-
+            public void onItemCheckedStateChanged(ActionMode mode, int position,
+                                                  long id, boolean checked) {
+                // Here you can do something when items are selected/de-selected,
+                // such as update the title in the CAB
+                //showToast("PULSADO ID: "+datos[position].getId());
+                idSeleccionado = datos[position].getId();
             }
-        });
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                // Respond to clicks on the actions in the CAB
+                switch (item.getItemId()) {
+                    case R.id.eliminar:
+                        eliminar(idSeleccionado);
+                        recargar();
+                        //showToast("ELIMINAR id: "+idSeleccionado);
+                        mode.finish(); // Action picked, so close the CAB
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Inflate the menu for the CAB
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.menu, menu);
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // Here you can make any necessary updates to the activity when
+                // the CAB is removed. By default, selected items are deselected/unchecked.
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Here you can perform updates to the CAB due to
+                // an invalidate() request
+                return false;
+            }
+        });//final menu contextual listView
 
     }
 
@@ -96,6 +149,23 @@ public class ListaVista extends AppCompatActivity {
 
     }
 
+    public void eliminar(int id) {
+
+        SQLiteHelper admin = new SQLiteHelper(this, "DBClientes.sqlite", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String[] idBorrar = new String[]{String.valueOf(id)};
+
+        bd.delete("Clientes", "id=?", idBorrar);
+
+        //bd.insert("Clientes", null, contentValues);
+
+        bd.close();
+
+        showToast("Cliente eliminado correctamente");
+
+
+    }//fin eliminar
+
 
     class miAdaptador extends ArrayAdapter<Object> {
         Activity context;
@@ -133,17 +203,17 @@ public class ListaVista extends AppCompatActivity {
             decoracion.setText("Decoración: "+datos[position].getDecoracion());
             coste.setText(String.valueOf("Precio: "+datos[position].getCoste())+" €");
             linear.setBackground(getDrawable(datos[position].getImagen()));
-  //          imagen.setBackground(getDrawable(datos[position].getImagen()));
 
             return (item);
         }
-
     }
 
+    public void recargar() {
 
+        Intent home_intent = new Intent(getApplicationContext(), ListaVista.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-
-
+        startActivity(home_intent);
+    }
 
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
