@@ -45,7 +45,7 @@ public class ListaVista extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(com.example.joan.ejercicionavidad.R.layout.listavista);
+        setContentView(R.layout.listavista);
 
         listar();
         ListView lista = (ListView) findViewById(com.example.joan.ejercicionavidad.R.id.listViewClientes);

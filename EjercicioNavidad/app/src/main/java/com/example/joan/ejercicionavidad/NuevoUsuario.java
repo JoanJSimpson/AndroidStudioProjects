@@ -2,6 +2,7 @@ package com.example.joan.ejercicionavidad;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.Toast;
  * Created by Joan on 16/1/16.
  */
 public class NuevoUsuario extends Activity{
-    private String user, nombre, apellidos, email;
+    private String user, nombre, apellidos, email, password;
     private int telefono;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,24 +28,50 @@ public class NuevoUsuario extends Activity{
         final EditText lblApellidos = (EditText) findViewById(R.id.nuapellidos);
         final EditText lblTelefono = (EditText) findViewById(R.id.nutelefono);
         final EditText lblEmail = (EditText) findViewById(R.id.nuemail);
+        final EditText lblPassword = (EditText) findViewById(R.id.nuContrasena_input);
 
         final Button botonValidar = (Button) findViewById(R.id.nuBotonValidar);
 
+
         botonValidar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int comprueba = comprobar(String.valueOf(lblUser.getText()), String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
+                int comprueba = comprobar(String.valueOf(lblUser.getText()), String.valueOf(lblPassword.getText()), String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
                         String.valueOf(lblEmail.getText()), String.valueOf(lblTelefono.getText()));
                 switch (comprueba) {
                     case 0:
                         break;
                     case 1:
+
+                        boolean existe=false;
                         user = lblUser.getText().toString();
-                        nombre = String.valueOf(lblNombre.getText());
-                        apellidos = String.valueOf(lblApellidos.getText());
-                        email = String.valueOf(lblEmail.getText());
+                        password = lblPassword.getText().toString();
+                        nombre = lblNombre.getText().toString();
+                        apellidos = lblApellidos.getText().toString();
+                        email = lblEmail.getText().toString();
                         telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
-                        Usuario usuario = new Usuario(1, user, nombre, apellidos, email, telefono);
-                        insertarDatos(usuario);
+                        Usuario usuario = new Usuario(user, password, nombre, apellidos, email, telefono);
+                        Usuario[] compruebaUser = listar();
+                        if (compruebaUser != null){
+                            for (int i=0; i<compruebaUser.length; i++){
+                                if (compruebaUser[i].getUsuario().equals(usuario.getUsuario())){
+                                    existe = true;
+                                }
+                            }
+                            if (existe){
+                                showToast("Ya existe el usuario!");
+                            }else{
+                                insertarDatos(usuario);
+                                Bundle miBundle = new Bundle();
+                                miBundle.putSerializable("USER", usuario);
+                                Intent miIntent = new Intent(NuevoUsuario.this, PantallaPrincipal.class);
+
+                                miIntent.putExtras(miBundle);
+                                startActivity(miIntent);
+                            }
+                        }else{
+                            showToast("No ha podido abrirse la Base de Datos");
+                        }
+
 
                 }
             }
@@ -52,12 +79,15 @@ public class NuevoUsuario extends Activity{
     }
 
 
-    public int comprobar(String user, String nombre, String apellidos, String email, String telefono) {
+    public int comprobar(String user, String password, String nombre, String apellidos, String email, String telefono) {
         if (user.equals("")) {
             showToast("El usuario no puede estar vacío");
             return 0;
+        } else if (password.equals("")){
+            showToast("La contraseña no puede estar vacía");
+            return 0;
         } else if (nombre.equals("")) {
-            showToast("El nombre no pueden estar vacíos");
+            showToast("El nombre no puede estar vacío");
             return 0;
         } else if (apellidos.equals("")) {
             showToast("Los apellidos no pueden estar vacíos");
@@ -83,6 +113,7 @@ public class NuevoUsuario extends Activity{
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("user", usuario.getUsuario());
+        contentValues.put("password", usuario.getPassword());
         contentValues.put("nombre", usuario.getNombre());
         contentValues.put("apellidos", usuario.getApellidos());
         contentValues.put("email", usuario.getEmail());
@@ -97,10 +128,11 @@ public class NuevoUsuario extends Activity{
         showToast("Usuario guardado correctamente");
     }
 
-    public void listar() {
+    public Usuario[] listar() {
 
         SQLiteHelper sqliteHelper = new SQLiteHelper(this, "DBClientes.sqlite", null, 1);
         SQLiteDatabase bd = sqliteHelper.getReadableDatabase();
+        Usuario usuario[]=null;
 
         if (bd != null) {
             Cursor cursor = bd.rawQuery("SELECT * FROM Usuarios", null);
@@ -108,24 +140,20 @@ public class NuevoUsuario extends Activity{
             int i = 0;
             //String[] clientes = new String[cantidad];
             String compruebaUsuario;
+            usuario = new Usuario[cantidad];
             //datos = new DatosClientes[cantidad];
 
             if (cursor.moveToFirst()) {
                 do {
+                    usuario[i] = new Usuario(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5));
                     /*DatosClientes datosAInsertar = new DatosClientes(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
                             cursor.getString(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
                             cursor.getDouble(7), cursor.getString(8), cursor.getDouble(9), cursor.getInt(10));
                     datos[i] = datosAInsertar;*/
                     i++;
-                    /*String linea = cursor.getInt(0) + " - " + cursor.getString(1) + "\n" + cursor.getString(2)
-                            + "\n" + cursor.getString(3) + "\n" + cursor.getInt(4)
-                            + "\n" + cursor.getString(5) + "\n"  + cursor.getString(6)
-                            + "\n" + cursor.getDouble(7) + "\n" + cursor.getString(8)
-                            + "\n" + cursor.getDouble(9)+ "\n" + cursor.getInt(10);
-                    clientes[i] = linea;
-                    i++;*/
                 } while (cursor.moveToNext());
             }
+
 
             //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, clientes);
             //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, clientes);
@@ -135,6 +163,7 @@ public class NuevoUsuario extends Activity{
             cursor.close();
             bd.close();
         }
+        return usuario;
     }
 
     public void showToast(String text) {

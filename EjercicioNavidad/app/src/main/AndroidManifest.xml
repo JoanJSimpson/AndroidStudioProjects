@@ -29,6 +29,14 @@
             android:name=".ListaVista"
             android:label="Datos Clientes" >
         </activity>
+        <activity
+            android:name=".NuevoUsuario"
+            android:label="Nuevo Usuario" >
+        </activity>
+        <activity
+            android:name=".PantallaPrincipal"
+            android:label="Agencia de Transportes" >
+        </activity>
     </application>
 
 

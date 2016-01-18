@@ -13,6 +13,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     //Cadena con la sentencia SQL que permite crear la tabla Clientes
     String cadSQL = "CREATE TABLE Clientes (id INTEGER PRIMARY KEY, nombre TEXT, apellidos TEXT, email TEXT, telefono INTEGER, zona TEXT, " +
             "tarifa TEXT, peso DOUBLE, decoracion TEXT, coste DOUBLE, imagen INTEGER)";
+    String cadSQL2 = "CREATE TABLE Usuarios (User TEXT PRIMARY KEY, password TEXT, nombre TEXT, apellidos TEXT, email TEXT, telefono INTEGER)";
 
     public SQLiteHelper(Context contexto, String nombre, CursorFactory basededatos, int version){
         super(contexto, nombre, basededatos, version);
@@ -26,6 +27,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         //Ejecutamos la sentencia SQL para crear la tabla Clientes
         //El metodo execSQL se limita a ejecutar directamente el codigo SQL que le pasemos.
         bd.execSQL(cadSQL);
+        bd.execSQL(cadSQL2);
     }
 
     //Este metodo se lanza automaticamente cuando es necesaria una actualizacion de la estructura
@@ -39,9 +41,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         //Eliminamos la version anterior de la tabla
         bd.execSQL("DROP TABLE IF EXISTS Clientes");
+        bd.execSQL("DROP TABLE IF EXISTS Usuarios");
 
         //Creamos la nueva versi�n de la tabla
         bd.execSQL(cadSQL);
+        bd.execSQL(cadSQL2);
     }
 }
 

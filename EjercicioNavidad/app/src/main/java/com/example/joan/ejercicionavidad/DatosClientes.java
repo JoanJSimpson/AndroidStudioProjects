@@ -24,7 +24,6 @@ public class DatosClientes {
         this.imagen = imagen;
     }
 
-
     public String getNombre() {
         return nombre;
     }

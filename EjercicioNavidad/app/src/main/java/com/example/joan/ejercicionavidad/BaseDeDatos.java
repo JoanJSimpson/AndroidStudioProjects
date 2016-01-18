@@ -19,6 +19,7 @@ public class BaseDeDatos extends AppCompatActivity {
     Double precioTarifa, precioZona, precioPeso, peso, precioTotal;
     int telefono, imagen;
     Zonas zona;
+    Usuario user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,14 @@ public class BaseDeDatos extends AppCompatActivity {
         final EditText lblEmail = (EditText) findViewById(R.id.email);
 
         Bundle bundle = getIntent().getExtras();
+
+
+        user = (Usuario) bundle.getSerializable("USER2");
+        lblNombre.setText(user.getNombre());
+        lblApellidos.setText(user.getApellidos());
+        lblTelefono.setText(String.valueOf(user.getTelefono()));
+        lblEmail.setText(user.getEmail());
+        //showToast(user.toString());
 
 
         zona = (Zonas) bundle.getSerializable("ZONA");
@@ -53,7 +62,7 @@ public class BaseDeDatos extends AppCompatActivity {
 
         botonValidar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int comprueba = comprobar(String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
+                /*int comprueba = comprobar(String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
                         String.valueOf(lblEmail.getText()), String.valueOf(lblTelefono.getText()));
                 switch (comprueba) {
                     case 0:
@@ -65,17 +74,12 @@ public class BaseDeDatos extends AppCompatActivity {
                         telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
                         insertarDatos();
 
-                }
-
-
-                //showToast("Nombre: "+nombre+" Apellidos: "+apellidos+" Email: "+email+" Telefono: "+telefono);
-
-
-                //String todos="Nombre: "+nombre+". Apellidos: "+apellidos+". Email: "+email+". Telefono: "+telefono+"" +
-                //      ". Zona: "+zonaSeleccionada+". Tarifa: "+tarifa+". Peso: "+peso+". Decoración: "+caja+". Precio Total: "+precioTotal;
-
-                //showToast(todos);
-
+                }*/
+                nombre = user.getNombre();
+                apellidos = user.getApellidos();
+                email = user.getEmail();
+                telefono = user.getTelefono();
+                insertarDatos();
 
             }
         });
