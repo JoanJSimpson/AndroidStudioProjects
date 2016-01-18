@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Fragmento con un diálogo personalizado
@@ -86,11 +89,46 @@ public class LoginDialog extends DialogFragment {
 
     }
     public void crear(){
-        Intent miIntent = new Intent(getActivity(), NuevoUsuario.class);
+        Intent miIntent = new Intent(getActivity(), FormNuevoUsuario.class);
         startActivity(miIntent);
 
     }
 
+    public void login(String usuario, String password){
+
+        List<ClaseUsuario> user = compruebaUser();
+        Boolean existe = false;
+        int j=0;
+        for (int i = 0; i< user.size(); i++){
+            if (user.get(i).getUser().equals(usuario) && user.get(i).getPassword().equals(password)){
+                //if (user[i].getUsuario().equals(usuario)){
+                existe = true;
+                j=i;
+            }
+        }
+        if (existe){
+            Intent miIntent = new Intent(this.getContext(), FormPedido.class);
+            Bundle miBundle = new Bundle();
+            miBundle.putSerializable("USERLOGIN", user.get(j));
+            miIntent.putExtras(miBundle);
+
+            startActivity(miIntent);
+            dismiss();
+        } else{
+            showToast("Error en el User o Contraseña");
+        }
+
+    }
+
+    public List<ClaseUsuario> compruebaUser(){
+
+        SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
+        List<ClaseUsuario> usuarios = new ArrayList<ClaseUsuario>();
+        usuarios = sql.getTodosUsuarios();
+        return usuarios;
+    }
+
+/*
     public void login(String usuario, String password){
 
         Usuario[] user = compruebaUser();
@@ -104,7 +142,7 @@ public class LoginDialog extends DialogFragment {
             }
         }
         if (existe){
-            Intent miIntent = new Intent(this.getContext(), PantallaPrincipal.class);
+            Intent miIntent = new Intent(this.getContext(), FormPedido.class);
             Bundle miBundle = new Bundle();
             miBundle.putSerializable("USER", user[j]);
             miIntent.putExtras(miBundle);
@@ -144,7 +182,7 @@ public class LoginDialog extends DialogFragment {
         }
         return usuario;
     }
-
+*/
 
     public void showToast(String text){Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT).show();
     }

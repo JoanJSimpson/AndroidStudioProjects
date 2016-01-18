@@ -1,7 +1,9 @@
 package com.example.joan.ejercicionavidad;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PantallaPrincipal extends AppCompatActivity {
+public class FormPedido extends AppCompatActivity {
 
 
     public static int COD_RESPUESTA=0;
@@ -51,7 +53,7 @@ public class PantallaPrincipal extends AppCompatActivity {
     EditText peso;
     Double precioPeso;
     Zonas zona;
-    Usuario user;
+    ClaseUsuario user;
 
 
 
@@ -62,6 +64,7 @@ public class PantallaPrincipal extends AppCompatActivity {
         return true;
     }
 
+    //Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -79,22 +82,27 @@ public class PantallaPrincipal extends AppCompatActivity {
         }
     }
 
+    //Elementos del menu
     private void nuevoUsuario(){
-
+        //TODO
     }
 
     private void verBaseDatos(){
-        Intent miIntent = new Intent(PantallaPrincipal.this, ListaVista.class);
+        Intent miIntent = new Intent(FormPedido.this, ViewLista.class);
         Bundle miBundle = new Bundle();
-        //startActivityForResult(miIntent, COD_RESPUESTA);
+        miBundle.putSerializable("USER2", user);
+        miIntent.putExtras(miBundle);
+
         startActivity(miIntent);
 
     }
 
     private void acercaDe(){
-
+        //TODO
     }
 
+
+    //onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +115,6 @@ public class PantallaPrincipal extends AppCompatActivity {
         precioCaja = 0.0;
         precioTotal=0.0;
         precioTarifa =0.0;
-        //precioZona =0.0;
         ch1 = (CheckBox) findViewById(R.id.ch1);
         ch2 = (CheckBox) findViewById(R.id.ch2);
         miImagen = (ImageView) findViewById(R.id.imagen);
@@ -117,8 +124,7 @@ public class PantallaPrincipal extends AppCompatActivity {
         r2= (RadioButton) findViewById(R.id.radioButton2);
         peso = (EditText) findViewById(R.id.peso);
         Bundle recoger = getIntent().getExtras();
-        user = (Usuario) recoger.getSerializable("USER");
-
+        user = (ClaseUsuario) recoger.getSerializable("USERLOGIN");
 
 
 
@@ -126,14 +132,14 @@ public class PantallaPrincipal extends AppCompatActivity {
         //Boton para pasar a la siguiente pantalla
         miBoton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String parsearPeso = String.valueOf(peso.getText());
+                String parsearPeso = peso.getText().toString();
                 Double pesoSeleccionado, pesoMult;
                 if (parsearPeso.equals("")){
                     pesoSeleccionado = 0.0;
                     pesoMult=0.0;
                     precioPeso=0.0;
                 }else{
-                    pesoSeleccionado = Double.parseDouble(String.valueOf(peso.getText()));
+                    pesoSeleccionado = Double.parseDouble(peso.getText().toString());
                     if (pesoSeleccionado<=5.0){
                         pesoMult=1.0;
                     }else if (pesoSeleccionado<=10.0){
@@ -141,26 +147,39 @@ public class PantallaPrincipal extends AppCompatActivity {
                     }else {
                         pesoMult = 2.0;
                     }
+                    //precioTotal en funcion del peso seleccionado
                     precioPeso = pesoSeleccionado*pesoMult;
                 }
 
+                //String de los productos marcados
                 marcados= getDecoracionClick(v);
                 //precioTotal = (precioZona + precioCaja + (Peso*precio))+((precioZona + precioCaja + (Peso*precio))*precioTarifa)
-                precioTotal= (precioCaja + zona.getPrecio() + precioPeso) + ((precioCaja + zona.getPrecio() + precioPeso)*precioTarifa) ;
-                Intent miIntent = new Intent(PantallaPrincipal.this, BaseDeDatos.class);
+                //precio total a pagar
+                precioTotal= (precioCaja + zona.getPrecio() + precioPeso) + ((precioCaja + zona.getPrecio() + precioPeso)*precioTarifa);
+
+                //Insertamos el pedido en la base de datos
+
+                SQLiteHelper2 sql = new SQLiteHelper2( getApplicationContext(), "DBClientes.sqlite", null, 1);
+                SQLiteDatabase db = sql.getWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put("usuarioDni", user.getDni());
+                values.put("zonaId", zona.getZona());
+                values.put("tarifa", tarifaSeleccionada);
+                values.put("peso", pesoSeleccionado);
+                values.put("precio", precioTotal);
+                values.put("imagen", zona.getImagen());
+
+                db.insert("envios", null, values);
+                db.close();
+
+
+                /*ClasePedido pedido = new ClasePedido(1, user.getDni(), zona.getZona(), tarifaSeleccionada, marcados, pesoSeleccionado,
+                        precioTotal, zona.getImagen());*/
+                Intent miIntent = new Intent(FormPedido.this, ViewLista.class);
                 Bundle miBundle = new Bundle();
                 miBundle.putSerializable("USER2", user);
-                miBundle.putSerializable("ZONA", zona);
-                miBundle.putDouble("PRECIOCAJA", precioCaja);
-                miBundle.putDouble("PRECIOPESO", pesoMult);
-                miBundle.putDouble("PRECIOTARIFA", precioTarifa);
-                //miBundle.putInt("IMAGEN", imagenSeleccionada);
-                //miBundle.putDouble("PRECIOZONA", precioZona);
-                //miBundle.putString("ZONA", zonaSeleccionada);
-                miBundle.putString("TARIFA", tarifaSeleccionada);
-                miBundle.putDouble("PRECIOTOTAL", precioTotal);
-                miBundle.putString("CAJA", marcados);
-                miBundle.putDouble("PESO", pesoSeleccionado);
+
                 miIntent.putExtras(miBundle);
                 startActivityForResult(miIntent, COD_RESPUESTA);
                 //startActivity(miIntent);
@@ -169,7 +188,7 @@ public class PantallaPrincipal extends AppCompatActivity {
         });//miBoton
 
 
-        //Creamos el spiner
+        //Creamos el spinner
         miSpinner = (Spinner) findViewById(R.id.spinner1);
         AdaptadorZonas miAdaptador= new AdaptadorZonas(this);
         miSpinner.setAdapter(miAdaptador);
@@ -181,9 +200,6 @@ public class PantallaPrincipal extends AppCompatActivity {
                 } else {
                     miImagen.setBackgroundDrawable(getResources().getDrawable(zonas[position].getImagen()));
                 }
-                //zonaSeleccionada = zonas[position].getZona();
-                //imagenSeleccionada = zonas[position].getImagen();
-                //precioZona = zonas[position].getPrecio();
                 zona = zonas[position];
 
             }
@@ -236,6 +252,7 @@ public class PantallaPrincipal extends AppCompatActivity {
         }
         return strMessage;
     }
+
 
 
     public void showToast(String text){

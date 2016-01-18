@@ -14,6 +14,7 @@
     <string name="olvidar_text">¿Olvidaste tu Contraseña?</string>
     <string name="user_input">Usuario</string>
     <string name="apellidos_input">Apellidos</string>
+    <string name="dni_input">DNI</string>
     <string name="telefono_input">Telefono</string>
     <string name="email_input">Email</string>
     <string name="entrar_boton">ENTRAR</string>

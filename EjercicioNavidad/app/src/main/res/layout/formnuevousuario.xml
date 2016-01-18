@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
-        android:id="@+id/nuContrasena_input"
+        android:id="@+id/nuContrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nuUser"
@@ -34,10 +34,25 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
+        android:id="@+id/nuDni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nuContrasena"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/padding_between"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="@string/dni_input"
+        android:inputType="textPersonName"
+        android:padding="@dimen/edit_text_padding"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
         android:id="@+id/nuNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nuContrasena_input"
+        android:layout_below="@+id/nuDni"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/normal_padding"
         android:background="@drawable/edit_text_border"

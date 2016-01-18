@@ -33,10 +33,28 @@
             android:name=".NuevoUsuario"
             android:label="Nuevo Usuario" >
         </activity>
+
         <activity
             android:name=".PantallaPrincipal"
             android:label="Agencia de Transportes" >
         </activity>
+
+
+
+
+        <activity
+            android:name=".FormNuevoUsuario"
+            android:label="Alta Nuevo Usuario" >
+        </activity>
+        <activity
+            android:name=".ViewLista"
+            android:label="Datos Clientes" >
+        </activity>
+        <activity
+            android:name=".FormPedido"
+            android:label="Nuevo Pedido" >
+        </activity>
+
     </application>
 
 

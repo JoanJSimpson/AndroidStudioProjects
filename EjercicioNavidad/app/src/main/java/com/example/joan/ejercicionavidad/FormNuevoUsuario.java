@@ -1,90 +1,97 @@
 package com.example.joan.ejercicionavidad;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 /**
- * Created by Joan on 16/1/16.
+ * Created by Joan on 18/1/16.
  */
-public class NuevoUsuario extends Activity{
-    private String user, nombre, apellidos, email, password;
+public class FormNuevoUsuario extends AppCompatActivity{
+    private String user, nombre, apellidos, email, password, dni, telefono_comprobar;
     private int telefono;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nuevousuario);
+        setContentView(R.layout.formnuevousuario);
 
+        /*
+        Creamos los Objetos del xml
+         */
 
         final EditText lblUser = (EditText) findViewById(R.id.nuUser);
         final EditText lblNombre = (EditText) findViewById(R.id.nuNombre);
         final EditText lblApellidos = (EditText) findViewById(R.id.nuApellidos);
         final EditText lblTelefono = (EditText) findViewById(R.id.nuTelefono);
         final EditText lblEmail = (EditText) findViewById(R.id.nuEmail);
-        final EditText lblPassword = (EditText) findViewById(R.id.nuContrasena_input);
-
+        final EditText lblDni = (EditText) findViewById(R.id.nuDni);
+        final EditText lblPassword = (EditText) findViewById(R.id.nuContrasena);
         final Button botonValidar = (Button) findViewById(R.id.nuBotonValidar);
 
 
+        //Cuando pulsamos el boton
         botonValidar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int comprueba = comprobar(String.valueOf(lblUser.getText()), String.valueOf(lblPassword.getText()), String.valueOf(lblNombre.getText()), String.valueOf(lblApellidos.getText()),
-                        String.valueOf(lblEmail.getText()), String.valueOf(lblTelefono.getText()));
+                user = lblUser.getText().toString();
+                password = lblPassword.getText().toString();
+                nombre = lblNombre.getText().toString();
+                dni = lblDni.getText().toString();
+                apellidos = lblApellidos.getText().toString();
+                email = lblEmail.getText().toString();
+                telefono_comprobar = lblTelefono.getText().toString();
+                //Comprobamos que todos los campos se hayan rellenado
+                int comprueba = comprobar(user, password, dni, nombre, apellidos, email, telefono_comprobar);
                 switch (comprueba) {
                     case 0:
                         break;
                     case 1:
-
-                        boolean existe=false;
-                        user = lblUser.getText().toString();
-                        password = lblPassword.getText().toString();
-                        nombre = lblNombre.getText().toString();
-                        apellidos = lblApellidos.getText().toString();
-                        email = lblEmail.getText().toString();
-                        telefono = Integer.parseInt(String.valueOf(lblTelefono.getText()));
-                        Usuario usuario = new Usuario(user, password, nombre, apellidos, email, telefono);
-                        Usuario[] compruebaUser = listar();
-                        if (compruebaUser != null){
-                            for (int i=0; i<compruebaUser.length; i++){
-                                if (compruebaUser[i].getUsuario().equals(usuario.getUsuario())){
-                                    existe = true;
-                                }
-                            }
-                            if (existe){
-                                showToast("Ya existe el usuario!");
+                        SQLiteHelper2 sql = new SQLiteHelper2( getApplicationContext(), "DBClientes.sqlite", null, 1);
+                        ClaseUsuario compruebaUsuario = sql.getUsuario(dni);
+                        if (compruebaUsuario != null){
+                            if (compruebaUsuario.getDni().equals(dni)){
+                                showToast("Ya existe el usuario");
                             }else{
-                                insertarDatos(usuario);
+                                ClaseUsuario usuario = new ClaseUsuario(Integer.parseInt(telefono_comprobar), user, password, dni, nombre, apellidos, email);
+                                sql.crearUsuario(usuario);
                                 Bundle miBundle = new Bundle();
                                 miBundle.putSerializable("USER", usuario);
-                                Intent miIntent = new Intent(NuevoUsuario.this, PantallaPrincipal.class);
+                                Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
 
                                 miIntent.putExtras(miBundle);
                                 startActivity(miIntent);
                             }
-                        }else{
-                            showToast("No ha podido abrirse la Base de Datos");
+
+                        }else {
+                            ClaseUsuario usuario = new ClaseUsuario(Integer.parseInt(telefono_comprobar), user, password, dni, nombre, apellidos, email);
+                            sql.crearUsuario(usuario);
+                            Bundle miBundle = new Bundle();
+                            miBundle.putSerializable("USERFORM", usuario);
+                            Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
+
+                            miIntent.putExtras(miBundle);
+                            startActivity(miIntent);
                         }
-
-
                 }
             }
         });
     }
 
 
-    public int comprobar(String user, String password, String nombre, String apellidos, String email, String telefono) {
+    public int comprobar(String user, String password, String dni, String nombre, String apellidos, String email, String telefono) {
         if (user.equals("")) {
             showToast("El usuario no puede estar vacío");
             return 0;
         } else if (password.equals("")){
             showToast("La contraseña no puede estar vacía");
+            return 0;
+        } else if (dni.equals("")){
+            showToast("El DNI no puede estar vacía");
             return 0;
         } else if (nombre.equals("")) {
             showToast("El nombre no puede estar vacío");
@@ -103,7 +110,7 @@ public class NuevoUsuario extends Activity{
         return 1;
 
     }
-
+/*
     public void insertarDatos(Usuario usuario) {
 
         SQLiteHelper admin = new SQLiteHelper(this, "DBClientes.sqlite", null, 1);
@@ -149,7 +156,7 @@ public class NuevoUsuario extends Activity{
                     /*DatosClientes datosAInsertar = new DatosClientes(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
                             cursor.getString(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
                             cursor.getDouble(7), cursor.getString(8), cursor.getDouble(9), cursor.getInt(10));
-                    datos[i] = datosAInsertar;*/
+                    datos[i] = datosAInsertar;
                     i++;
                 } while (cursor.moveToNext());
             }
@@ -165,6 +172,7 @@ public class NuevoUsuario extends Activity{
         }
         return usuario;
     }
+    */
 
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
