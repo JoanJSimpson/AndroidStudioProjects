@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/edit_text_border"
+    android:padding="@dimen/dialog_body"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/TituloAgencia"
         android:layout_width="wrap_content"
@@ -18,52 +20,62 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_height="wrap_content"
-            android:layout_width="300px"
-            android:layout_alignBottom="@+id/imagen"
-            android:layout_gravity="left">
-        </Spinner>
-
         <ImageView
             android:layout_width="250px"
             android:layout_height="250px"
             android:id="@+id/imagen"
-            android:layout_marginLeft="50dp"
-            android:foregroundGravity="right" />
+            android:foregroundGravity="center"
+            android:layout_marginTop="@dimen/normal_padding" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@+id/imagen"
+            android:padding="@dimen/edit_text_padding"
+            android:ems="10">
+        </Spinner>
     </LinearLayout>
 
 
     <RadioGroup
         android:id="@+id/rg"
         android:orientation="vertical"
-        android:layout_width="155dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom|right|top"
         android:layout_below="@+id/imagen"
+        android:background="@drawable/edit_text_border"
+        android:padding="@dimen/edit_text_padding"
+        android:ems="10"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/miTotal"
         android:layout_alignParentBottom="false">
 
         <RadioButton
             android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:textSize="25px"
             android:text="TARIFA NORMAL"
-            android:layout_below="@+id/imagen"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/edit_text_padding"
+            android:ems="10"
             android:layout_toRightOf="@+id/ch2"
-            android:layout_toEndOf="@+id/ch2" />
+            android:layout_toEndOf="@+id/ch2"
+            android:layout_gravity="right" />
 
         <RadioButton
             android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:padding="@dimen/edit_text_padding"
+            android:ems="10"
             android:textSize="25px"
             android:text="TARIFA URGENTE"
-            />
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/normal_padding" />
     </RadioGroup>
 
     <LinearLayout
@@ -74,8 +86,11 @@
         android:layout_alignParentStart="true"
         android:gravity="center"
         android:layout_centerVertical="true"
+        android:background="@drawable/edit_text_border"
+        android:padding="@dimen/edit_text_padding"
+        android:ems="10"
         android:id="@+id/linearLayout"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="@dimen/normal_padding">
         <CheckBox
             android:id="@+id/ch1"
             android:layout_width="wrap_content"
@@ -101,20 +116,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/peso"
-        android:hint="Introduce el peso del paquete"
+        android:hint="Peso del paquete"
+        android:background="@drawable/edit_text_border"
+        android:padding="@dimen/edit_text_padding"
+        android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="@dimen/normal_padding" />
 
     <Button
         android:id="@+id/miTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pulsar para total"
+        android:text="Añadir Pedido"
         android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/edit_text_padding"
+        android:ems="10"
         android:layout_below="@+id/linearLayout"
         android:layout_toLeftOf="@+id/imagen"
         android:layout_toStartOf="@+id/imagen"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="5dp" />
 
 
 </LinearLayout>

@@ -68,8 +68,8 @@ public class FormPedido extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nuevoUsuario:
-                nuevoUsuario();
+            case R.id.salir:
+                salir();
                 return true;
             case R.id.verBaseDatos:
                 verBaseDatos();
@@ -83,8 +83,9 @@ public class FormPedido extends AppCompatActivity {
     }
 
     //Elementos del menu
-    private void nuevoUsuario(){
+    private void salir(){
         //TODO
+        finish();
     }
 
     private void verBaseDatos(){
@@ -98,7 +99,7 @@ public class FormPedido extends AppCompatActivity {
     }
 
     private void acercaDe(){
-        //TODO
+        new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
     }
 
 
@@ -124,10 +125,12 @@ public class FormPedido extends AppCompatActivity {
         r2= (RadioButton) findViewById(R.id.radioButton2);
         peso = (EditText) findViewById(R.id.peso);
         Bundle recoger = getIntent().getExtras();
-        user = (ClaseUsuario) recoger.getSerializable("USERLOGIN");
-
-
-
+        int COD = recoger.getInt("COD");
+        if (COD==0){
+            user = (ClaseUsuario) recoger.getSerializable("USERLOGIN");
+        }else if(COD==1) {
+            user = (ClaseUsuario) recoger.getSerializable("USERFORM");
+        }
         //Creamos señal para el boton de siguiente pantalla
         //Boton para pasar a la siguiente pantalla
         miBoton.setOnClickListener(new View.OnClickListener() {
@@ -169,6 +172,7 @@ public class FormPedido extends AppCompatActivity {
                 values.put("peso", pesoSeleccionado);
                 values.put("precio", precioTotal);
                 values.put("imagen", zona.getImagen());
+                values.put("decoracion", marcados);
 
                 db.insert("envios", null, values);
                 db.close();
@@ -300,6 +304,8 @@ public class FormPedido extends AppCompatActivity {
         super.onResume();
         precioTotal=0.0;
     }
+
+
 
 
 }

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
 
 /**
  * Created by Joan on 18/1/16.
@@ -16,6 +15,7 @@ import java.util.List;
 public class FormNuevoUsuario extends AppCompatActivity{
     private String user, nombre, apellidos, email, password, dni, telefono_comprobar;
     private int telefono;
+    public static int COD_RESPUESTA=1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +60,12 @@ public class FormNuevoUsuario extends AppCompatActivity{
                                 ClaseUsuario usuario = new ClaseUsuario(Integer.parseInt(telefono_comprobar), user, password, dni, nombre, apellidos, email);
                                 sql.crearUsuario(usuario);
                                 Bundle miBundle = new Bundle();
-                                miBundle.putSerializable("USER", usuario);
+                                miBundle.putSerializable("USERFORM", usuario);
                                 Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
 
                                 miIntent.putExtras(miBundle);
-                                startActivity(miIntent);
+                                startActivityForResult(miIntent, COD_RESPUESTA);
+                                //startActivity(miIntent);
                             }
 
                         }else {
@@ -75,7 +76,9 @@ public class FormNuevoUsuario extends AppCompatActivity{
                             Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
 
                             miIntent.putExtras(miBundle);
-                            startActivity(miIntent);
+                            miIntent.putExtra("COD", COD_RESPUESTA);
+                            startActivityForResult(miIntent, COD_RESPUESTA);
+                            //startActivity(miIntent);
                         }
                 }
             }
@@ -110,70 +113,6 @@ public class FormNuevoUsuario extends AppCompatActivity{
         return 1;
 
     }
-/*
-    public void insertarDatos(Usuario usuario) {
-
-        SQLiteHelper admin = new SQLiteHelper(this, "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-
-
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put("user", usuario.getUsuario());
-        contentValues.put("password", usuario.getPassword());
-        contentValues.put("nombre", usuario.getNombre());
-        contentValues.put("apellidos", usuario.getApellidos());
-        contentValues.put("email", usuario.getEmail());
-        contentValues.put("telefono", usuario.getTelefono());
-
-        //TODO intentar comprobar que se inserta correctamente
-
-        bd.insert("Usuarios", null, contentValues);
-
-        bd.close();
-
-        showToast("Usuario guardado correctamente");
-    }
-
-    public Usuario[] listar() {
-
-        SQLiteHelper sqliteHelper = new SQLiteHelper(this, "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = sqliteHelper.getReadableDatabase();
-        Usuario usuario[]=null;
-
-        if (bd != null) {
-            Cursor cursor = bd.rawQuery("SELECT * FROM Usuarios", null);
-            int cantidad = cursor.getCount();
-            int i = 0;
-            //String[] clientes = new String[cantidad];
-            String compruebaUsuario;
-            usuario = new Usuario[cantidad];
-            //datos = new DatosClientes[cantidad];
-
-            if (cursor.moveToFirst()) {
-                do {
-                    usuario[i] = new Usuario(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5));
-                    /*DatosClientes datosAInsertar = new DatosClientes(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
-                            cursor.getString(3), cursor.getInt(4), cursor.getString(5), cursor.getString(6),
-                            cursor.getDouble(7), cursor.getString(8), cursor.getDouble(9), cursor.getInt(10));
-                    datos[i] = datosAInsertar;
-                    i++;
-                } while (cursor.moveToNext());
-            }
-
-
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, clientes);
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, clientes);
-
-            //lista.setAdapter(adapter);
-
-            cursor.close();
-            bd.close();
-        }
-        return usuario;
-    }
-    */
-
     public void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }

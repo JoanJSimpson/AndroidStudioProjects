@@ -7,6 +7,9 @@
 
     <!-- Strings de diálogo personalizado -->
     <string name="info_text">Necesitas tener creada una cuenta para iniciar la aplicación</string>
+    <string name="info_user">Introduzca un Usuario:</string>
+    <string name="info_spinner">o seleccione uno:</string>
+    <string name="prueba">Prueba</string>
     <string name="crear_boton">CREAR CUENTA</string>
     <string name="nombre_input">Nombre</string>
     <string name="contrasena_input">Contraseña</string>
@@ -24,20 +27,8 @@
     <string name="prioridad_label">Prioridad</string>
     <string name="notas_label">Notas</string>
     <string name="notas_hint">Notas</string>
-    <string-array name="clientes">
-        <item>Fernando Jimenez</item>
-        <item>Carlos Fuentes</item>
-        <item>Pedro Lopez</item>
-    </string-array>
-    <string-array name="productos">
-        <item>Seguro A</item>
-        <item>Seguro B</item>
-        <item>Seguro C</item>
-    </string-array>
-    <string-array name="prioridades">
-        <item>Alta</item>
-        <item>Media</item>
-        <item>Baja</item>
-    </string-array>
+    <string name="TituloAcercaDe">Acerca De:</string>
+    <string name="AcercaDe">\nVersion 0.1.\n\nCopyright © 2016 Joan Piera Simó.\nTodos los derechos reservados.</string>
+
 
 </resources>

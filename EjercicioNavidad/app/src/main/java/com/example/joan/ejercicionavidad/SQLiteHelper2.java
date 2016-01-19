@@ -58,6 +58,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'zonaId' TEXT NOT NULL," +
             "  'tarifa' TEXT NOT NULL," +
             "  'peso' DOUBLE NOT NULL," +
+            "  'decoracion' TEXT NOT NULL," +
             "  'precio' DOUBLE NOT NULL," +
             "  'imagen' INTEGER NOT NULL," +
             "   FOREIGN KEY('usuarioDNI') REFERENCES usuarios('dni')" +
@@ -188,6 +189,31 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
         return usuarios;
     }
 
+    /*
+     * coger todos los logins de los usuarios
+     * */
+    public List<String> getLoginUsuarios() {
+        List<String> usuarios = new ArrayList<String>();
+        String selectQuery = "SELECT user FROM " + TABLA_USUARIOS;
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                String td;
+
+                td = c.getString(c.getColumnIndex(USUARIO_LOGIN));
+
+                // adding to Usuario list
+                usuarios.add(td);
+            } while (c.moveToNext());
+        }
+
+        return usuarios;
+    }
+
 
     /*
      * Updating a Usuario
@@ -270,6 +296,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
                 td.setZonaId(c.getString(c.getColumnIndex("zonaId")));
                 td.setTarifa(c.getString(c.getColumnIndex("tarifa")));
                 td.setPeso(Double.parseDouble(c.getString(c.getColumnIndex("peso"))));
+                td.setDecoracion(c.getString(c.getColumnIndex("decoracion")));
                 td.setPrecio(Double.parseDouble(c.getString(c.getColumnIndex("precio"))));
                 td.setImagen(Integer.parseInt(c.getString(c.getColumnIndex("imagen"))));
 
@@ -312,6 +339,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
                     td.setZonaId(c.getString(c.getColumnIndex("zonaId")));
                     td.setTarifa(c.getString(c.getColumnIndex("tarifa")));
                     td.setPeso(Double.parseDouble(c.getString(c.getColumnIndex("peso"))));
+                    td.setDecoracion(c.getString(c.getColumnIndex("decoracion")));
                     td.setPrecio(Double.parseDouble(c.getString(c.getColumnIndex("precio"))));
                     td.setImagen(Integer.parseInt(c.getString(c.getColumnIndex("imagen"))));
 

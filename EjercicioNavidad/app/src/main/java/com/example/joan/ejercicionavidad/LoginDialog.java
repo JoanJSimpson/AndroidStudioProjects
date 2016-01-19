@@ -3,18 +3,25 @@ package com.example.joan.ejercicionavidad;
 /**
  * Created by Joan on 17/1/16.
  */
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,7 +33,12 @@ import java.util.List;
  */
 public class LoginDialog extends DialogFragment {
     private static final String TAG = LoginDialog.class.getSimpleName();
+    List<String> usuarios;
+    String usuarioSeleccionado;
 
+
+    public static int COD_RESPUESTA;
+    private static int COD_SPINNER = 0;
     public LoginDialog() {
     }
 
@@ -48,21 +60,56 @@ public class LoginDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         View v = inflater.inflate(R.layout.dialog_usuario, null);
-
         builder.setView(v);
 
         Button signup = (Button) v.findViewById(R.id.crear_boton);
         Button signin = (Button) v.findViewById(R.id.entrar_boton);
         final EditText user = (EditText) v.findViewById(R.id.nombre_input);
         final EditText contrasena = (EditText) v.findViewById(R.id.contrasena_input);
+        Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
+
+        //Datos para rellenar el spinner con los usuarios
+        SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
+        usuarios = sql.getLoginUsuarios();
+
+
+        AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
+        miSpinner.setAdapter(miAdaptador);
+        miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
+                usuarioSeleccionado = usuarios.get(position);
+                user.setText(usuarioSeleccionado);
+
+                /*if(COD_SPINNER==0) {
+                    usuarios.add(0, "Seleccione un Usuario");
+                    user.setHint(R.string.nombre_input);
+                }else if(COD_SPINNER==1){
+                    user.setHint(R.string.nombre_input);
+                }else if(COD_SPINNER==2){
+                    usuarios.remove(0);
+                }else{
+                    user.setText(usuarioSeleccionado);
+                }
+
+                showToast(arg0.getItemAtPosition(position).toString());
+                showToast(String.valueOf(COD_SPINNER));
+                COD_SPINNER++;
+                */
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });//final miSpinner
+
 
         signup.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //showToast("Pulsado boton Crear usuario");
-                        crear();
                         // Crear Cuenta...
+                        crear();
                         dismiss();
                     }
                 }
@@ -72,8 +119,6 @@ public class LoginDialog extends DialogFragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        //showToast("Pulsado boton entrar usuario");
                         // Loguear...
                         String usuario = user.getText().toString();
                         String password = contrasena.getText().toString();
@@ -101,18 +146,21 @@ public class LoginDialog extends DialogFragment {
         int j=0;
         for (int i = 0; i< user.size(); i++){
             if (user.get(i).getUser().equals(usuario) && user.get(i).getPassword().equals(password)){
-                //if (user[i].getUsuario().equals(usuario)){
+
                 existe = true;
                 j=i;
             }
         }
         if (existe){
+            COD_RESPUESTA=0;
             Intent miIntent = new Intent(this.getContext(), FormPedido.class);
             Bundle miBundle = new Bundle();
             miBundle.putSerializable("USERLOGIN", user.get(j));
             miIntent.putExtras(miBundle);
+            miIntent.putExtra("COD", COD_RESPUESTA);
 
-            startActivity(miIntent);
+            startActivityForResult(miIntent, COD_RESPUESTA);
+            //startActivity(miIntent);
             dismiss();
         } else{
             showToast("Error en el User o Contraseña");
@@ -128,64 +176,34 @@ public class LoginDialog extends DialogFragment {
         return usuarios;
     }
 
-/*
-    public void login(String usuario, String password){
-
-        Usuario[] user = compruebaUser();
-        Boolean existe = false;
-        int j=0;
-        for (int i = 0; i< user.length; i++){
-            if (user[i].getUsuario().equals(usuario) && user[i].getPassword().equals(password)){
-            //if (user[i].getUsuario().equals(usuario)){
-                existe = true;
-                j=i;
-            }
-        }
-        if (existe){
-            Intent miIntent = new Intent(this.getContext(), FormPedido.class);
-            Bundle miBundle = new Bundle();
-            miBundle.putSerializable("USER", user[j]);
-            miIntent.putExtras(miBundle);
-
-            startActivity(miIntent);
-            dismiss();
-        } else{
-            showToast("Error en el User o Contraseña");
-        }
-
-    }
-
-    public Usuario[] compruebaUser(){
-
-        SQLiteHelper sqliteHelper = new SQLiteHelper(this.getContext(), "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = sqliteHelper.getReadableDatabase();
-        Usuario usuario[]=null;
-
-        if (bd != null) {
-            Cursor cursor = bd.rawQuery("SELECT * FROM Usuarios", null);
-            int cantidad = cursor.getCount();
-            int i = 0;
-            usuario = new Usuario[cantidad];
-
-            if (cursor.moveToFirst()) {
-                do {
-                    usuario[i] = new Usuario(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(5));
-
-                    i++;
-                } while (cursor.moveToNext());
-            }
-
-
-            cursor.close();
-            bd.close();
-
-        }
-        return usuario;
-    }
-*/
 
     public void showToast(String text){Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT).show();
     }
+
+    class AdaptadorUsuarios extends ArrayAdapter<String> {
+        public Activity miActividad;
+
+        public AdaptadorUsuarios(Activity laActividad){
+            super (laActividad, R.layout.spinnerusuarios, usuarios);
+            this.miActividad = laActividad;
+
+        }
+        // Vista para el desplegable del spinner
+        public View getDropDownView(int position, View convertView, ViewGroup parent){
+            View ListaDesplegada = getView(position, convertView, parent);
+            return ListaDesplegada;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = miActividad.getLayoutInflater();
+            View item = inflater.inflate(R.layout.spinnerusuarios, null);
+
+            TextView nombre= (TextView) item.findViewById(R.id.spinnerUsuarioNombre);
+            nombre.setText(usuarios.get(position));
+
+            return (item);
+        }
+    }//Fin AdaptadorZonas
 
 
 

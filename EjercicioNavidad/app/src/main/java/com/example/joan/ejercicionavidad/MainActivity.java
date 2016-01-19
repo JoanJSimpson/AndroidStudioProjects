@@ -43,15 +43,16 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        /*
-        *
-        * Recordar eliminar si elimino el registro de usuarios
-        *
-        */
-
         new LoginDialog().show(getSupportFragmentManager(), "SimpleDialog");
 
     }//Fin onCreate
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new LoginDialog().show(getSupportFragmentManager(), "SimpleDialog");
+
+    }
 
 
 }

@@ -34,15 +34,27 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/crear_boton"
-        android:layout_marginBottom="@dimen/padding_between"
+        android:layout_marginBottom="2dp"
         android:layout_marginTop="@dimen/padding_between"
         android:background="#C8C9CB" />
+
+    <TextView
+        android:id="@+id/info_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingBottom="@dimen/padding_between"
+        android:paddingTop="2dp"
+        android:text="@string/info_user"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
         android:id="@+id/nombre_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/divider"
+        android:layout_below="@+id/info_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/normal_padding"
         android:background="@drawable/edit_text_border"
@@ -67,26 +79,31 @@
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <CheckBox
-        android:id="@+id/recordar_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/contrasena_input"
-        android:layout_alignStart="@+id/contrasena_input"
-        android:layout_below="@+id/contrasena_input"
-        android:checked="false"
-        android:text="@string/recordar_check" />
-
     <TextView
-        android:id="@+id/olvidar_text"
+        android:id="@+id/info_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/contrasena_input"
-        android:layout_alignRight="@+id/contrasena_input"
-        android:layout_below="@+id/recordar_check"
-        android:paddingTop="@dimen/padding_between"
-        android:text="@string/olvidar_text"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/contrasena_input"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:text="@string/info_spinner"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Spinner
+        android:id="@+id/spinnerUsuarios"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="@dimen/edit_text_padding"
+        android:layout_below="@+id/info_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/padding_between"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:gravity="center_vertical|center_horizontal" />
 
     <Button
         android:id="@+id/entrar_boton"

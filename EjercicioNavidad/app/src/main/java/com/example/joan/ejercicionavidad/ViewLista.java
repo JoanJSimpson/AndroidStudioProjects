@@ -48,13 +48,11 @@ public class ViewLista extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             user = (ClaseUsuario) bundle.getSerializable("USER2");
             /**
-             * TODO FALTA POR PONER DATOS DE LA ZONA; POR EJEMPLO LA DECORACION
+             * TODO FALTA POR PONER DATOS DE LA ZONA, POR EJEMPLO LA DECORACION
              */
 
         }
-        //pedido = (ClasePedido) bundle.getSerializable("PEDIDO");
 
-        //listar();
         rellenarPedidos(user.getDni());
         ListView lista = (ListView) findViewById(R.id.listViewClientes);
 
@@ -140,7 +138,7 @@ public class ViewLista extends AppCompatActivity {
 
         bd.close();
 
-        showToast("Cliente eliminado correctamente");
+        showToast("Pedido eliminado correctamente");
 
 
     }//fin eliminar
@@ -151,7 +149,7 @@ public class ViewLista extends AppCompatActivity {
 
         miAdaptador(Activity context) {
 
-            super(context, R.layout.listadaptador, pedidos);
+            super(context, R.layout.listaadaptador2, pedidos);
             this.context = context;
         }
 
@@ -163,14 +161,16 @@ public class ViewLista extends AppCompatActivity {
             TextView zona = (TextView) item.findViewById(R.id.campoZona);
             TextView tarifa = (TextView) item.findViewById(R.id.campoTarifa);
             TextView peso = (TextView) item.findViewById(R.id.campoPeso);
+            TextView decoracion = (TextView) item.findViewById(R.id.campoDecoracion);
             TextView precio = (TextView) item.findViewById(R.id.campoPrecio);
 
 
-            dni.setText(String.valueOf("DNI: "+pedidos[position].getUsuarioDni()));
-            zona.setText("Zona: "+pedidos[position].getZonaId());
-            tarifa.setText("Tarifa: "+String.valueOf(pedidos[position].getTarifa()));
-            peso.setText("Peso: "+String.valueOf(pedidos[position].getPeso())+" Kg");
-            precio.setText(String.valueOf("Precio: "+pedidos[position].getPrecio())+" €");
+            dni.setText(String.valueOf("   DNI: "+pedidos[position].getUsuarioDni()));
+            zona.setText("   Zona: "+pedidos[position].getZonaId());
+            tarifa.setText("   Tarifa: "+String.valueOf(pedidos[position].getTarifa()));
+            peso.setText("   Peso: "+String.valueOf(pedidos[position].getPeso())+" Kg");
+            decoracion.setText("   Decoración: "+pedidos[position].getDecoracion());
+            precio.setText(String.valueOf("   Precio: "+pedidos[position].getPrecio())+" €");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 linear.setBackground(getDrawable(pedidos[position].getImagen()));
             }
