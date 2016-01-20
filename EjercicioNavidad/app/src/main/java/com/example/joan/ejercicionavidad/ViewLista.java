@@ -47,9 +47,6 @@ public class ViewLista extends AppCompatActivity {
         if (user == null) {
             Bundle bundle = getIntent().getExtras();
             user = (ClaseUsuario) bundle.getSerializable("USER2");
-            /**
-             * TODO FALTA POR PONER DATOS DE LA ZONA, POR EJEMPLO LA DECORACION
-             */
 
         }
 

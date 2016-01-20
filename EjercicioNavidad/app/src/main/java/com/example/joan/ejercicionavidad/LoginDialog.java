@@ -141,29 +141,40 @@ public class LoginDialog extends DialogFragment {
 
     public void login(String usuario, String password){
 
-        List<ClaseUsuario> user = compruebaUser();
-        Boolean existe = false;
-        int j=0;
-        for (int i = 0; i< user.size(); i++){
-            if (user.get(i).getUser().equals(usuario) && user.get(i).getPassword().equals(password)){
+        //todo crear un superusuario para poder ver todos los usuarios que hay
+        //para ello creo la clase SuperUsuario con una vista de todos los usuarios
 
-                existe = true;
-                j=i;
+        if (usuario.equals("admin") && password.equals("admin")){
+            Intent miIntent = new Intent(this.getContext(), SuperUsuario.class);
+            startActivity(miIntent);
+
+        }else{
+
+            List<ClaseUsuario> user = compruebaUser();
+            Boolean existe = false;
+            int j=0;
+            for (int i = 0; i< user.size(); i++){
+                if (user.get(i).getUser().equals(usuario) && user.get(i).getPassword().equals(password)){
+
+                    existe = true;
+                    j=i;
+                }
             }
-        }
-        if (existe){
-            COD_RESPUESTA=0;
-            Intent miIntent = new Intent(this.getContext(), FormPedido.class);
-            Bundle miBundle = new Bundle();
-            miBundle.putSerializable("USERLOGIN", user.get(j));
-            miIntent.putExtras(miBundle);
-            miIntent.putExtra("COD", COD_RESPUESTA);
+            if (existe){
+                COD_RESPUESTA=0;
+                Intent miIntent = new Intent(this.getContext(), FormPedido.class);
+                Bundle miBundle = new Bundle();
+                miBundle.putSerializable("USERLOGIN", user.get(j));
+                miIntent.putExtras(miBundle);
+                miIntent.putExtra("COD", COD_RESPUESTA);
 
-            startActivityForResult(miIntent, COD_RESPUESTA);
-            //startActivity(miIntent);
-            dismiss();
-        } else{
-            showToast("Error en el User o Contraseña");
+                startActivityForResult(miIntent, COD_RESPUESTA);
+                //startActivity(miIntent);
+                dismiss();
+            } else{
+                showToast("Error en el User o Contraseña");
+            }
+
         }
 
     }

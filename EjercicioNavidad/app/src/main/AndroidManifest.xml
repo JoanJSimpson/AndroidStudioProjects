@@ -17,30 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Pantalla2"
-            android:label="Pantalla2" >
-        </activity>
-        <activity
-            android:name=".BaseDeDatos"
-            android:label="Base De Datos" >
-        </activity>
-        <activity
-            android:name=".ListaVista"
-            android:label="Datos Clientes" >
-        </activity>
-        <activity
-            android:name=".NuevoUsuario"
-            android:label="Nuevo Usuario" >
-        </activity>
-
-        <activity
-            android:name=".PantallaPrincipal"
-            android:label="Agencia de Transportes" >
-        </activity>
-
-
-
 
         <activity
             android:name=".FormNuevoUsuario"
@@ -54,6 +30,11 @@
             android:name=".FormPedido"
             android:label="Nuevo Pedido" >
         </activity>
+        <activity
+            android:name=".SuperUsuario"
+            android:label="USUARIOS (ADMIN)" >
+        </activity>
+
 
     </application>
 

@@ -56,7 +56,9 @@ public class FormPedido extends AppCompatActivity {
     ClaseUsuario user;
 
 
-
+//====================================================================================
+//                  MENú
+//====================================================================================
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Alternativa 1
@@ -87,6 +89,9 @@ public class FormPedido extends AppCompatActivity {
         //TODO
         finish();
     }
+//====================================================================================
+//                  Elementos del menú
+//====================================================================================
 
     private void verBaseDatos(){
         Intent miIntent = new Intent(FormPedido.this, ViewLista.class);
@@ -103,7 +108,9 @@ public class FormPedido extends AppCompatActivity {
     }
 
 
-    //onCreate
+//====================================================================================
+//                  ON CREATE
+//====================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
