@@ -88,6 +88,8 @@ public class SuperUsuario extends AppCompatActivity {
         SQLiteDatabase bd = admin.getWritableDatabase();
         String[] idBorrar = new String[]{String.valueOf(id)};
 
+        //SIN ESTO NO HACE EL ON DELETE CASCADE
+        bd.execSQL("PRAGMA foreign_keys = ON");
         bd.delete("usuarios", "dni=?", idBorrar);
         bd.close();
         admin.close();
