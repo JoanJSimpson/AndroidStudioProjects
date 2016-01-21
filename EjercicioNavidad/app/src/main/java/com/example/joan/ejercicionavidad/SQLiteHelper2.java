@@ -18,6 +18,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLA_USUARIOS = "usuarios";
     private static final String TABLA_PEDIDOS = "envios";
+    private static final String TABLA_HISTORIAL = "historial";
 
 
 
@@ -38,7 +39,19 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
     private static final String PEDIDO_TARIFA = "tarifa";
     private static final String PEDIDO_PESO = "peso";
     private static final String PEDIDO_PRECIO = "precio";
+    private static final String PEDIDO_DECORACION = "decoracion";
     private static final String PEDIDO_IMAGEN = "imagen";
+
+    // historial - columnas
+
+    private static final String HISTORIAL_NOMBRE = "nombre";
+    private static final String HISTORIAL_USUARIODNI = "usuarioDNI";
+    private static final String HISTORIAL_ZONAID = "zonaId";
+    private static final String HISTORIAL_TARIFA = "tarifa";
+    private static final String HISTORIAL_PESO = "peso";
+    private static final String HISTORIAL_PRECIO = "precio";
+    private static final String HISTORIAL_DECORACION = "decoracion";
+    private static final String HISTORIAL_IMAGEN = "imagen";
 
     //Sentencia SQL para crear la tabla de Usuarios
     String sqlCreateUsuarios = "CREATE TABLE IF NOT EXISTS 'usuarios' (" +
@@ -61,7 +74,19 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'decoracion' TEXT NOT NULL," +
             "  'precio' DOUBLE NOT NULL," +
             "  'imagen' INTEGER NOT NULL," +
-            "   FOREIGN KEY('usuarioDNI') REFERENCES usuarios('dni')" +
+            "   FOREIGN KEY('usuarioDNI') REFERENCES usuarios('dni') ON DELETE CASCADE" + //todo no funciona el ondelete cascade
+            "  );";
+
+    String sqlCreateHistorial = "CREATE TABLE IF NOT EXISTS 'historial' (" +
+            "  'id' INTEGER NOT NULL PRIMARY KEY," +
+            "  'nombre' TEXT NOT NULL," +
+            "  'usuarioDNI' TEXT NOT NULL," +
+            "  'zonaId' TEXT NOT NULL," +
+            "  'tarifa' TEXT NOT NULL," +
+            "  'peso' DOUBLE NOT NULL," +
+            "  'decoracion' TEXT NOT NULL," +
+            "  'precio' DOUBLE NOT NULL," +
+            "  'imagen' INTEGER NOT NULL" +
             "  );";
 
     public SQLiteHelper2(Context contexto, String nombre, SQLiteDatabase.CursorFactory basededatos, int version){
@@ -72,6 +97,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
         db.execSQL(sqlCreateUsuarios);
         db.execSQL(sqlCreatePedidos);
+        db.execSQL(sqlCreateHistorial);
 
     }
 
@@ -85,7 +111,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
     * ==========================================================================
     * ==========================================================================
     *
-    *                           CRUD USUARIO
+    *                           USUARIO
     *
     * ==========================================================================
     * ==========================================================================
@@ -249,7 +275,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
     * ==========================================================================
     * ==========================================================================
     *
-    *                           CRUD PEDIDOS
+    *                           PEDIDOS
     *
     * ==========================================================================
     * ==========================================================================
@@ -265,6 +291,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
         values.put(PEDIDO_ZONAID, pedido.getZonaId());
         values.put(PEDIDO_TARIFA, pedido.getTarifa());
         values.put(PEDIDO_PESO, pedido.getPeso());
+        values.put(PEDIDO_DECORACION, pedido.getDecoracion());
         values.put(PEDIDO_PRECIO, pedido.getPrecio());
         values.put(PEDIDO_IMAGEN, pedido.getImagen());
 
@@ -353,5 +380,93 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
         return pedidos;
     }
+
+
+
+    /*
+    * ==========================================================================
+    * ==========================================================================
+    *
+    *                           HISTORIAL
+    *
+    * ==========================================================================
+    * ==========================================================================
+    * */
+
+
+    public void crearHistorial(ClaseHistorial historial) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(HISTORIAL_NOMBRE, historial.getNombre());
+        values.put(HISTORIAL_USUARIODNI, historial.getUsuarioDni());
+        values.put(HISTORIAL_ZONAID, historial.getZonaId());
+        values.put(HISTORIAL_TARIFA, historial.getTarifa());
+        values.put(HISTORIAL_PESO, historial.getPeso());
+        values.put(HISTORIAL_DECORACION, historial.getDecoracion());
+        values.put(HISTORIAL_PRECIO, historial.getPrecio());
+        values.put(HISTORIAL_IMAGEN, historial.getImagen());
+
+        // insert row
+        db.insert(TABLA_HISTORIAL, null, values);
+        //long usuario_id = db.insert(TABLA_PEDIDOS, null, values);
+
+        //return usuario_id;
+    }
+
+
+    /*
+     * getting all pedidos
+     * */
+    public List<ClaseHistorial> getAllHistorial() {
+        List<ClaseHistorial> pedidos = new ArrayList<ClaseHistorial>();
+        String selectQuery = "SELECT  * FROM " + TABLA_PEDIDOS;
+        // String selectQuery = "SELECT * " +
+        //"FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u " +
+        //        "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+" AND u."+USUARIO_DNI+" = '" + dniUsuario + "'";
+
+        /*
+        select *    from ALUMNOS_CURSOS AC right join CURSOS C
+     on AC.ID_CURSO = C.ID_CURSO
+group by C.TITULO
+         */
+
+        /*
+        String selectQuery = "SELECT * " +
+                "FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u " +
+                "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+" AND u."+USUARIO_DNI+" = '" + dniUsuario + "'";
+         */
+
+        String selectQuery2 = "SELECT * FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u "+
+                "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+ " ORDER BY u."+USUARIO_DNI;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery2, null);
+
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                ClaseHistorial td = new ClaseHistorial();
+
+                td.setUsuarioDni((c.getString(c.getColumnIndex("usuarioDNI"))));
+                td.setNombre(c.getString(c.getColumnIndex("nombre")));
+                td.setZonaId(c.getString(c.getColumnIndex("zonaId")));
+                td.setTarifa(c.getString(c.getColumnIndex("tarifa")));
+                td.setPeso(Double.parseDouble(c.getString(c.getColumnIndex("peso"))));
+                td.setDecoracion(c.getString(c.getColumnIndex("decoracion")));
+                td.setPrecio(Double.parseDouble(c.getString(c.getColumnIndex("precio"))));
+                td.setImagen(Integer.parseInt(c.getString(c.getColumnIndex("imagen"))));
+
+                // adding to Usuario list
+                pedidos.add(td);
+            } while (c.moveToNext());
+        }
+
+        return pedidos;
+    }
+
 
 }

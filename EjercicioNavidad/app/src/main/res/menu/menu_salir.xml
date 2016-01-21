@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/verTodos" android:title="Ver todos los Pedidos"></item>
+    <item android:id="@+id/crearHistorial" android:title="Crear Historial"></item>
     <item android:id="@+id/acercaDe" android:title="Acerca De"></item>
     <item android:id="@+id/salir" android:title="Salir"></item>
 </menu>

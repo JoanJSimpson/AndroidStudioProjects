@@ -31,6 +31,8 @@ public class SuperUsuario extends AppCompatActivity {
 
     private List<ClaseUsuario> usuarios = null;
     private ClaseUsuario[] usuarios2;
+    private List<ClaseHistorial> historial = null;
+    private List<ClasePedido> todosPedidos = null;
 
 
 //====================================================================================
@@ -47,6 +49,12 @@ public class SuperUsuario extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.crearHistorial:
+                crearHistorial();
+                return true;
+            case R.id.verTodos:
+                verTodos();
+                return true;
             case R.id.salir:
                 salir();
                 return true;
@@ -63,12 +71,63 @@ public class SuperUsuario extends AppCompatActivity {
 //                  Elementos del menú
 //====================================================================================
 
+    //TODO crear un elemento del menú para ver todos los pedidos de todos los usuarios
+
     //Elementos del menu
     private void salir(){
         finish();
     }
+
+
     private void acercaDe(){
         new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
+    }
+
+    public void eliminar(String id) {
+        SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String[] idBorrar = new String[]{String.valueOf(id)};
+
+        bd.delete("usuarios", "dni=?", idBorrar);
+        bd.close();
+        admin.close();
+
+        showToast("Usuario eliminado correctamente");
+    }//fin eliminar
+
+    private void crearHistorial(){
+        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+        SQLiteDatabase bd = sql.getWritableDatabase();
+        //Eliminamos todos los datos antes, para que no haya duplicados
+        //todo podria poner que en lugar de eliminar, le añada la fecha de creación del historial
+        bd.execSQL("delete from historial");
+        historial = sql.getAllHistorial();
+        for (int i=0;i<historial.size();i++) {
+            //showToast(historial.get(i).toString());
+            sql.crearHistorial(historial.get(i));
+        }
+        sql.close();;
+    }
+
+    private void verTodos(){
+
+    }
+
+
+    private void rellenarUsuarios(){
+        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+        usuarios = sql.getTodosUsuarios();
+        sql.close();
+    }
+
+
+    public void recargar() {
+        Intent home_intent = new Intent(getApplicationContext(), SuperUsuario.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Bundle miBundle = new Bundle();
+        miBundle.putSerializable("USERRECARGA", usuarios2);
+
+        home_intent.putExtras(miBundle);
+        startActivity(home_intent);
     }
 
 //====================================================================================
@@ -148,29 +207,15 @@ public class SuperUsuario extends AppCompatActivity {
         });//final menu contextual listView
     }
 
-
-    public void eliminar(String id) {
-
-        SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        String[] idBorrar = new String[]{String.valueOf(id)};
-
-        bd.delete("usuarios", "dni=?", idBorrar);
-
-        bd.close();
-
-        showToast("Usuario eliminado correctamente");
+//====================================================================================
+//                  Metodos
+//====================================================================================
 
 
-    }//fin eliminar
 
-
-    private void rellenarUsuarios(){
-        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
-        usuarios = sql.getTodosUsuarios();
-    }
-
-
+//====================================================================================
+//                  Adaptadores
+//====================================================================================
     //Metodo miAdaptador para rellenar ListView
     class miAdaptador extends ArrayAdapter<ClaseUsuario> {
         Activity context;
@@ -204,16 +249,7 @@ public class SuperUsuario extends AppCompatActivity {
         }
     }
 
-    public void recargar() {
 
-        Intent home_intent = new Intent(getApplicationContext(), SuperUsuario.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        Bundle miBundle = new Bundle();
-        miBundle.putSerializable("USERRECARGA", usuarios2);
-
-        home_intent.putExtras(miBundle);
-
-        startActivity(home_intent);
-    }
 
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
