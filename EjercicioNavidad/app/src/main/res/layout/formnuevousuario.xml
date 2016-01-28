@@ -1,3 +1,8 @@
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,6 +19,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/user_input"
+        android:drawableLeft="@mipmap/user24"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -24,14 +30,31 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nuUser"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/padding_between"
         android:layout_marginTop="@dimen/normal_padding"
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/contrasena_input"
+        android:drawableLeft="@mipmap/password"
         android:inputType="textPassword"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/nuContrasena2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nuContrasena"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/padding_between"
+        android:layout_marginTop="@dimen/normal_padding"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="@string/contrasena_repeat"
+        android:drawableLeft="@mipmap/password"
+        android:inputType="textPassword"
+        android:padding="@dimen/edit_text_padding"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 
     <EditText
         android:id="@+id/nuDni"
@@ -40,10 +63,11 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/dni_input"
+        android:drawableLeft="@mipmap/dni"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_below="@+id/nuContrasena"
+        android:layout_below="@+id/nuContrasena2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -57,6 +81,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/nombre_input"
+        android:drawableLeft="@mipmap/nombre"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -71,6 +96,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/apellidos_input"
+        android:drawableLeft="@mipmap/apellido"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -85,6 +111,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/email_input"
+        android:drawableLeft="@mipmap/mail"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -99,6 +126,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/telefono_input"
+        android:drawableLeft="@mipmap/telefono"
         android:inputType="number"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -120,3 +148,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

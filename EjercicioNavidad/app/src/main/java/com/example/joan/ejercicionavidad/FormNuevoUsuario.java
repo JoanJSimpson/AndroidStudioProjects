@@ -13,7 +13,7 @@ import android.widget.Toast;
  * Created by Joan on 18/1/16.
  */
 public class FormNuevoUsuario extends AppCompatActivity{
-    private String user, nombre, apellidos, email, password, dni, telefono_comprobar;
+    private String user, nombre, apellidos, email, password, password_compr, dni, telefono_comprobar;
     private int telefono;
     public static int COD_RESPUESTA=1;
 
@@ -32,6 +32,7 @@ public class FormNuevoUsuario extends AppCompatActivity{
         final EditText lblEmail = (EditText) findViewById(R.id.nuEmail);
         final EditText lblDni = (EditText) findViewById(R.id.nuDni);
         final EditText lblPassword = (EditText) findViewById(R.id.nuContrasena);
+        final EditText lblPassword2 = (EditText) findViewById(R.id.nuContrasena2);
         final Button botonValidar = (Button) findViewById(R.id.nuBotonValidar);
 
 
@@ -40,6 +41,7 @@ public class FormNuevoUsuario extends AppCompatActivity{
             public void onClick(View v) {
                 user = lblUser.getText().toString();
                 password = lblPassword.getText().toString();
+                password_compr = lblPassword2.getText().toString();
                 nombre = lblNombre.getText().toString();
                 dni = lblDni.getText().toString();
                 apellidos = lblApellidos.getText().toString();
@@ -90,8 +92,11 @@ public class FormNuevoUsuario extends AppCompatActivity{
         if (user.equals("")) {
             showToast("El usuario no puede estar vacío");
             return 0;
-        } else if (password.equals("")){
+        } else if (password.equals("")) {
             showToast("La contraseña no puede estar vacía");
+            return 0;
+        } else if (!password.equals(password_compr)){
+            showToast("La contraseña no coincide");
             return 0;
         } else if (dni.equals("")){
             showToast("El DNI no puede estar vacía");

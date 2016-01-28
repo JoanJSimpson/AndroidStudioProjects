@@ -74,7 +74,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'decoracion' TEXT NOT NULL," +
             "  'precio' DOUBLE NOT NULL," +
             "  'imagen' INTEGER NOT NULL," +
-            "   FOREIGN KEY('usuarioDNI') REFERENCES usuarios('dni') ON DELETE CASCADE" + //todo no funciona el ondelete cascade
+            "   FOREIGN KEY('usuarioDNI') REFERENCES usuarios('dni') ON DELETE CASCADE" + 
             "  );";
 
     String sqlCreateHistorial = "CREATE TABLE IF NOT EXISTS 'historial' (" +

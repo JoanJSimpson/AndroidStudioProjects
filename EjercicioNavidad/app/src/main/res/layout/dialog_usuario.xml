@@ -60,6 +60,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/nombre_input"
+        android:drawableLeft="@mipmap/nombre"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -75,6 +76,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/contrasena_input"
+        android:drawableLeft="@mipmap/password"
         android:inputType="textPassword"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
