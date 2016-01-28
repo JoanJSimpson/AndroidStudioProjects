@@ -1,7 +1,10 @@
 package com.example.joan.ejercicionavidad;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -33,9 +38,10 @@ public class SuperUsuario extends AppCompatActivity {
     private ClaseUsuario[] usuarios2;
     private List<ClaseHistorial> historial = null;
     private List<ClasePedido> todosPedidos = null;
+    SharedPreferences preferences;
 
 
-//====================================================================================
+    //====================================================================================
 //                  MENú
 //====================================================================================
     @Override
@@ -55,6 +61,9 @@ public class SuperUsuario extends AppCompatActivity {
             case R.id.verTodos:
                 verTodos();
                 return true;
+            case R.id.verHistorial:
+                verHistorial();
+                return true;
             case R.id.salir:
                 salir();
                 return true;
@@ -71,17 +80,21 @@ public class SuperUsuario extends AppCompatActivity {
 //                  Elementos del menú
 //====================================================================================
 
-    //TODO crear un elemento del menú para ver todos los pedidos de todos los usuarios
+
 
     //Elementos del menu
     private void salir(){
-        finish();
-    }
 
+        preferences.edit().clear().commit();
+        Intent miIntent = new Intent(SuperUsuario.this, MainActivity.class);
+        startActivity(miIntent);
+        finish();
+
+    }//fin salir()
 
     private void acercaDe(){
         new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
-    }
+    }//fin acercaDe()
 
     public void eliminar(String id) {
         SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
@@ -95,23 +108,68 @@ public class SuperUsuario extends AppCompatActivity {
         admin.close();
 
         showToast("Usuario eliminado correctamente");
-    }//fin eliminar
+    }//fin eliminar()
 
     private void crearHistorial(){
         SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
         SQLiteDatabase bd = sql.getWritableDatabase();
         //Eliminamos todos los datos antes, para que no haya duplicados
         //todo podria poner que en lugar de eliminar, le añada la fecha de creación del historial
-        bd.execSQL("delete from historial");
+        String fecha = fechaHoraActual();
+        showToast(fecha);
+        //bd.execSQL("delete from historial");
         historial = sql.getAllHistorial();
         for (int i=0;i<historial.size();i++) {
-            //showToast(historial.get(i).toString());
+            historial.get(i).setFecha(fecha);
             sql.crearHistorial(historial.get(i));
         }
+        showToast("Historial creado correctamente");
         sql.close();;
-    }
+    }//fin crearHistorial()
 
     private void verTodos(){
+        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+        SQLiteDatabase bd = sql.getReadableDatabase();
+        historial = sql.getAllHistorial();
+
+        //====================================================================================
+        //                  LISTVIEW
+        //====================================================================================
+        //Adaptador listView
+        final miAdaptador2 adaptador2 = new miAdaptador2(this);
+
+        ListView listView = new ListView(this);
+        listView.setAdapter(adaptador2);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(listView);
+        dialog.setTitle("Ver Pedidos");
+
+        dialog.show();
+
+    }
+
+    public String fechaHoraActual(){
+        return new SimpleDateFormat( "yyyy-MM-dd_HH:mm:ss", java.util.Locale.getDefault()).format(Calendar.getInstance() .getTime());
+    }
+
+    private void verHistorial(){
+
+        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+        SQLiteDatabase bd = sql.getReadableDatabase();
+        historial = sql.getHistorial();
+
+        //====================================================================================
+        //                  LISTVIEW
+        //====================================================================================
+        //Adaptador listView
+        final miAdaptador3 adaptador3 = new miAdaptador3(this);
+
+        ListView listView = new ListView(this);
+        listView.setAdapter(adaptador3);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(listView);
+        dialog.setTitle("Ver Historial");
+        dialog.show();
 
     }
 
@@ -142,6 +200,8 @@ public class SuperUsuario extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_usuarios);
+        preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
 
         if (usuarios2 != null) {
             Bundle bundle = getIntent().getExtras();
@@ -213,7 +273,7 @@ public class SuperUsuario extends AppCompatActivity {
 //====================================================================================
 //                  Adaptadores
 //====================================================================================
-    //Metodo miAdaptador para rellenar ListView
+    //Metodo miAdaptador para rellenar ListView 1
     class miAdaptador extends ArrayAdapter<ClaseUsuario> {
         Activity context;
 
@@ -242,6 +302,74 @@ public class SuperUsuario extends AppCompatActivity {
             apellidos.setText("   Apellidos: "+ usuarios.get(position).getApellidos());
             telefono.setText("   Telefono: "+String.valueOf(usuarios.get(position).getTelefono()));
             email.setText("   Email: "+ usuarios.get(position).getEmail());
+            return (item);
+        }
+    }
+
+    //Metodo miAdaptador para rellenar ListView 2
+    class miAdaptador2 extends ArrayAdapter<ClaseHistorial> {
+        Activity context;
+
+        miAdaptador2(Activity context) {
+            super(context, R.layout.lista_adaptador_pedidos, historial);
+            this.context = context;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View item = inflater.inflate(R.layout.lista_adaptador_pedidos, null);
+
+            TextView user = (TextView) item.findViewById(R.id.pedUsuario);
+            TextView dni = (TextView) item.findViewById(R.id.pedDni);
+            TextView zona = (TextView) item.findViewById(R.id.pedZona);
+            TextView tarifa = (TextView) item.findViewById(R.id.pedTarifa);
+            TextView peso = (TextView) item.findViewById(R.id.pedPeso);
+            TextView decoracion = (TextView) item.findViewById(R.id.pedDecoracion);
+            TextView precio = (TextView) item.findViewById(R.id.pedPrecio);
+
+
+            user.setText("   Usuario: "+ historial.get(position).getNombre());
+            dni.setText("   DNI: "+ historial.get(position).getUsuarioDni());
+            zona.setText("   Zona: "+ historial.get(position).getZonaId());
+            tarifa.setText("   Tarifa: " + historial.get(position).getTarifa());
+            peso.setText("   Peso: "+ historial.get(position).getPeso().toString());
+            decoracion.setText("   Decoracion: "+historial.get(position).getDecoracion());
+            precio.setText("   Precio: "+ historial.get(position).getPrecio().toString());
+            return (item);
+        }
+    }
+
+    //Metodo miAdaptador para rellenar ListView 3 verHistorial
+    class miAdaptador3 extends ArrayAdapter<ClaseHistorial> {
+        Activity context;
+
+        miAdaptador3(Activity context) {
+            super(context, R.layout.lista_adaptador_historial, historial);
+            this.context = context;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = context.getLayoutInflater();
+            View item = inflater.inflate(R.layout.lista_adaptador_historial, null);
+
+            TextView user = (TextView) item.findViewById(R.id.hisUsuario);
+            TextView fecha = (TextView) item.findViewById(R.id.hisFecha);
+            TextView dni = (TextView) item.findViewById(R.id.hisDni);
+            TextView zona = (TextView) item.findViewById(R.id.hisZona);
+            TextView tarifa = (TextView) item.findViewById(R.id.hisTarifa);
+            TextView peso = (TextView) item.findViewById(R.id.hisPeso);
+            TextView decoracion = (TextView) item.findViewById(R.id.hisDecoracion);
+            TextView precio = (TextView) item.findViewById(R.id.hisPrecio);
+
+
+            user.setText("   Usuario: "+ historial.get(position).getNombre());
+            fecha.setText("   Fecha: "+historial.get(position).getFecha());
+            dni.setText("   DNI: "+ historial.get(position).getUsuarioDni());
+            zona.setText("   Zona: "+ historial.get(position).getZonaId());
+            tarifa.setText("   Tarifa: " + historial.get(position).getTarifa());
+            peso.setText("   Peso: "+ historial.get(position).getPeso().toString());
+            decoracion.setText("   Decoracion: "+historial.get(position).getDecoracion());
+            precio.setText("   Precio: "+ historial.get(position).getPrecio().toString());
             return (item);
         }
     }

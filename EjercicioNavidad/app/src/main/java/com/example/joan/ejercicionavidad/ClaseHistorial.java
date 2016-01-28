@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ClaseHistorial implements Serializable {
 
 
-    private String usuarioDni, zonaId, tarifa, decoracion, nombre;
+    private String usuarioDni, zonaId, tarifa, decoracion, nombre, fecha;
     private Double precio, peso;
     private int imagen, id;
 
@@ -16,8 +16,11 @@ public class ClaseHistorial implements Serializable {
 
     }
 
-    public ClaseHistorial(int id, String nombre, String usuarioDni, String zonaId, String tarifa, String decoracion, Double peso, Double precio, int imagen) {
+
+
+    public ClaseHistorial(int id, String fecha, String nombre, String usuarioDni, String zonaId, String tarifa, String decoracion, Double peso, Double precio, int imagen) {
         this.id = id;
+        this.fecha = fecha;
         this.nombre = nombre;
         this.usuarioDni = usuarioDni;
         this.decoracion = decoracion;
@@ -34,6 +37,14 @@ public class ClaseHistorial implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getNombre() {
@@ -104,6 +115,7 @@ public class ClaseHistorial implements Serializable {
     public String toString() {
         return "ClasePedido{" +
                 "usuarioDni='" + usuarioDni + '\'' +
+                ", fecha='" + fecha + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", zonaId='" + zonaId + '\'' +
                 ", tarifa='" + tarifa + '\'' +

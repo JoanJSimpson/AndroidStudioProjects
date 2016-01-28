@@ -24,9 +24,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-
+    //====================================================================================
+    //                  ONCREATE
+    //====================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     }//Fin onCreate
 
+    //====================================================================================
+    //                  ONRESUME
+    //====================================================================================
     @Override
     public void onResume() {
         super.onResume();

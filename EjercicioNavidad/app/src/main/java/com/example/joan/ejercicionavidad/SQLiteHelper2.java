@@ -45,6 +45,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
     // historial - columnas
 
     private static final String HISTORIAL_NOMBRE = "nombre";
+    private static final String HISTORIAL_FECHA = "fecha";
     private static final String HISTORIAL_USUARIODNI = "usuarioDNI";
     private static final String HISTORIAL_ZONAID = "zonaId";
     private static final String HISTORIAL_TARIFA = "tarifa";
@@ -79,6 +80,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
     String sqlCreateHistorial = "CREATE TABLE IF NOT EXISTS 'historial' (" +
             "  'id' INTEGER NOT NULL PRIMARY KEY," +
+            "  'fecha' TEXT NOT NULL," +
             "  'nombre' TEXT NOT NULL," +
             "  'usuarioDNI' TEXT NOT NULL," +
             "  'zonaId' TEXT NOT NULL," +
@@ -400,6 +402,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(HISTORIAL_NOMBRE, historial.getNombre());
+        values.put(HISTORIAL_FECHA, historial.getFecha());
         values.put(HISTORIAL_USUARIODNI, historial.getUsuarioDni());
         values.put(HISTORIAL_ZONAID, historial.getZonaId());
         values.put(HISTORIAL_TARIFA, historial.getTarifa());
@@ -415,28 +418,47 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
         //return usuario_id;
     }
 
+    public List<ClaseHistorial> getHistorial(){
+        List<ClaseHistorial> historial = new ArrayList<ClaseHistorial>();
+
+        String selectQuery = "SELECT * FROM "+TABLA_HISTORIAL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                ClaseHistorial td = new ClaseHistorial();
+
+                td.setUsuarioDni((c.getString(c.getColumnIndex("usuarioDNI"))));
+                td.setFecha((c.getString(c.getColumnIndex("fecha"))));
+                td.setNombre(c.getString(c.getColumnIndex("nombre")));
+                td.setZonaId(c.getString(c.getColumnIndex("zonaId")));
+                td.setTarifa(c.getString(c.getColumnIndex("tarifa")));
+                td.setPeso(Double.parseDouble(c.getString(c.getColumnIndex("peso"))));
+                td.setDecoracion(c.getString(c.getColumnIndex("decoracion")));
+                td.setPrecio(Double.parseDouble(c.getString(c.getColumnIndex("precio"))));
+                td.setImagen(Integer.parseInt(c.getString(c.getColumnIndex("imagen"))));
+
+                // adding to Usuario list
+                historial.add(td);
+            } while (c.moveToNext());
+        }
+
+        return historial;
+    }
+
+
 
     /*
      * getting all pedidos
      * */
     public List<ClaseHistorial> getAllHistorial() {
-        List<ClaseHistorial> pedidos = new ArrayList<ClaseHistorial>();
-        String selectQuery = "SELECT  * FROM " + TABLA_PEDIDOS;
-        // String selectQuery = "SELECT * " +
-        //"FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u " +
-        //        "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+" AND u."+USUARIO_DNI+" = '" + dniUsuario + "'";
-
-        /*
-        select *    from ALUMNOS_CURSOS AC right join CURSOS C
-     on AC.ID_CURSO = C.ID_CURSO
-group by C.TITULO
-         */
-
-        /*
-        String selectQuery = "SELECT * " +
-                "FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u " +
-                "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+" AND u."+USUARIO_DNI+" = '" + dniUsuario + "'";
-         */
+        List<ClaseHistorial> historial = new ArrayList<ClaseHistorial>();
+        //String selectQuery = "SELECT  * FROM " + TABLA_PEDIDOS;
 
         String selectQuery2 = "SELECT * FROM "+TABLA_PEDIDOS+" p, "+TABLA_USUARIOS+" u "+
                 "WHERE u."+USUARIO_DNI+" = p."+PEDIDO_USUARIODNI+ " ORDER BY u."+USUARIO_DNI;
@@ -461,11 +483,11 @@ group by C.TITULO
                 td.setImagen(Integer.parseInt(c.getString(c.getColumnIndex("imagen"))));
 
                 // adding to Usuario list
-                pedidos.add(td);
+                historial.add(td);
             } while (c.moveToNext());
         }
 
-        return pedidos;
+        return historial;
     }
 
 

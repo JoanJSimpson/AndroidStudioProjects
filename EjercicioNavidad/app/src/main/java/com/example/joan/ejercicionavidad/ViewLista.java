@@ -28,14 +28,21 @@ import java.util.List;
  * Created by Joan on 15/1/16.
  */
 public class ViewLista extends AppCompatActivity {
-    ClaseUsuario user = null;
 
+    //====================================================================================
+    //                  Variables de clase
+    //====================================================================================
+
+    ClaseUsuario user = null;
     ClasePedido[] pedidos;
 
     protected void onUpdate (Bundle savedInstanceState) {
-
     }
 
+
+    //====================================================================================
+    //                  ONCREATE
+    //====================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,9 @@ public class ViewLista extends AppCompatActivity {
         ListView lista = (ListView) findViewById(R.id.listViewClientes);
 
 
+        //====================================================================================
+        //                  LISTVIEW
+        //====================================================================================
         //Adaptador listView
         final miAdaptador adaptador = new miAdaptador(this);
         lista.setAdapter(adaptador);
@@ -110,6 +120,10 @@ public class ViewLista extends AppCompatActivity {
 
     }
 
+    //====================================================================================
+    //                  METODOS
+    //====================================================================================
+
     public boolean rellenarPedidos(String dni){
         SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
 
@@ -121,7 +135,7 @@ public class ViewLista extends AppCompatActivity {
         }
         return true;
 
-    }
+    }//fin rellenarPedidos()
 
 
     public void eliminar(int id) {
@@ -138,8 +152,22 @@ public class ViewLista extends AppCompatActivity {
         showToast("Pedido eliminado correctamente");
 
 
-    }//fin eliminar
+    }//fin eliminar()
 
+    public void recargar() {
+
+        Intent home_intent = new Intent(getApplicationContext(), ViewLista.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Bundle miBundle = new Bundle();
+        miBundle.putSerializable("USER2", user);
+
+        home_intent.putExtras(miBundle);
+
+        startActivity(home_intent);
+    }//fin recargar()
+
+    //====================================================================================
+    //                  ADAPTADOR LISTVIEW
+    //====================================================================================
 
     class miAdaptador extends ArrayAdapter<Object> {
         Activity context;
@@ -175,17 +203,10 @@ public class ViewLista extends AppCompatActivity {
             return (item);
         }
     }
-    public void recargar() {
 
-        Intent home_intent = new Intent(getApplicationContext(), ViewLista.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        Bundle miBundle = new Bundle();
-        miBundle.putSerializable("USER2", user);
-
-        home_intent.putExtras(miBundle);
-
-        startActivity(home_intent);
-    }
-
+    //====================================================================================
+    //                  SHOWTOAST
+    //====================================================================================
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }

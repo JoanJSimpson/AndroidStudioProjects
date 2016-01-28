@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 
 /**
  * Created by Joan on 19/1/16.
+ * Dialogo persolaizado
  */
 public class DialogoPersonalizado extends DialogFragment {
     @Override

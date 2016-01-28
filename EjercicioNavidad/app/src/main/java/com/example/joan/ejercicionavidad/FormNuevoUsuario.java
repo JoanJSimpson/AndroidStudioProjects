@@ -1,6 +1,8 @@
 package com.example.joan.ejercicionavidad;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,11 +17,16 @@ import android.widget.Toast;
 public class FormNuevoUsuario extends AppCompatActivity{
     private String user, nombre, apellidos, email, password, password_compr, dni, telefono_comprobar;
     private int telefono;
-    public static int COD_RESPUESTA=1;
+    //public static int COD_RESPUESTA=1;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.formnuevousuario);
+
+        preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        editor = preferences.edit();
 
         /*
         Creamos los Objetos del xml
@@ -62,25 +69,33 @@ public class FormNuevoUsuario extends AppCompatActivity{
                                 ClaseUsuario usuario = new ClaseUsuario(Integer.parseInt(telefono_comprobar), user, password, dni, nombre, apellidos, email);
                                 sql.crearUsuario(usuario);
                                 Bundle miBundle = new Bundle();
-                                miBundle.putSerializable("USERFORM", usuario);
+                                editor.putString("user", user);
+                                editor.putString("password", password);
+                                editor.commit();
+                                //miBundle.putSerializable("USERFORM", usuario);
+                                miBundle.putSerializable("USER", usuario);
                                 Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
 
+
                                 miIntent.putExtras(miBundle);
-                                startActivityForResult(miIntent, COD_RESPUESTA);
-                                //startActivity(miIntent);
+                                //startActivityForResult(miIntent, COD_RESPUESTA);
+                                startActivity(miIntent);
                             }
 
                         }else {
                             ClaseUsuario usuario = new ClaseUsuario(Integer.parseInt(telefono_comprobar), user, password, dni, nombre, apellidos, email);
                             sql.crearUsuario(usuario);
                             Bundle miBundle = new Bundle();
-                            miBundle.putSerializable("USERFORM", usuario);
+                            editor.putString("user", user);
+                            editor.putString("password", password);
+                            editor.commit();
+                            miBundle.putSerializable("USER", usuario);
                             Intent miIntent = new Intent(FormNuevoUsuario.this, FormPedido.class);
 
                             miIntent.putExtras(miBundle);
-                            miIntent.putExtra("COD", COD_RESPUESTA);
-                            startActivityForResult(miIntent, COD_RESPUESTA);
-                            //startActivity(miIntent);
+                            //miIntent.putExtra("COD", COD_RESPUESTA);
+                            //startActivityForResult(miIntent, COD_RESPUESTA);
+                            startActivity(miIntent);
                         }
                 }
             }

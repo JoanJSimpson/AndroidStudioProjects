@@ -2,7 +2,9 @@ package com.example.joan.ejercicionavidad;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +29,10 @@ import android.widget.Toast;
 public class FormPedido extends AppCompatActivity {
 
 
-    public static int COD_RESPUESTA=0;
+
+    //====================================================================================
+    //                  DATOS DE ZONAS POSIBLES
+    //====================================================================================
 
     //metemos datos de Zonas en la clase
     private Zonas[] zonas = new Zonas[]{
@@ -36,11 +41,13 @@ public class FormPedido extends AppCompatActivity {
             new Zonas("C", "Europa", 10 , R.drawable.europa),
     }; //fin Zonas
 
-    //Creamos variables de clase
+    //====================================================================================
+    //                  VARIABLES DE CLASE
+    //====================================================================================
 
+    public static int COD_RESPUESTA=0;
     Spinner miSpinner;
     String tarifaSeleccionada, cajaSeleccionada;
-    //Integer imagenSeleccionada;
     Double precioTotal, precioCaja, precioTarifa;
     String marcados;
     CheckBox ch1;
@@ -54,6 +61,7 @@ public class FormPedido extends AppCompatActivity {
     Double precioPeso;
     Zonas zona;
     ClaseUsuario user;
+    SharedPreferences preferences;
 
 
 //====================================================================================
@@ -84,11 +92,7 @@ public class FormPedido extends AppCompatActivity {
         }
     }
 
-    //Elementos del menu
-    private void salir(){
-        //TODO
-        finish();
-    }
+
 //====================================================================================
 //                  Elementos del menú
 //====================================================================================
@@ -107,6 +111,14 @@ public class FormPedido extends AppCompatActivity {
         new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
     }
 
+    private void salir(){
+        //Borramos las preferencias de login
+        preferences.edit().clear().commit();
+        Intent miIntent = new Intent(FormPedido.this, MainActivity.class);
+        startActivity(miIntent);
+        finish();
+    }
+
 
 //====================================================================================
 //                  ON CREATE
@@ -114,6 +126,11 @@ public class FormPedido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        String userP = preferences.getString("user", "vacio");
+        String passP = preferences.getString("password", "vacio");
         setContentView(R.layout.pantallaprincipal);
         initialUISetup();
     }//Fin onCreate
@@ -132,12 +149,13 @@ public class FormPedido extends AppCompatActivity {
         r2= (RadioButton) findViewById(R.id.radioButton2);
         peso = (EditText) findViewById(R.id.peso);
         Bundle recoger = getIntent().getExtras();
-        int COD = recoger.getInt("COD");
+        /*int COD = recoger.getInt("COD");
         if (COD==0){
-            user = (ClaseUsuario) recoger.getSerializable("USERLOGIN");
+            user = (ClaseUsuario) recoger.getSerializable("USER");
         }else if(COD==1) {
-            user = (ClaseUsuario) recoger.getSerializable("USERFORM");
-        }
+            user = (ClaseUsuario) recoger.getSerializable("USER");
+        }*/
+        user = (ClaseUsuario) recoger.getSerializable("USER");
         //Creamos señal para el boton de siguiente pantalla
         //Boton para pasar a la siguiente pantalla
         miBoton.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +217,9 @@ public class FormPedido extends AppCompatActivity {
         });//miBoton
 
 
+    //====================================================================================
+    //                  SPINNER
+    //====================================================================================
         //Creamos el spinner
         miSpinner = (Spinner) findViewById(R.id.spinner1);
         AdaptadorZonas miAdaptador= new AdaptadorZonas(this);
@@ -220,6 +241,9 @@ public class FormPedido extends AppCompatActivity {
             }
         });//final miSpinner
 
+    //====================================================================================
+    //                  RADIOBUTTONS
+    //====================================================================================
         //tratamos los radioButtons para ver cual esta pulsado
         rg.clearCheck();
         r1.setChecked(true);
@@ -244,7 +268,10 @@ public class FormPedido extends AppCompatActivity {
 
     }//final initialUISetup
 
-    //Tratar los checkeds seleccionados
+//====================================================================================
+//                  Tratar los CHECKS
+//====================================================================================
+// Tratar los checkeds seleccionados
     public String getDecoracionClick(View v){
         String strMessage = "";
         precioCaja =0.0;
@@ -264,14 +291,18 @@ public class FormPedido extends AppCompatActivity {
         return strMessage;
     }
 
-
+//====================================================================================
+//                  SHOWTOAST
+//====================================================================================
 
     public void showToast(String text){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
 
-    //Clase necesaria para el adaptador para Spinner
+//====================================================================================
+//                  ADAPTADOR SPINNER
+//====================================================================================
 
     class AdaptadorZonas extends ArrayAdapter<Zonas> {
         public Activity miActividad;
@@ -300,20 +331,19 @@ public class FormPedido extends AppCompatActivity {
             TextView lblPrecio = (TextView) item.findViewById(R.id.campoPrecio);
             lblPrecio.setText(String.valueOf(zonas[position].getPrecio())+" €");
 
-
             return (item);
         }
     }//Fin AdaptadorZonas
 
+// ====================================================================================
+//                  ONRESUME
+//====================================================================================
     //para que cuando vuelva de la pantalla2 deje los precios a 0
     @Override
     protected void onResume() {
         super.onResume();
         precioTotal=0.0;
     }
-
-
-
 
 }
 

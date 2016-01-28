@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fffefe"
+    android:id="@+id/campoLinear">
+
+
+        <TextView android:id="@+id/hisFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25px"
+            android:text="Fecha"
+            android:textColor="#ff0000"/>
+
+        <TextView android:id="@+id/hisUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25px"
+            android:text="Usuario"
+            android:textColor="#ff0000"/>
+
+        <TextView android:id="@+id/hisDni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25px"
+            android:text="DNI"
+            android:textColor="#000000"/>
+    
+        <TextView android:id="@+id/hisZona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Zona"
+            android:textSize="30px"
+            android:textColor="#000000"/>
+    
+        <TextView android:id="@+id/hisTarifa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Tarifa"
+            android:textSize="30px"
+            android:textColor="#000000"/>
+    
+        <TextView android:id="@+id/hisPeso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Peso"
+            android:textSize="30px"
+            android:textColor="#000000"/>
+
+        <TextView android:id="@+id/hisDecoracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Decoracion"
+            android:textSize="30px"
+            android:textColor="#000000"/>
+
+
+        <TextView android:id="@+id/hisPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="30px"
+            android:text="Precio"
+            android:textColor="#000000"/>
+
+
+    <FrameLayout
+        android:id="@+id/LineaCabecera"
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_span="6"
+        android:background="#ff000000">
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

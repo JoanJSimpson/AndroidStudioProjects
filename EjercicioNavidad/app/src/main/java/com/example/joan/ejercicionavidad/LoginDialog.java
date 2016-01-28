@@ -5,10 +5,9 @@ package com.example.joan.ejercicionavidad;
  */
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -32,19 +31,35 @@ import java.util.List;
  * Fragmento con un diálogo personalizado
  */
 public class LoginDialog extends DialogFragment {
+
+    //====================================================================================
+    //                  Variables de clase
+    //====================================================================================
+
     private static final String TAG = LoginDialog.class.getSimpleName();
     List<String> usuarios;
     String usuarioSeleccionado;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    String usuarioResume;
+    String passwordResume;
 
-
-    public static int COD_RESPUESTA;
-    private static int COD_SPINNER = 0;
+    //public static int COD_RESPUESTA;
+    //private static int COD_SPINNER = 0;
     public LoginDialog() {
     }
 
+    //====================================================================================
+    //                  ONCREATE
+    //====================================================================================
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        preferences = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        //SharedPreferences.Editor editor = preferences.edit();
+        usuarioResume = preferences.getString("user", "vacio");
+        passwordResume = preferences.getString("password", "vacio");
         return createLoginDialogo();
     }
 
@@ -54,7 +69,15 @@ public class LoginDialog extends DialogFragment {
      *
      * @return Diálogo
      */
+
     public AlertDialog createLoginDialogo() {
+
+
+        if (!usuarioResume.equals("vacio") && !passwordResume.equals("vacio")) {
+            login(usuarioResume, passwordResume);
+        }
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -72,6 +95,9 @@ public class LoginDialog extends DialogFragment {
         SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
         usuarios = sql.getLoginUsuarios();
 
+        //====================================================================================
+        //                  SPINNER
+        //====================================================================================
 
         AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
         miSpinner.setAdapter(miAdaptador);
@@ -79,22 +105,6 @@ public class LoginDialog extends DialogFragment {
             public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
                 usuarioSeleccionado = usuarios.get(position);
                 user.setText(usuarioSeleccionado);
-
-                /*if(COD_SPINNER==0) {
-                    usuarios.add(0, "Seleccione un Usuario");
-                    user.setHint(R.string.nombre_input);
-                }else if(COD_SPINNER==1){
-                    user.setHint(R.string.nombre_input);
-                }else if(COD_SPINNER==2){
-                    usuarios.remove(0);
-                }else{
-                    user.setText(usuarioSeleccionado);
-                }
-
-                showToast(arg0.getItemAtPosition(position).toString());
-                showToast(String.valueOf(COD_SPINNER));
-                COD_SPINNER++;
-                */
 
             }
 
@@ -104,13 +114,18 @@ public class LoginDialog extends DialogFragment {
         });//final miSpinner
 
 
+        //====================================================================================
+        //                  EVENTOS DE LOS BOTONES
+        //====================================================================================
         signup.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Crear Cuenta...
                         crear();
-                        dismiss();
+                        //todo si no funciona es por esto
+                        getActivity().finish();
+                        //dismiss();
                     }
                 }
         );
@@ -123,6 +138,8 @@ public class LoginDialog extends DialogFragment {
                         String usuario = user.getText().toString();
                         String password = contrasena.getText().toString();
                         login(usuario, password);
+                        //todo si no funciona es por esto
+                        //getActivity().finish();
                         //dismiss();
                     }
                 }
@@ -131,53 +148,69 @@ public class LoginDialog extends DialogFragment {
 
         return builder.create();
 
-
     }
+
+    //====================================================================================
+    //                  METODOS
+    //====================================================================================
+
     public void crear(){
         Intent miIntent = new Intent(getActivity(), FormNuevoUsuario.class);
         startActivity(miIntent);
 
-    }
+    }//fin metodo crear()
 
     public void login(String usuario, String password){
 
-        //todo crear un superusuario para poder ver todos los usuarios que hay
-        //para ello creo la clase SuperUsuario con una vista de todos los usuarios
-
+        //creo la clase SuperUsuario con una vista de todos los usuarios
+        //si es SuperUser
         if (usuario.equals("admin") && password.equals("admin")){
+
+            editor.putString("user", usuario);
+            editor.putString("password", password);
+            editor.commit();
             Intent miIntent = new Intent(this.getContext(), SuperUsuario.class);
             startActivity(miIntent);
 
+        //si no es el SuperUser comprueba que el usuario existe
         }else{
 
             List<ClaseUsuario> user = compruebaUser();
             Boolean existe = false;
             int j=0;
+            //comprobamos que los datos del usuario introducido coincide con algun usuario ya registrado
             for (int i = 0; i< user.size(); i++){
                 if (user.get(i).getUser().equals(usuario) && user.get(i).getPassword().equals(password)){
-
                     existe = true;
                     j=i;
                 }
             }
+            //si el usuario existe y las credenciales son correctas va directo a FormPedido
             if (existe){
-                COD_RESPUESTA=0;
+                //COD_RESPUESTA=0;
                 Intent miIntent = new Intent(this.getContext(), FormPedido.class);
                 Bundle miBundle = new Bundle();
-                miBundle.putSerializable("USERLOGIN", user.get(j));
+                miBundle.putSerializable("USER", user.get(j));
+                //miBundle.putSerializable("USERLOGIN", user.get(j));
                 miIntent.putExtras(miBundle);
-                miIntent.putExtra("COD", COD_RESPUESTA);
+                //miIntent.putExtra("COD", COD_RESPUESTA);
+                editor.putString("user", usuario);
+                editor.putString("password", password);
+                editor.commit();
 
-                startActivityForResult(miIntent, COD_RESPUESTA);
-                //startActivity(miIntent);
-                dismiss();
+                //startActivityForResult(miIntent, COD_RESPUESTA);
+                startActivity(miIntent);
+                this.getActivity().finish();
+                //dismiss();
+
+            //si no son correctas salta un error
             } else{
                 showToast("Error en el User o Contraseña");
             }
 
         }
 
-    }
+    }//fin metodo login()
 
     public List<ClaseUsuario> compruebaUser(){
 
@@ -185,11 +218,22 @@ public class LoginDialog extends DialogFragment {
         List<ClaseUsuario> usuarios = new ArrayList<ClaseUsuario>();
         usuarios = sql.getTodosUsuarios();
         return usuarios;
-    }
+    }//fin metodo compruebaUser()
+
+
+    //====================================================================================
+    //                 SHOWTOAST
+    //====================================================================================
 
 
     public void showToast(String text){Toast.makeText(this.getContext(), text, Toast.LENGTH_SHORT).show();
     }
+
+
+    //====================================================================================
+    //                  ADAPTADOR SPINNER
+    //====================================================================================
+
 
     class AdaptadorUsuarios extends ArrayAdapter<String> {
         public Activity miActividad;
@@ -215,8 +259,5 @@ public class LoginDialog extends DialogFragment {
             return (item);
         }
     }//Fin AdaptadorZonas
-
-
-
 
 }

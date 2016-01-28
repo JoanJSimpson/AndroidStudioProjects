@@ -19,7 +19,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/user_input"
-        android:drawableLeft="@mipmap/user24"
+        android:drawableStart="@mipmap/user24"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -34,7 +34,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/contrasena_input"
-        android:drawableLeft="@mipmap/password"
+        android:drawableStart="@mipmap/password"
         android:inputType="textPassword"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -50,7 +50,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/contrasena_repeat"
-        android:drawableLeft="@mipmap/password"
+        android:drawableStart="@mipmap/password"
         android:inputType="textPassword"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -63,7 +63,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/dni_input"
-        android:drawableLeft="@mipmap/dni"
+        android:drawableStart="@mipmap/dni"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -81,7 +81,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/nombre_input"
-        android:drawableLeft="@mipmap/nombre"
+        android:drawableStart="@mipmap/nombre"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -96,7 +96,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/apellidos_input"
-        android:drawableLeft="@mipmap/apellido"
+        android:drawableStart="@mipmap/apellido"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -111,7 +111,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/email_input"
-        android:drawableLeft="@mipmap/mail"
+        android:drawableStart="@mipmap/mail"
         android:inputType="textPersonName"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -126,7 +126,7 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="@string/telefono_input"
-        android:drawableLeft="@mipmap/telefono"
+        android:drawableStart="@mipmap/telefono"
         android:inputType="number"
         android:padding="@dimen/edit_text_padding"
         android:textAppearance="?android:attr/textAppearanceSmall" />
