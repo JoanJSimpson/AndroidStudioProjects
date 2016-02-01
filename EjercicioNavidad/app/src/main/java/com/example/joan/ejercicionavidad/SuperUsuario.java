@@ -68,6 +68,9 @@ public class SuperUsuario extends AppCompatActivity {
             case R.id.buscar:
                 buscar();
                 return true;
+            case R.id.mapa:
+                mapa();
+                return true;
             case R.id.salir:
                 salir();
                 return true;
@@ -95,6 +98,14 @@ public class SuperUsuario extends AppCompatActivity {
         finish();
 
     }//fin salir()
+
+    private void mapa(){
+
+        Intent miIntent = new Intent(SuperUsuario.this, Mapa.class);
+        startActivity(miIntent);
+        finish();
+
+    }//fin mapa()
 
     private void buscar(){
 

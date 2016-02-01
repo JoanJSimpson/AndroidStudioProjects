@@ -5,5 +5,6 @@
     <item android:id="@+id/verHistorial" android:title="Ver Historial"></item>
     <item android:id="@+id/buscar" android:title="Busqueda"></item>
     <item android:id="@+id/acercaDe" android:title="Acerca De"></item>
+    <item android:id="@+id/mapa" android:title="Mapa"></item>
     <item android:id="@+id/salir" android:title="Salir"></item>
 </menu>
