@@ -128,7 +128,6 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
      *
      */
 
-
     public void crearUsuario(ClaseUsuario usuario) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -185,10 +184,58 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
         return usuario;
     }
 
+    /**
+     *
+     * @param busqueda
+     * @return
+     */
 
-    /*
-     * getting all usuarios
-     * */
+    //todo funciona mas o menos bien
+
+    public List<String> buscar(String busqueda){
+        List<String> objetos = new ArrayList<String>();
+        String str="";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(busqueda, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            int tam=c.getColumnCount();
+            do {
+                //para que salga en columnas
+                /*
+                for (int i=0;i<tam;i++){
+                    str+= "Numero: "+i+"\t";
+                }
+                str+="\n";
+                for (int i=0;i<tam;i++){
+                    str+= c.getColumnName(i)+"\t";
+                }
+                str+="\n";
+                for (int i=0;i<tam;i++){
+                    str+= c.getString(i)+"\t";
+                }*/
+
+                for (int i=0; i<tam;i++) {
+
+                    str += i + " " + c.getColumnName(i) + " - " + c.getString(i)+"\n";
+                }
+                str+="\n\n";
+                objetos.add(str);
+                str="";
+            } while (c.moveToNext());
+        }
+
+        return objetos;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+
     public List<ClaseUsuario> getTodosUsuarios() {
         List<ClaseUsuario> usuarios = new ArrayList<ClaseUsuario>();
         String selectQuery = "SELECT  * FROM " + TABLA_USUARIOS;

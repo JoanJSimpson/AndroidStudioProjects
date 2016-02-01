@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class SuperUsuario extends AppCompatActivity {
     SharedPreferences preferences;
 
 
-    //====================================================================================
+//====================================================================================
 //                  MENú
 //====================================================================================
     @Override
@@ -63,6 +64,9 @@ public class SuperUsuario extends AppCompatActivity {
                 return true;
             case R.id.verHistorial:
                 verHistorial();
+                return true;
+            case R.id.buscar:
+                buscar();
                 return true;
             case R.id.salir:
                 salir();
@@ -92,6 +96,21 @@ public class SuperUsuario extends AppCompatActivity {
 
     }//fin salir()
 
+    private void buscar(){
+
+        //todo que el usuario elija el string a buscar
+        String buscar = "SELECT * FROM usuarios";
+        SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
+        List<String> buscado = new ArrayList<>();
+        buscado = admin.buscar(buscar);
+        String fin="";
+        for (int i=0;i<buscado.size();i++){
+            fin+=buscado.get(i);
+        }
+        showToast(fin);
+
+    }//fin buscar()
+
     private void acercaDe(){
         new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
     }//fin acercaDe()
@@ -113,10 +132,9 @@ public class SuperUsuario extends AppCompatActivity {
     private void crearHistorial(){
         SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
         SQLiteDatabase bd = sql.getWritableDatabase();
-        //Eliminamos todos los datos antes, para que no haya duplicados
-        //todo podria poner que en lugar de eliminar, le añada la fecha de creación del historial
+        //Añadimos la fecha de creacion del historial
         String fecha = fechaHoraActual();
-        showToast(fecha);
+        //showToast(fecha);
         //bd.execSQL("delete from historial");
         historial = sql.getAllHistorial();
         for (int i=0;i<historial.size();i++) {
@@ -374,6 +392,7 @@ public class SuperUsuario extends AppCompatActivity {
         }
     }
 
+    //TODO hacer un menu para insertar una secuencia sql y que aparezca el resultado en un listview
 
 
     public void showToast(String text){
