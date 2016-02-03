@@ -123,7 +123,6 @@ public class LoginDialog extends DialogFragment {
                     public void onClick(View v) {
                         // Crear Cuenta...
                         crear();
-                        //todo si no funciona es por esto
                         getActivity().finish();
                         //dismiss();
                     }
@@ -138,7 +137,6 @@ public class LoginDialog extends DialogFragment {
                         String usuario = user.getText().toString();
                         String password = contrasena.getText().toString();
                         login(usuario, password);
-                        //todo si no funciona es por esto
                         //getActivity().finish();
                         //dismiss();
                     }

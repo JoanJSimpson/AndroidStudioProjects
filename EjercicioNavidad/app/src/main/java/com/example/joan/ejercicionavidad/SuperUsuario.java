@@ -3,11 +3,14 @@ package com.example.joan.ejercicionavidad;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,20 +111,49 @@ public class SuperUsuario extends AppCompatActivity {
 
     }//fin mapa()
 
+    private void muestraList(String txtBuscado){
+            SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
+            List<String> devuelto = new ArrayList<>();
+            String[] fin;
+            devuelto = admin.buscar(txtBuscado);
+            fin = new String[devuelto.size()];
+            for (int i = 0; i < devuelto.size(); i++) {
+                fin[i] = devuelto.get(i);
+                //showToast(fin[i]);
+            }
+            ListView listView = new ListView(this);
+            listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fin));
+
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(listView);
+            dialog.setTitle("Busqueda personalizada");
+
+            dialog.show();
+    }
+
+
     private void buscar(){
 
-        //todo que el usuario elija el string a buscar
-        String buscar = "SELECT * FROM usuarios";
-        SQLiteHelper2 admin = new SQLiteHelper2(this, "DBClientes.sqlite", null, 1);
-        List<String> buscado = new ArrayList<>();
-        buscado = admin.buscar(buscar);
-        String fin="";
-        for (int i=0;i<buscado.size();i++){
-            fin+=buscado.get(i);
-        }
-        showToast(fin);
-
-    }//fin buscar()
+        final EditText txtUrl = new EditText(this);
+        txtUrl.setHint("Introduzca la busqueda");
+        new AlertDialog.Builder(this)
+                .setTitle("Busqueda")
+                .setView(txtUrl)
+                .setPositiveButton("Buscar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        try {
+                            muestraList(txtUrl.getText().toString());
+                        }catch (Exception e){
+                            showToast("Sentencia no válida");
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })
+                .show();
+    }
 
     private void acercaDe(){
         new DialogoPersonalizado().show(getSupportFragmentManager(), "DialogoPersonalizado");
@@ -403,7 +436,6 @@ public class SuperUsuario extends AppCompatActivity {
         }
     }
 
-    //TODO hacer un menu para insertar una secuencia sql y que aparezca el resultado en un listview
 
 
     public void showToast(String text){

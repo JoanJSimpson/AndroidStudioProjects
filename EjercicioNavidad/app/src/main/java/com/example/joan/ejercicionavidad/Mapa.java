@@ -1,11 +1,17 @@
 package com.example.joan.ejercicionavidad;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -15,24 +21,59 @@ public class Mapa extends FragmentActivity{
     private GoogleMap mMap=null;
 
 
-    public static final LatLng SAGRADA_FAMILIA = new LatLng(41.40347, 2.17432);
-    public static final LatLng MADRID = new LatLng(40.4378693, -3.8199648);
-    public static final LatLng CIUDAD_ARTES = new LatLng(39.4532979, -0.3556489);
+    public static final LatLng EUROPA = new LatLng(51.0777815, 5.9567456);
+    public static final LatLng ASIA_Y_OCEANIA = new LatLng(7.8575679, 101.7559515);
+    public static final LatLng AMERICA_Y_AFRICA = new LatLng(34.8218588, -114.9644596);
+    public static LatLng foco;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
         setUpMapIfNeeded();  //Configuramos el Mapa de ser necesario
 
-        //todo poner las coordenadas de los distintos continentes
-        Bundle miBundleRecoger = getIntent().getExtras();
-        if((miBundleRecoger.getInt("ZONAMAPA"))==(R.drawable.asia_oceania)){
-            setMarker(SAGRADA_FAMILIA, "Sagrada Familia", "Distrito: Barcelona"); // Agregamos el marcador verde
-        }else if((miBundleRecoger.getInt("ZONAMAPA"))==(R.drawable.america_africa)){
-            setMarker(CIUDAD_ARTES,"Ciudad de las Artes y las Ciencias","Distrito: Valencia"); // Agregamos el marcador verde
-        }else{
-            setMarker(MADRID,"Madrid","Distrito: Madrid"); // Agregamos el marcador verde
+        try {
+            Bundle miBundleRecoger = getIntent().getExtras();
+            if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.asia_oceania)) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(ASIA_Y_OCEANIA)
+                        .title("ASIA Y OCEANIA")
+                        .snippet("ZONA A"));
+                foco = ASIA_Y_OCEANIA;
+                //setMarker(ASIA_Y_OCEANIA, "ASIA Y OCEANIA", "ZONA A");
+
+            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.america_africa)) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(AMERICA_Y_AFRICA)
+                        .title("AMERICA Y AFRICA")
+                        .snippet("ZONA B"));
+                foco = AMERICA_Y_AFRICA;
+                //setMarker(AMERICA_Y_AFRICA, "AMERICA Y AFRICA", "ZONA B"); // Agregamos el marcador verde
+            } else {
+                mMap.addMarker(new MarkerOptions()
+                        .position(EUROPA)
+                        .title("EUROPA")
+                        .snippet("ZONA C"));
+                foco = EUROPA;
+                //setMarker(EUROPA, "EUROPA", "ZONA C"); // Agregamos el marcador verde
+            }
+        }catch (Exception e){
+
+            //todo poner la ubicacion actual aqui
+
+        /*    mMap.setMyLocationEnabled(true);
+            Location miSitio = mMap.getMyLocation();
+            LatLng miLoc = new LatLng(miSitio.getLatitude(), miSitio.getLongitude());
+            foco = miLoc;*/
         }
+        CameraPosition camPos = new CameraPosition.Builder()
+                .target(foco)
+                .zoom(3)
+                .bearing(0) //Establecemos la orientación con el norte arriba
+                .tilt(70) //Bajamos el punto de vista de la camara 70 grados
+                .build();
+        CameraUpdate camUpd3 = CameraUpdateFactory.newCameraPosition(camPos);
+
+        mMap.animateCamera(camUpd3);
 
 
     }
@@ -55,6 +96,7 @@ public class Mapa extends FragmentActivity{
             }
         }
     }
+    //Este metodo no lo utilizo pero viene bien por si quiero cambiar el color del marcador
     private void setMarker(LatLng position, String titulo, String info) {
         // Agregamos marcadores para indicar sitios de interéses.
         Marker myMaker = mMap.addMarker(new MarkerOptions()
@@ -63,4 +105,7 @@ public class Mapa extends FragmentActivity{
                 .snippet(info)   //Agrega información detalle relacionada con el marcador
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))); //Color del marcador
     }
+
+
+
 }

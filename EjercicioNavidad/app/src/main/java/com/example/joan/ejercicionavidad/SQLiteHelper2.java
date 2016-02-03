@@ -219,9 +219,8 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
                 for (int i=0; i<tam;i++) {
 
-                    str += i + " " + c.getColumnName(i) + " - " + c.getString(i)+"\n";
+                    str += c.getColumnName(i).toUpperCase() + ": \t" + c.getString(i)+"\n";
                 }
-                str+="\n\n";
                 objetos.add(str);
                 str="";
             } while (c.moveToNext());
