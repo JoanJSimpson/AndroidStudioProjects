@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -188,6 +189,7 @@ public class ViewLista extends AppCompatActivity {
             TextView peso = (TextView) item.findViewById(R.id.campoPeso);
             TextView decoracion = (TextView) item.findViewById(R.id.campoDecoracion);
             TextView precio = (TextView) item.findViewById(R.id.campoPrecio);
+            ImageView imagen = (ImageView) item.findViewById(R.id.campoImagen);
 
 
             dni.setText(String.valueOf("   DNI: "+pedidos[position].getUsuarioDni()));
@@ -197,7 +199,7 @@ public class ViewLista extends AppCompatActivity {
             decoracion.setText("   Decoración: "+pedidos[position].getDecoracion());
             precio.setText(String.valueOf("   Precio: "+pedidos[position].getPrecio())+" €");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                linear.setBackground(getDrawable(pedidos[position].getImagen()));
+                imagen.setBackground(getDrawable(pedidos[position].getImagen()));
             }
 
             return (item);

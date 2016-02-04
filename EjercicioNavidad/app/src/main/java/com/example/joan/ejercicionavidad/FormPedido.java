@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,8 +25,6 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.Normalizer;
 
 public class FormPedido extends AppCompatActivity {
 
@@ -336,7 +333,7 @@ public class FormPedido extends AppCompatActivity {
         public Activity miActividad;
 
         public AdaptadorZonas(Activity laActividad){
-            super (laActividad, R.layout.desmilista, zonas);
+            super (laActividad, R.layout.layout_spinner_zonas, zonas);
             this.miActividad = laActividad;
 
         }
@@ -348,7 +345,7 @@ public class FormPedido extends AppCompatActivity {
 
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = miActividad.getLayoutInflater();
-            View item = inflater.inflate(R.layout.desmilista, null);
+            View item = inflater.inflate(R.layout.layout_spinner_zonas, null);
 
             TextView lblZona = (TextView) item.findViewById(R.id.campoZona);
             lblZona.setText("ZONA "+zonas[position].getZona());

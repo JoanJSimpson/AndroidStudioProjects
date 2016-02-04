@@ -2,5 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/verBaseDatos" android:title="Ver Base de Datos"></item>
     <item android:id="@+id/acercaDe" android:title="Acerca De"></item>
-    <item android:id="@+id/salir" android:title="Salir"></item>
+    <item android:id="@+id/salir" android:title="LogOut"></item>
 </menu>

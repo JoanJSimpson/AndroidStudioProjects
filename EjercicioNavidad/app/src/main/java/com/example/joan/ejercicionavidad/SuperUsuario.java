@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,7 +33,6 @@ import java.util.List;
  * Created by Joan on 20/1/16.
  */
 
-//todo cuando no hay usuarios en el emulador peta
 public class SuperUsuario extends AppCompatActivity {
 
 //====================================================================================
@@ -54,7 +52,7 @@ public class SuperUsuario extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Alternativa 1
-        getMenuInflater().inflate(R.menu.menu_salir, menu);
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
         return true;
     }
 
@@ -95,7 +93,6 @@ public class SuperUsuario extends AppCompatActivity {
 
 
 
-    //Elementos del menu
     private void salir(){
 
         preferences.edit().clear().commit();
@@ -368,13 +365,13 @@ public class SuperUsuario extends AppCompatActivity {
         Activity context;
 
         miAdaptador(Activity context) {
-            super(context, R.layout.lista_adaptador_clientes, usuarios);
+            super(context, R.layout.lista_adaptador_usuarios, usuarios);
             this.context = context;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            View item = inflater.inflate(R.layout.lista_adaptador_clientes, null);
+            View item = inflater.inflate(R.layout.lista_adaptador_usuarios, null);
 
             TextView user = (TextView) item.findViewById(R.id.userUsuario);
             TextView password = (TextView) item.findViewById(R.id.userPassword);

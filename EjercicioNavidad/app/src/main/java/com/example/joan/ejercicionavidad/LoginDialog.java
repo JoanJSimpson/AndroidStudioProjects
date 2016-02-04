@@ -44,8 +44,6 @@ public class LoginDialog extends DialogFragment {
     String usuarioResume;
     String passwordResume;
 
-    //public static int COD_RESPUESTA;
-    //private static int COD_SPINNER = 0;
     public LoginDialog() {
     }
 
@@ -90,45 +88,35 @@ public class LoginDialog extends DialogFragment {
         final EditText user = (EditText) v.findViewById(R.id.nombre_input);
         final EditText contrasena = (EditText) v.findViewById(R.id.contrasena_input);
         Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
+        TextView info = (TextView) v.findViewById(R.id.info_spinner);
 
         //Datos para rellenar el spinner con los usuarios
         try {
+            //====================================================================================
+            //                  SPINNER
+            //====================================================================================
             SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
             usuarios = sql.getLoginUsuarios();
-            AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
-            miSpinner.setAdapter(miAdaptador);
-            miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
-                    usuarioSeleccionado = usuarios.get(position);
-                    user.setText(usuarioSeleccionado);
+            if (usuarios.size()>0) {
+                AdaptadorUsuarios miAdaptador = new AdaptadorUsuarios(this.getActivity());
+                miSpinner.setAdapter(miAdaptador);
+                miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
+                        usuarioSeleccionado = usuarios.get(position);
+                        user.setText(usuarioSeleccionado);
 
-                }
+                    }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });//final miSpinner
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });//final miSpinner
+                info.setVisibility(View.VISIBLE);
+                miSpinner.setVisibility(View.VISIBLE);
+            }
         }catch (Exception e){
             usuarios =null;
         }
-
-        //====================================================================================
-        //                  SPINNER
-        //====================================================================================
-
-/*        AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
-        miSpinner.setAdapter(miAdaptador);
-        miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
-                usuarioSeleccionado = usuarios.get(position);
-                user.setText(usuarioSeleccionado);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });//final miSpinner*/
 
 
         //====================================================================================

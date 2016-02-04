@@ -5,61 +5,81 @@
     android:background="#fffefe"
     android:id="@+id/campoLinear">
 
-        
-        
-    
-        <TextView android:id="@+id/campoDni"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="25px"
-            android:text="DNI"
-            android:textColor="#ff0000"/>
-    
-        <TextView android:id="@+id/campoZona"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Zona"
-            android:textSize="30px"
-            android:textColor="#000000"/>
-    
-        <TextView android:id="@+id/campoTarifa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Tarifa"
-            android:textSize="30px"
-            android:textColor="#000000"/>
-    
-        <TextView android:id="@+id/campoPeso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Peso"
-            android:textSize="30px"
-            android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/campoDni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="@string/dni_input"
+        android:drawableStart="@mipmap/dni"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView android:id="@+id/campoDecoracion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Decoración"
-            android:textSize="30px"
-            android:textColor="#000000"/>
-    
-        <TextView android:id="@+id/campoPrecio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Precio"
-            android:textSize="70px"
-            android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/campoZona"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/campoDni"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="Zona"
+        android:drawableStart="@mipmap/zona"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <TextView
+        android:id="@+id/campoTarifa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/campoZona"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="Tarifa"
+        android:drawableStart="@mipmap/tarifa"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/campoPeso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/campoTarifa"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="Peso"
+        android:drawableStart="@mipmap/peso"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/campoDecoracion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/campoPeso"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="Decoracion"
+        android:drawableStart="@mipmap/decoracion"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+    <TextView
+        android:id="@+id/campoPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/campoPeso"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_text_border2"
+        android:ems="10"
+        android:text="Precio"
+        android:drawableStart="@mipmap/precio"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageView
-        android:layout_width="250px"
-        android:layout_height="250px"
+        android:layout_width="75px"
+        android:layout_height="75px"
         android:id="@+id/campoImagen"
         android:foregroundGravity="right"
         android:layout_gravity="center|right"
@@ -68,12 +88,10 @@
     <FrameLayout
         android:id="@+id/LineaCabecera"
         android:layout_width="fill_parent"
-        android:layout_height="2px"
+        android:layout_height="7px"
         android:layout_span="6"
-        android:background="#ff000000">
+        android:background="#ff000000"
+        android:layout_weight="1">
     </FrameLayout>
-
-
-
 
 </LinearLayout>

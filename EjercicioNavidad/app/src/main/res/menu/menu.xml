@@ -2,8 +2,6 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:com.example.joan.ejercicionavidad="http://schemas.android.com/apk/res-auto">
-
-
     <item
         android:id="@+id/eliminar" android:title="eliminar" com.example.joan.ejercicionavidad:showAsAction="never"/>
 
