@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView2);
 
         final String url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android";
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(result == 1){
 
-                arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, blogTitles);
+                arrayAdapter = new ArrayAdapter (MainActivity.this, android.R.layout.simple_list_item_1, blogTitles);
 
                 listView.setAdapter(arrayAdapter);
             }else{

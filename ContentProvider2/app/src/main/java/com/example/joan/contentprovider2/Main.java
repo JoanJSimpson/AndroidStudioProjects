@@ -1,5 +1,6 @@
 package com.example.joan.contentprovider2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.AsyncTask;
@@ -32,7 +33,7 @@ public class Main extends AppCompatActivity {
 
     private EditText longitud;
 
-    private Button boton;
+    private Button boton, boton2;
 
     private TextView texto;
 
@@ -51,6 +52,7 @@ public class Main extends AppCompatActivity {
         latitud = (EditText) findViewById(R.id.latitud);
         longitud = (EditText) findViewById(R.id.longitud);
         boton = (Button) findViewById(R.id.boton);
+        boton2 = (Button) findViewById(R.id.boton2);
         texto = (TextView) findViewById(R.id.texto);
 
         //Escuchador para el botón
@@ -74,6 +76,13 @@ public class Main extends AppCompatActivity {
                     texto.setText("Error al conectar\n");
                     e.printStackTrace();
                 }
+            }
+        });
+        boton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent miIntent = new Intent(Main.this, MainActivity.class);
+                startActivity(miIntent);
             }
         });
 

@@ -19,6 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buscar posición" />
+    <Button
+        android:id="@+id/boton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Noticias" />
 
     <TextView
         android:layout_width="fill_parent"
