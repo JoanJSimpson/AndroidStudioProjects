@@ -149,10 +149,12 @@ public class Main extends AppCompatActivity {
             String direccion="SIN DATOS PARA ESA LONGITUD Y LATITUD";
             if(result == 1){
 
-                arrayAdapter = new ArrayAdapter(Main.this, android.R.layout.simple_list_item_1, titulosStr);
+                //le vamos a meter solo el primer item ya que es el que mas info nos da
+                texto.setText(titulosStr[0]);
+                //arrayAdapter = new ArrayAdapter(Main.this, android.R.layout.simple_list_item_1, titulosStr);
 
                 //direccion = resultJSON.getJSONObject(0).getString("formatted_address");
-                listView.setAdapter(arrayAdapter);
+                //listView.setAdapter(arrayAdapter);
             }else{
 
                 Log.e(TAG, "Failed to fetch data!");
