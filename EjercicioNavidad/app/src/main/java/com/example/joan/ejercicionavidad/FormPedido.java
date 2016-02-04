@@ -223,7 +223,7 @@ public class FormPedido extends AppCompatActivity {
                 values.put("imagen", zona.getImagen());
                 values.put("decoracion", marcados);
 
-                db.insert("envios", null, values);
+                db.insert("pedidos", null, values);
                 db.close();
 
 

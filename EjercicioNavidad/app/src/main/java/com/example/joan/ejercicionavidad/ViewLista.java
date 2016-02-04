@@ -144,7 +144,7 @@ public class ViewLista extends AppCompatActivity {
         SQLiteDatabase bd = admin.getWritableDatabase();
         String[] idBorrar = new String[]{String.valueOf(id)};
 
-        bd.delete("envios", "id=?", idBorrar);
+        bd.delete("pedidos", "id=?", idBorrar);
 
 
         bd.close();

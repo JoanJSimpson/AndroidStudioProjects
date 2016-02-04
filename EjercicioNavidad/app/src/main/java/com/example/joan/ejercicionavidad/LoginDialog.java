@@ -92,14 +92,31 @@ public class LoginDialog extends DialogFragment {
         Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
 
         //Datos para rellenar el spinner con los usuarios
-        SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
-        usuarios = sql.getLoginUsuarios();
+        try {
+            SQLiteHelper2 sql = new SQLiteHelper2(this.getContext(), "DBClientes.sqlite", null, 1);
+            usuarios = sql.getLoginUsuarios();
+            AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
+            miSpinner.setAdapter(miAdaptador);
+            miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
+                    usuarioSeleccionado = usuarios.get(position);
+                    user.setText(usuarioSeleccionado);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });//final miSpinner
+        }catch (Exception e){
+            usuarios =null;
+        }
 
         //====================================================================================
         //                  SPINNER
         //====================================================================================
 
-        AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
+/*        AdaptadorUsuarios miAdaptador= new AdaptadorUsuarios(this.getActivity());
         miSpinner.setAdapter(miAdaptador);
         miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
@@ -111,7 +128,7 @@ public class LoginDialog extends DialogFragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        });//final miSpinner
+        });//final miSpinner*/
 
 
         //====================================================================================

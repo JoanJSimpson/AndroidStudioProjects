@@ -33,6 +33,8 @@ import java.util.List;
 /**
  * Created by Joan on 20/1/16.
  */
+
+//todo cuando no hay usuarios en el emulador peta
 public class SuperUsuario extends AppCompatActivity {
 
 //====================================================================================
@@ -131,11 +133,11 @@ public class SuperUsuario extends AppCompatActivity {
             dialog.show();
     }
 
-
+//todo este metodo cuando se inserta una sentencia drop o delete lo elimina, hay que cambiarlo
     private void buscar(){
 
         final EditText txtUrl = new EditText(this);
-        txtUrl.setHint("Introduzca la busqueda");
+        txtUrl.setHint(" Introduzca la busqueda");
         new AlertDialog.Builder(this)
                 .setTitle("Busqueda")
                 .setView(txtUrl)
@@ -174,39 +176,56 @@ public class SuperUsuario extends AppCompatActivity {
     }//fin eliminar()
 
     private void crearHistorial(){
-        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = sql.getWritableDatabase();
-        //Añadimos la fecha de creacion del historial
-        String fecha = fechaHoraActual();
-        //showToast(fecha);
-        //bd.execSQL("delete from historial");
-        historial = sql.getAllHistorial();
-        for (int i=0;i<historial.size();i++) {
-            historial.get(i).setFecha(fecha);
-            sql.crearHistorial(historial.get(i));
+        try {
+            SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+            SQLiteDatabase bd = sql.getWritableDatabase();
+            //Añadimos la fecha de creacion del historial
+            String fecha = fechaHoraActual();
+            //showToast(fecha);
+            //bd.execSQL("delete from historial");
+            historial = sql.getAllHistorial();
+            if (historial.size()>0) {
+                for (int i = 0; i < historial.size(); i++) {
+                    historial.get(i).setFecha(fecha);
+                    sql.crearHistorial(historial.get(i));
+                }
+                showToast("Historial creado correctamente");
+            }else{
+                showToast("No hay pedidos para poder crear el historial");
+            }
+            sql.close();
+        }catch (Exception e){
+            showToast("Error al crear el historial. "+e.toString());
         }
-        showToast("Historial creado correctamente");
-        sql.close();;
     }//fin crearHistorial()
 
     private void verTodos(){
-        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = sql.getReadableDatabase();
-        historial = sql.getAllHistorial();
+        try {
+            SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+            SQLiteDatabase bd = sql.getReadableDatabase();
+            historial = sql.getAllHistorial();
 
-        //====================================================================================
-        //                  LISTVIEW
-        //====================================================================================
-        //Adaptador listView
-        final miAdaptador2 adaptador2 = new miAdaptador2(this);
+            if (historial.size()>0) {
 
-        ListView listView = new ListView(this);
-        listView.setAdapter(adaptador2);
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(listView);
-        dialog.setTitle("Ver Pedidos");
+                //====================================================================================
+                //                  LISTVIEW
+                //====================================================================================
+                //Adaptador listView
+                final miAdaptador2 adaptador2 = new miAdaptador2(this);
 
-        dialog.show();
+                ListView listView = new ListView(this);
+                listView.setAdapter(adaptador2);
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(listView);
+                dialog.setTitle("Ver Pedidos");
+
+                dialog.show();
+            }else{
+                showToast("No hay ningun pedido");
+            }
+        }catch(Exception e){
+            showToast("Error al mostrar los pedidos. "+e.toString());
+        }
 
     }
 
@@ -216,22 +235,31 @@ public class SuperUsuario extends AppCompatActivity {
 
     private void verHistorial(){
 
-        SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
-        SQLiteDatabase bd = sql.getReadableDatabase();
-        historial = sql.getHistorial();
+        try {
+            SQLiteHelper2 sql = new SQLiteHelper2(getApplicationContext(), "DBClientes.sqlite", null, 1);
+            SQLiteDatabase bd = sql.getReadableDatabase();
+            historial = sql.getHistorial();
 
-        //====================================================================================
-        //                  LISTVIEW
-        //====================================================================================
-        //Adaptador listView
-        final miAdaptador3 adaptador3 = new miAdaptador3(this);
+            if (historial.size()>0) {
 
-        ListView listView = new ListView(this);
-        listView.setAdapter(adaptador3);
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(listView);
-        dialog.setTitle("Ver Historial");
-        dialog.show();
+                //====================================================================================
+                //                  LISTVIEW
+                //====================================================================================
+                //Adaptador listView
+                final miAdaptador3 adaptador3 = new miAdaptador3(this);
+
+                ListView listView = new ListView(this);
+                listView.setAdapter(adaptador3);
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(listView);
+                dialog.setTitle("Ver Historial");
+                dialog.show();
+            }else{
+                showToast("No hay historial que mostrar");
+            }
+        }catch (Exception e){
+            showToast("Error al crear el historial. "+e.toString());
+        }
 
     }
 

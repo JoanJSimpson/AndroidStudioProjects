@@ -87,7 +87,6 @@ public class Mapa extends FragmentActivity {
             }
         } catch (Exception e) {
 
-            //todo poner la ubicacion actual aqui
             //Obtenemos una referencia al LocationManager
             locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

@@ -17,7 +17,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
     // Table Names
     private static final String TABLA_USUARIOS = "usuarios";
-    private static final String TABLA_PEDIDOS = "envios";
+    private static final String TABLA_PEDIDOS = "pedidos";
     private static final String TABLA_HISTORIAL = "historial";
 
 
@@ -65,8 +65,8 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'telefono' INTEGER NOT NULL" +
             "  );";
 
-    //Sentencia SQL para crear la tabla de Envios
-    String sqlCreatePedidos = "CREATE TABLE IF NOT EXISTS 'envios' (" +
+    //Sentencia SQL para crear la tabla de Pedidos
+    String sqlCreatePedidos = "CREATE TABLE IF NOT EXISTS 'pedidos' (" +
             "  'id' INTEGER NOT NULL PRIMARY KEY," +
             "  'usuarioDNI' TEXT NOT NULL," +
             "  'zonaId' TEXT NOT NULL," +
@@ -190,8 +190,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
      * @return
      */
 
-    //todo funciona mas o menos bien
-
+//todo al ejecutar una sentencia drop o delete lo elimina, hay que cambiarlo
     public List<String> buscar(String busqueda){
         List<String> objetos = new ArrayList<String>();
         String str="";
