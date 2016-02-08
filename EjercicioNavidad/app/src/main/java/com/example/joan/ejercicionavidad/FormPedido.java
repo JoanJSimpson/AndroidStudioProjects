@@ -36,9 +36,15 @@ public class FormPedido extends AppCompatActivity {
 
     //metemos datos de Zonas en la clase
     private Zonas[] zonas = new Zonas[]{
-            new Zonas("A", "Asia y Oceania", 30 , R.drawable.asia_oceania),
+            /*new Zonas("A", "Asia y Oceania", 30 , R.drawable.asia_oceania),
             new Zonas("B", "America y Africa", 20 , R.drawable.america_africa),
-            new Zonas("C", "Europa", 10 , R.drawable.europa),
+            new Zonas("C", "Europa", 10 , R.drawable.europa),*/
+            new Zonas("A", "Asia", 40 , R.drawable.asia),
+            new Zonas("B", "Oceania", 50 , R.drawable.oceania),
+            new Zonas("C", "America Latina", 20 , R.drawable.america_latina),
+            new Zonas("D", "America del Norte", 30 , R.drawable.norteamerica),
+            new Zonas("E", "Europa", 10 , R.drawable.europa),
+            new Zonas("F", "Africa", 30 , R.drawable.africa),
     }; //fin Zonas
 
     //====================================================================================

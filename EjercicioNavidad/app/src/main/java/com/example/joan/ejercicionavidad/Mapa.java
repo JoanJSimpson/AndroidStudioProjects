@@ -29,8 +29,11 @@ public class Mapa extends FragmentActivity {
 
 
     public static final LatLng EUROPA = new LatLng(51.0777815, 5.9567456);
-    public static final LatLng ASIA_Y_OCEANIA = new LatLng(7.8575679, 101.7559515);
-    public static final LatLng AMERICA_Y_AFRICA = new LatLng(34.8218588, -114.9644596);
+    public static final LatLng ASIA = new LatLng(35.832843, 106.366118);
+    public static final LatLng AMERICA_LATINA = new LatLng(1.618910, -66.923000);
+    public static final LatLng AFRICA = new LatLng(9.790043, 19.268092);
+    public static final LatLng AMERICA_DEL_NORTE = new LatLng(35.218342, -99.647194);
+    public static final LatLng OCEANIA = new LatLng(-15.375385, 132.701893);
     public static LatLng USUARIO;
     public static LatLng foco;
     private LocationManager locManager;
@@ -44,12 +47,12 @@ public class Mapa extends FragmentActivity {
 
         try {
             Bundle miBundleRecoger = getIntent().getExtras();
-            if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.asia_oceania)) {
+            if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.asia)) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(ASIA_Y_OCEANIA)
-                        .title("ASIA Y OCEANIA")
+                        .position(ASIA)
+                        .title("ASIA")
                         .snippet("ZONA A"));
-                foco = ASIA_Y_OCEANIA;
+                foco = ASIA;
                 camPos = new CameraPosition.Builder()
                         .target(foco)
                         .zoom(3)
@@ -58,12 +61,12 @@ public class Mapa extends FragmentActivity {
                         .build();
                 //setMarker(ASIA_Y_OCEANIA, "ASIA Y OCEANIA", "ZONA A");
 
-            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.america_africa)) {
+            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.oceania)) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(AMERICA_Y_AFRICA)
-                        .title("AMERICA Y AFRICA")
+                        .position(OCEANIA)
+                        .title("OCEANIA")
                         .snippet("ZONA B"));
-                foco = AMERICA_Y_AFRICA;
+                foco = OCEANIA;
                 camPos = new CameraPosition.Builder()
                         .target(foco)
                         .zoom(3)
@@ -71,12 +74,55 @@ public class Mapa extends FragmentActivity {
                         .tilt(70) //Bajamos el punto de vista de la camara 70 grados
                         .build();
                 //setMarker(AMERICA_Y_AFRICA, "AMERICA Y AFRICA", "ZONA B"); // Agregamos el marcador verde
-            } else {
+
+            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.america_latina)) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(AMERICA_LATINA)
+                        .title("AMERICA LATINA")
+                        .snippet("ZONA C"));
+                foco = AMERICA_LATINA;
+                camPos = new CameraPosition.Builder()
+                        .target(foco)
+                        .zoom(3)
+                        .bearing(0) //Establecemos la orientación con el norte arriba
+                        .tilt(70) //Bajamos el punto de vista de la camara 70 grados
+                        .build();
+                //setMarker(AMERICA_Y_AFRICA, "AMERICA Y AFRICA", "ZONA B"); // Agregamos el marcador verde
+
+            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.norteamerica)) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(AMERICA_DEL_NORTE)
+                        .title("NORTE AMERICA")
+                        .snippet("ZONA D"));
+                foco = AMERICA_DEL_NORTE;
+                camPos = new CameraPosition.Builder()
+                        .target(foco)
+                        .zoom(3)
+                        .bearing(0) //Establecemos la orientación con el norte arriba
+                        .tilt(70) //Bajamos el punto de vista de la camara 70 grados
+                        .build();
+                //setMarker(AMERICA_Y_AFRICA, "AMERICA Y AFRICA", "ZONA B"); // Agregamos el marcador verde
+
+            } else if ((miBundleRecoger.getInt("ZONAMAPA")) == (R.drawable.europa)) {
                 mMap.addMarker(new MarkerOptions()
                         .position(EUROPA)
                         .title("EUROPA")
-                        .snippet("ZONA C"));
+                        .snippet("ZONA E"));
                 foco = EUROPA;
+                camPos = new CameraPosition.Builder()
+                        .target(foco)
+                        .zoom(3)
+                        .bearing(0) //Establecemos la orientación con el norte arriba
+                        .tilt(70) //Bajamos el punto de vista de la camara 70 grados
+                        .build();
+                //setMarker(AMERICA_Y_AFRICA, "AMERICA Y AFRICA", "ZONA B"); // Agregamos el marcador verde
+
+            } else {
+                mMap.addMarker(new MarkerOptions()
+                        .position(AFRICA)
+                        .title("AFRICA")
+                        .snippet("ZONA F"));
+                foco = AFRICA;
                 camPos = new CameraPosition.Builder()
                         .target(foco)
                         .zoom(3)
