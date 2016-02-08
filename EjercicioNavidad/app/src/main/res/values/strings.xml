@@ -10,6 +10,7 @@
     <string name="info_user">Introduzca un Usuario:</string>
     <string name="info_spinner">o seleccione uno:</string>
     <string name="prueba">Prueba</string>
+    <string name="crearUsers_boton">CREAR USERS</string>
     <string name="crear_boton">CREAR CUENTA</string>
     <string name="nombre_input">Nombre</string>
     <string name="contrasena_input">Contraseña</string>

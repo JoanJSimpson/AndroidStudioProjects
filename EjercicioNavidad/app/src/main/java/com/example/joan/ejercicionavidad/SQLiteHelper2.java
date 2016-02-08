@@ -91,15 +91,83 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'imagen' INTEGER NOT NULL" +
             "  );";
 
+    //todo crear un script para añadir usuarios y pedidos automaticamente
+
+    private static String[] crearUsuarios= new String[]{"('Joan','jo','22345432A','Joan','Piera Simo','joan@gmail.com',665554443)",
+            "('Oscar','os','1122334455a','Oscar','Rodriguez','oscar@gmail.com',665885523)",
+            "('Pepe','pe','34565435B','Pepe','Martinez Navarro','pepe@gmail.com',621453456)"};
+
+    private static String[] crearPedidos = new String[]{"(1,'22345432A','B','TARIFA URGENTE',5.0,'Caja Regalo',32.5,2130837665)",
+            "(2,'22345432A','A','TARIFA URGENTE',3.0,'Con tarjeta dedicada',42.9,2130837575)",
+            "(3,'1122334455a','A','TARIFA URGENTE',5.0,'Caja Regalo Con tarjeta dedicada',45.5,2130837575)",
+            "(4,'1122334455a','A','TARIFA NORMAL',5.0,'Caja Regalo' ,35.0,2130837575)",
+            "(5,'22345432A','C','TARIFA NORMAL',5.0,'Con tarjeta dedicada',15.0,2130837574)",
+            "(6,'22345432A','C','TARIFA NORMAL',3.0,'Caja Regalo Con tarjeta dedicada',13.0,2130837574)",
+            "(7,'1122334455a','C','TARIFA NORMAL',0.0,'Sin Decoración',10.0,2130837574)",
+            "(8,'34565435B','C','TARIFA URGENTE',1.0,'Caja Regalo' ,14.3,2130837574)",
+            "(9,'34565435B','B','TARIFA URGENTE',10.0,'Caja Regalo Con tarjeta dedicada',45.5,2130837665)",
+            "(10,'34565435B','A','TARIFA NORMAL',5.0,'Sin Decoración',45.0,2130837575)",
+            "(11,'22345432A','A','TARIFA NORMAL',12.0,'Caja Regalo' ,64.0,2130837575)",
+            "(12,'22345432A','B','TARIFA URGENTE',1.0,'Con tarjeta dedicada',66.3,2130837665)",
+            "(13,'22345432A','C','TARIFA NORMAL',1.0,'Caja Regalo Con tarjeta dedicada',21.0,2130837574)",
+            "(14,'22345432A','D','TARIFA URGENTE',1.0,'Con tarjeta dedicada',40.3,2130837664)",
+            "(15,'22345432A','E','TARIFA NORMAL',1.0,'Caja Regalo' ,11.0,2130837625)",
+            "(16,'22345432A','F','TARIFA NORMAL',12.0,'Sin Decoración',54.0,2130837573)"};
+
+
+    /*String crearUsuarios = "INSERT INTO usuarios ('user', 'password', 'dni', 'nombre', 'apellidos', 'email', 'telefono') " +
+            "VALUES('Joan','jo','22345432A','Joan','Piera Simo','joan@gmail.com',665554443)" +
+            "('Oscar','os','1122334455a','Oscar','Rodriguez','oscar@gmail.com',665885523)" +
+            "('Pepe','pe','34565435B','Pepe','Martinez Navarro','pepe@gmail.com',621453456);";*/
+
+    /*String crearPedidos ="INSERT INTO pedidos VALUES(1,'22345432A','B','TARIFA URGENTE',5.0,'Caja Regalo',32.5,2130837665);" +
+            "INSERT INTO pedidos VALUES(2,'22345432A','A','TARIFA URGENTE',3.0,'Con tarjeta dedicada',42.9,2130837575);" +
+            "INSERT INTO pedidos VALUES(3,'1122334455a','A','TARIFA URGENTE',5.0,'Caja Regalo Con tarjeta dedicada',45.5,2130837575);" +
+            "INSERT INTO pedidos VALUES(4,'1122334455a','A','TARIFA NORMAL',5.0,'Caja Regalo' ,35.0,2130837575);" +
+            "INSERT INTO pedidos VALUES(5,'22345432A','C','TARIFA NORMAL',5.0,'Con tarjeta dedicada',15.0,2130837574)" +
+            "INSERT INTO pedidos VALUES(6,'22345432A','C','TARIFA NORMAL',3.0,'Caja Regalo Con tarjeta dedicada',13.0,2130837574);" +
+            "INSERT INTO pedidos VALUES(7,'1122334455a','C','TARIFA NORMAL',0.0,'Sin Decoración',10.0,2130837574);" +
+            "INSERT INTO pedidos VALUES(8,'34565435B','C','TARIFA URGENTE',1.0,'Caja Regalo' ,14.3,2130837574);" +
+            "INSERT INTO pedidos VALUES(9,'34565435B','B','TARIFA URGENTE',10.0,'Caja Regalo Con tarjeta dedicada',45.5,2130837665);" +
+            "INSERT INTO pedidos VALUES(10,'34565435B','A','TARIFA NORMAL',5.0,'Sin Decoración',45.0,2130837575);" +
+            "INSERT INTO pedidos VALUES(11,'22345432A','A','TARIFA NORMAL',12.0,'Caja Regalo' ,64.0,2130837575);" +
+            "INSERT INTO pedidos VALUES(12,'22345432A','B','TARIFA URGENTE',1.0,'Con tarjeta dedicada',66.3,2130837665);" +
+            "INSERT INTO pedidos VALUES(13,'22345432A','C','TARIFA NORMAL',1.0,'Caja Regalo Con tarjeta dedicada',21.0,2130837574);" +
+            "INSERT INTO pedidos VALUES(14,'22345432A','D','TARIFA URGENTE',1.0,'Con tarjeta dedicada',40.3,2130837664);" +
+            "INSERT INTO pedidos VALUES(15,'22345432A','E','TARIFA NORMAL',1.0,'Caja Regalo' ,11.0,2130837625);" +
+            "INSERT INTO pedidos VALUES(16,'22345432A','F','TARIFA NORMAL',12.0,'Sin Decoración',54.0,2130837573);";*/
+
+    /**
+     * @param contexto
+     * @param nombre
+     * @param basededatos
+     * @param version
+     */
+
     public SQLiteHelper2(Context contexto, String nombre, SQLiteDatabase.CursorFactory basededatos, int version){
         super(contexto, nombre, basededatos, version);
     }
+
+    public void crearUsuariosDemo(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (int i = 0; i < crearUsuarios.length; i++) {
+            db.execSQL("INSERT INTO usuarios (user, password, dni, nombre, apellidos, email, telefono) VALUES " + crearUsuarios[i]);
+        }
+
+        for (int i=0;i<crearPedidos.length;i++){
+            db.execSQL("INSERT INTO pedidos (id, usuarioDNI, zonaId, tarifa, peso, decoracion, precio, imagen) VALUES "+crearPedidos[i]);
+        }
+        db.close();
+
+    }
+
 
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(sqlCreateUsuarios);
         db.execSQL(sqlCreatePedidos);
         db.execSQL(sqlCreateHistorial);
+
 
     }
 

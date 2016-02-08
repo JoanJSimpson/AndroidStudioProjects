@@ -85,9 +85,10 @@ public class LoginDialog extends DialogFragment {
 
         Button signup = (Button) v.findViewById(R.id.crear_boton);
         Button signin = (Button) v.findViewById(R.id.entrar_boton);
+        final Button crearUsers = (Button) v.findViewById(R.id.crearUsers_boton);
         final EditText user = (EditText) v.findViewById(R.id.nombre_input);
         final EditText contrasena = (EditText) v.findViewById(R.id.contrasena_input);
-        Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
+        final Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
         TextView info = (TextView) v.findViewById(R.id.info_spinner);
 
         //Datos para rellenar el spinner con los usuarios
@@ -149,6 +150,26 @@ public class LoginDialog extends DialogFragment {
 
         );
 
+        crearUsers.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            SQLiteHelper2 sql = new SQLiteHelper2(getContext(), "DBClientes.sqlite", null, 1);
+                            sql.crearUsuariosDemo();
+                            sql.close();
+                            showToast("Base de datos Demo creada correctamente");
+
+
+                        }catch (Exception e){
+                            showToast("Error al crear BD Demo: "+e.toString());
+                        }
+
+                    }
+                }
+
+        );
+
         return builder.create();
 
     }
@@ -156,6 +177,7 @@ public class LoginDialog extends DialogFragment {
     //====================================================================================
     //                  METODOS
     //====================================================================================
+
 
     public void crear(){
         Intent miIntent = new Intent(getActivity(), FormNuevoUsuario.class);
