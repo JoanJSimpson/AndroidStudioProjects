@@ -155,12 +155,6 @@ public class FormPedido extends AppCompatActivity {
         r2= (RadioButton) findViewById(R.id.radioButton2);
         peso = (EditText) findViewById(R.id.peso);
         Bundle recoger = getIntent().getExtras();
-        /*int COD = recoger.getInt("COD");
-        if (COD==0){
-            user = (ClaseUsuario) recoger.getSerializable("USER");
-        }else if(COD==1) {
-            user = (ClaseUsuario) recoger.getSerializable("USER");
-        }*/
         user = (ClaseUsuario) recoger.getSerializable("USER");
 
 

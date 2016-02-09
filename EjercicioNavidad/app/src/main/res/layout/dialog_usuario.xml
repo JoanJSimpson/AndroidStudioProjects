@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:padding="@dimen/dialog_body">
 
@@ -92,7 +97,7 @@
         android:paddingTop="2dp"
         android:text="@string/info_spinner"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:visibility="invisible"
+        android:visibility="visible"
         />
 
     <Spinner
@@ -108,30 +113,43 @@
         android:ems="10"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:gravity="center_vertical|center_horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignEnd="@+id/spinnerUsuarios"
+        android:layout_below="@+id/spinnerUsuarios"
+        android:layout_alignParentStart="false"
+        android:gravity="center_vertical|center_horizontal"
+        android:weightSum="1">
 
     <Button
         android:id="@+id/entrar_boton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/button_padding"
         android:paddingTop="@dimen/button_padding"
         android:text="@string/entrar_boton"
-        android:layout_above="@+id/crearUsers_boton"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:layout_weight="0.12" />
 
     <Button
         android:id="@+id/crearUsers_boton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/button_padding"
         android:paddingTop="@dimen/button_padding"
         android:text="@string/crearUsers_boton"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
+        android:gravity="right"
+        android:layout_gravity="right" />
+    </LinearLayout>
 
 </RelativeLayout>
+    </ScrollView>
