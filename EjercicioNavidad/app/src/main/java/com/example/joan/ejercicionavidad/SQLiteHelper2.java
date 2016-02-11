@@ -91,7 +91,6 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
             "  'imagen' INTEGER NOT NULL" +
             "  );";
 
-    //todo crear un script para añadir usuarios y pedidos automaticamente
 
     private static String[] crearUsuarios= new String[]{"('Joan','jo','22345432A','Joan','Piera Simo','joan@gmail.com',665554443)",
             "('Oscar','os','1122334455a','Oscar','Rodriguez','oscar@gmail.com',665885523)",

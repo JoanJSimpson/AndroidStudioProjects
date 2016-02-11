@@ -84,12 +84,16 @@ public class LoginDialog extends DialogFragment {
         builder.setView(v);
 
         Button signup = (Button) v.findViewById(R.id.crear_boton);
-        Button signin = (Button) v.findViewById(R.id.entrar_boton);
+        final Button signin = (Button) v.findViewById(R.id.entrar_boton);
         final Button crearUsers = (Button) v.findViewById(R.id.crearUsers_boton);
         final EditText user = (EditText) v.findViewById(R.id.nombre_input);
         final EditText contrasena = (EditText) v.findViewById(R.id.contrasena_input);
         final Spinner miSpinner = (Spinner) v.findViewById(R.id.spinnerUsuarios);
-        TextView info = (TextView) v.findViewById(R.id.info_spinner);
+        final TextView info = (TextView) v.findViewById(R.id.info_spinner);
+        crearUsers.setVisibility(View.INVISIBLE);
+        signin.setVisibility(View.INVISIBLE);
+        info.setVisibility(View.INVISIBLE);
+        miSpinner.setVisibility(View.INVISIBLE);
 
         //Datos para rellenar el spinner con los usuarios
         try {
@@ -114,6 +118,10 @@ public class LoginDialog extends DialogFragment {
                 });//final miSpinner
                 info.setVisibility(View.VISIBLE);
                 miSpinner.setVisibility(View.VISIBLE);
+                signin.setVisibility(View.VISIBLE);
+            }
+            else{
+                crearUsers.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             usuarios =null;
@@ -159,6 +167,26 @@ public class LoginDialog extends DialogFragment {
                             sql.crearUsuariosDemo();
                             sql.close();
                             showToast("Base de datos Demo creada correctamente");
+                            usuarios = sql.getLoginUsuarios();
+                            AdaptadorUsuarios miAdaptador = new AdaptadorUsuarios(getActivity());
+                            miSpinner.setAdapter(miAdaptador);
+                            miSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                public void onItemSelected(AdapterView arg0, View arg1, int position, long id) {
+                                    usuarioSeleccionado = usuarios.get(position);
+                                    user.setText(usuarioSeleccionado);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+                                }
+                            });//final miSpinner
+                            miSpinner.refreshDrawableState();
+                            miSpinner.setVisibility(View.VISIBLE);
+                            info.setVisibility(View.VISIBLE);
+                            crearUsers.setVisibility(View.INVISIBLE);
+                            signin.setVisibility(View.VISIBLE);
+
 
 
                         }catch (Exception e){

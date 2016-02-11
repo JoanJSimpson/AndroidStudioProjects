@@ -30,7 +30,7 @@
     <string name="notas_label">Notas</string>
     <string name="notas_hint">Notas</string>
     <string name="TituloAcercaDe">Acerca De:</string>
-    <string name="AcercaDe">\nVersion 0.5.\n\nCopyright © 2016 Joan Piera Simó.\nTodos los derechos reservados.</string>
+    <string name="AcercaDe">\nVersion 0.9.\n\nCopyright © 2016 Joan Piera Simó.\nTodos los derechos reservados.</string>
 
 
 </resources>
