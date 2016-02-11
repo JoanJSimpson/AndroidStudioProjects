@@ -285,6 +285,7 @@ public class SQLiteHelper2 extends SQLiteOpenHelper {
 
                 for (int i=0; i<tam;i++) {
 
+                    //Ponemos los nombres de columnas en Mayusculas
                     str += c.getColumnName(i).toUpperCase() + ": \t" + c.getString(i)+"\n";
                 }
                 objetos.add(str);
