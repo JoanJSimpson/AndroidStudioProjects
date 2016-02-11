@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,26 +26,33 @@ public class DialogoPersonalizado extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        //LayoutInflater inflater = getActivity().getLayoutInflater();
-        View v = new MiDibujo(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        //View v = new MiDibujo(getActivity());
 
 
-                //builder.setView(inflater.inflate(R.layout.dialog_acerca_de, null))
-                 builder.setView(v)
-                        .setTitle("Acerca De...")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        //builder.setView(R.layout.dialog_acerca_de)
+        builder.setView(inflater.inflate(R.layout.dialog_acerca_de, null))
+                //builder.setView(v)
+                //.setTitle("Acerca De...")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+                                dialog.cancel();
                     }
                 });
 
         return builder.create();
     }
 
-    class MiDibujo extends View {
+    public static class MiDibujo extends View {
         public MiDibujo(Context c){
-
             super(c);
+        }
+        public MiDibujo(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public MiDibujo(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
         }
 
         protected void onDraw(Canvas lienzo){
@@ -78,11 +86,11 @@ public class DialogoPersonalizado extends DialogFragment {
             lienzo.drawLine(ancho*4, alto*2, (ancho*4)+(2*ancho/3),alto*4,miPincel);
 
             miPincel.setStrokeWidth(2);
-            miPincel.setTextSize(30);
+            miPincel.setTextSize(20);
             lienzo.drawText("Agencia de Transportes", (ancho + (ancho / 5)), alto * 7, miPincel);
 
 
-            miPincel.setStrokeWidth(1);
+/*            miPincel.setStrokeWidth(1);
             miPincel.setTextSize(20);
             lienzo.drawText("Version 0.9.", (ancho + (ancho / 5)), alto * 15, miPincel);
             lienzo.drawText("Copyright © 2016 Joan Piera Simó.",(ancho +(ancho/5)), alto*16, miPincel);
@@ -91,6 +99,7 @@ public class DialogoPersonalizado extends DialogFragment {
             //lienzo.drawText("Agencia de Transportes", ancho, altura*18, miPincel);
             //lienzo.drawText("®Joan", ancho, altura* 19, miPincel);
 
+*/
         }
     }
 }

@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="3dp" >
+    android:padding="3dp"
+    android:gravity="center">
 
 
     <LinearLayout
@@ -24,10 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/AcercaDe" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView1"/>
+
+        <view class="com.example.joan.ejercicionavidad.DialogoPersonalizado$MiDibujo"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>ñ
 
     </LinearLayout>
 
